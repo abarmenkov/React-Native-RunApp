@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 //import color from "color";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Portal, FAB, useTheme } from "react-native-paper";
@@ -16,10 +16,14 @@ import { AccountScreen } from "../screens/AccountScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
-export const BottomTabs = (props) => {
+export const BottomTabs = ({ navigation, route }) => {
   const theme = useTheme();
-  const routeName = getFocusedRouteNameFromRoute(props.route) ?? "Feed";
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
   const isFocused = useIsFocused();
+
+  useEffect(() => {
+    navigation.setOptions({ title: routeName });
+  }, [routeName]);
 
   /*let icon = "feather";
 

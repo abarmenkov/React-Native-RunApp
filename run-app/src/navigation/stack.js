@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { BottomTabs } from "./BottomTabs";
 import { HistoryScreen } from "../screens/HistoryScreen";
 import { AddAddress } from "../screens/AddAddress";
+import { RunAppBottomTabs } from "./RunAppBottomTabs";
 //import { CarouselScreen } from "./screens/Carousel";
 //import { MyCarousel } from "./screens/MyCarousel";
 //import { OnBoard } from "./screens/Onboarding";
@@ -22,7 +23,7 @@ const Stack = createStackNavigator();
 export const RunStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="FeedList"
+      initialRouteName="RunStack"
       screenOptions={{
         headerMode: "screen",
         header: ({ options, back, route, navigation }) => (
@@ -35,7 +36,13 @@ export const RunStack = () => {
         ),
       }}
     >
-      <Stack.Screen name="FeedList" component={BottomTabs} />
+      <Stack.Screen
+        name="RunStack"
+        component={RunAppBottomTabs}
+        options={{
+          headerShown: false, ///чтобы не было лишнего хедера @react-navigation/bottom-tabs, для "@react-navigation/material-bottom-tabs" можно true
+        }}
+      />
       <Stack.Screen
         name="History"
         component={HistoryScreen}

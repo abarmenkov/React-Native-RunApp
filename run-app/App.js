@@ -1,5 +1,6 @@
 import React from "react";
-import { RootNavigator } from "./src/navigation/rootNavigator";
+// import { RootNavigator } from "./src/navigation/rootNavigator";
+import { StartingStack } from "./src/navigation/startingStack";
 import { PreferencesContext } from "./src/context/PreferencesContext";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import {
@@ -50,7 +51,7 @@ export default function App() {
   return (
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
-        <RootNavigator />
+        <StartingStack />
       </PaperProvider>
     </PreferencesContext.Provider>
   );
