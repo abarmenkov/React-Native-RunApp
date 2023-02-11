@@ -11,13 +11,16 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 export const Header = ({ options, back, route, navigation }) => {
   const theme = useTheme();
   //const { options } = scene.descriptor;
-  const routeName = getFocusedRouteNameFromRoute(route) ?? "Feed";
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "RunStack";
   const title =
     options.headerTitle !== undefined
       ? options.headerTitle
       : options.title !== undefined
       ? options.title
       : route.name;
+
+  //console.log(routeName);
+  //console.log(route.name);
 
   return (
     <Appbar.Header
@@ -26,15 +29,12 @@ export const Header = ({ options, back, route, navigation }) => {
       }}
       style={{ backgroundColor: theme.colors.onSecondary }}
     >
-      {back &&
-      routeName !== "RunApp" &&
-      route.name !== "AddAddress" &&
-      route.name !== "ActivityHistory" ? (
+      {back && route.name !== "AddAddress" && route.name !== "History" ? (
         <Appbar.BackAction
           onPress={navigation.goBack}
           color={theme.colors.onBackground}
         />
-      ) : !back && routeName !== "RunApp" ? (
+      ) : !back && routeName !== "RunStack" ? (
         <TouchableOpacity
           onPress={() => {
             navigation.openDrawer();
@@ -45,14 +45,13 @@ export const Header = ({ options, back, route, navigation }) => {
             source={require("../../assets/images/Avatar.png")}
           />
         </TouchableOpacity>
-      ) : back &&
-        (route.name === "AddAddress" || route.name === "ActivityHistory") ? (
+      ) : back && (route.name === "AddAddress" || route.name === "History") ? (
         <TouchableOpacity onPress={navigation.goBack}>
           <MaterialIcons
             name="keyboard-arrow-left"
             size={30}
             color={theme.colors.onBackground}
-            style={{ marginRight: 30 }}
+            style={{ marginRight: 15 }}
           />
         </TouchableOpacity>
       ) : null}
@@ -110,7 +109,7 @@ export const Header = ({ options, back, route, navigation }) => {
           />
         </>
       )}
-      {route.name === "ActivityHistory" && (
+      {route.name === "History" && (
         <>
           <Appbar.Action
             icon="bell-badge-outline"

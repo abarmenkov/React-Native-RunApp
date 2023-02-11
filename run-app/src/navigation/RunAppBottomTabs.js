@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { Button } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "react-native-paper";
 //import { ActivityHistory } from "./screens/ActivityHistory";
@@ -13,6 +13,7 @@ import {
 import { HistoryScreen } from "../screens/HistoryScreen";
 import { StoreScreen } from "../screens/StoreScreen";
 import { WIDTH } from "../utils/Constants";
+import { AppHeader } from "../components/AppHeader";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +21,9 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
   const theme = useTheme();
   const routeName = getFocusedRouteNameFromRoute(route) ?? "HomeScreen";
   const isFocused = useIsFocused();
-  
+  useEffect(() => {
+    navigation.setOptions({ title: routeName });
+  }, [routeName]);
 
   return (
     <React.Fragment>
@@ -31,6 +34,13 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
         sceneAnimationEnabled={false}
         screenOptions={({ route }) => ({
           tabBarHideOnKeyboard: true,
+          header: ({ options, route, navigation }) => (
+            <AppHeader
+              options={options}              
+              routeName={routeName}
+              navigation={navigation}
+            />
+          ),
           tabBarStyle: {
             display: "flex",
             position: "absolute",
@@ -54,6 +64,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
           component={HomeScreen}
           options={{
             headerTitle: "Home",
+
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="home" color={color} size={size} />
             ),
@@ -63,7 +74,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
           name="Achievements"
           component={HistoryScreen}
           options={{
-            headerTitle: "Achievements",
+            //headerTitle: "Achievements1",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="trophy" color={color} size={size} />
             ),
@@ -73,7 +84,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
           name="Shop"
           component={StoreScreen}
           options={{
-            headerTitle: "Shop",
+            //headerTitle: "Shop",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="shopping"
@@ -87,7 +98,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
           name="Profile"
           component={AccountScreen}
           options={{
-            headerTitle: "Profile",
+            //headerTitle: "Profile",
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="account"

@@ -1,5 +1,7 @@
 import React from "react";
 //import { NavigationContainer } from "@react-navigation/native";
+import { Text } from "react-native";
+import { Button } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
@@ -10,11 +12,12 @@ import { Login } from "../screens/Login";
 import { VerifyEmail } from "../screens/VerifyEmail";
 import { SignUp } from "../screens/SignUp";
 import { Header } from "../components/Header";
+import { OnBoard } from "../screens/Onboarding";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-export const RootNavigator = () => {
+export const RootNavigator = ({ navigation }) => {
   const isLoggedIn = true;
   const theme = useTheme();
   const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
@@ -24,11 +27,11 @@ export const RootNavigator = () => {
       drawerContent={(props) => <DrawerContent {...props} />}
       screenOptions={{ headerShown: false }}
     >
-      <Drawer.Screen name="Home" component={RunStack} />
+      <Drawer.Screen name="HOME" component={RunStack} />
     </Drawer.Navigator>
   ) : (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="OnBoard"
       screenOptions={{
         headerMode: "screen",
         header: ({ options, back, route, navigation }) => (
@@ -39,8 +42,10 @@ export const RootNavigator = () => {
             navigation={navigation}
           />
         ),
+        headerTitle: false,
       }}
     >
+      <Stack.Screen name="OnBoard" component={OnBoard} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="VerifyEmail" component={VerifyEmail} />

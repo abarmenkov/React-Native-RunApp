@@ -5,6 +5,7 @@ import { BottomTabs } from "./BottomTabs";
 import { HistoryScreen } from "../screens/HistoryScreen";
 import { AddAddress } from "../screens/AddAddress";
 import { RunAppBottomTabs } from "./RunAppBottomTabs";
+import { MaterialIcons } from "@expo/vector-icons";
 //import { CarouselScreen } from "./screens/Carousel";
 //import { MyCarousel } from "./screens/MyCarousel";
 //import { OnBoard } from "./screens/Onboarding";
@@ -46,7 +47,9 @@ export const RunStack = () => {
       <Stack.Screen
         name="History"
         component={HistoryScreen}
-        options={{ headerTitle: "ActivityHistory" }}
+        options={{
+          headerTitle: "ActivityHistory",
+        }}
       />
       <Stack.Screen
         name="AddAddress"

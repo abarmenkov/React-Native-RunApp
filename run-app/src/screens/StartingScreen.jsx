@@ -9,7 +9,7 @@ import {
 import { Headline, Caption, useTheme } from "react-native-paper";
 //import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
-export const StartingScreen = ({ navigation }) => {
+export const StartingScreen = ({ route, navigation }) => {
   const theme = useTheme();
   return (
     <View style={{ ...styles.view, color: theme.colors.surface }}>
