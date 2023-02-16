@@ -14,16 +14,20 @@ import { WIDTH } from "../utils/Constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import formatDate from "../utils/formatDate";
 
 export const ProfileScreen = ({ route, navigation }) => {
   const [profileData, setProfileDAta] = useContext(ProfileContext);
   const [date, setDate] = useState(new Date());
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
-    setProfileDAta({ ...profileData, birthday: date });
+    //const currentDate = selectedDate.toLocaleDateString();
+    const currentDate = formatDate(selectedDate);
+    setProfileDAta({
+      ...profileData,
+      birthday: currentDate,
+    });
+    setDate(selectedDate);
   };
 
   const showMode = (currentMode) => {
@@ -225,7 +229,7 @@ export const ProfileScreen = ({ route, navigation }) => {
           <Text style={styles.itemTitle}>Birthday</Text>
         </View>
         <View style={{ width: "45%" }}>
-          <Text style={styles.itemInfo}>{profileData.email}</Text>
+          <Text style={styles.itemInfo}>{profileData.birthday}</Text>
         </View>
       </Pressable>
     </View>
