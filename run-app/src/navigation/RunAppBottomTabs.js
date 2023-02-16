@@ -5,7 +5,7 @@ import { useTheme } from "react-native-paper";
 //import { ActivityHistory } from "./screens/ActivityHistory";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { HomeScreen } from "../screens/HomeScreen";
-import { AccountScreen } from "../screens/AccountScreen";
+import { ProfileScreen } from "../screens/ProfileScreen";
 import {
   getFocusedRouteNameFromRoute,
   useIsFocused,
@@ -34,9 +34,9 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
         sceneAnimationEnabled={false}
         screenOptions={({ route }) => ({
           tabBarHideOnKeyboard: true,
-          header: ({ options, route, navigation }) => (
+          header: ({ options, navigation }) => (
             <AppHeader
-              options={options}              
+              options={options}
               routeName={routeName}
               navigation={navigation}
             />
@@ -96,7 +96,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
         />
         <Tab.Screen
           name="Profile"
-          component={AccountScreen}
+          component={ProfileScreen}
           options={{
             //headerTitle: "Profile",
             tabBarIcon: ({ color, size }) => (

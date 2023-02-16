@@ -12,7 +12,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 //import { Alert } from "react-native";
 //import { RunApp } from "./screens/RunApp";
 import { HomeScreen } from "../screens/HomeScreen";
-import { AccountScreen } from "../screens/AccountScreen";
+import { AccountScreen } from "../screens/ProfileScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 

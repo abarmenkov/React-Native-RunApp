@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Appbar, Avatar, useTheme, Text } from "react-native-paper";
 import { TouchableOpacity, View } from "react-native";
 import {
@@ -8,19 +8,18 @@ import {
 } from "@expo/vector-icons";
 //import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { WIDTH } from "../utils/Constants";
+import ProfileContext from "../context/ProfileContext";
 
 export const AppHeader = ({ options, back, routeName, navigation }) => {
   const theme = useTheme();
-  //const routeName = getFocusedRouteNameFromRoute(route) ?? "RunStack";
+  const [profileData] = useContext(ProfileContext);
+  //const routeName1 = getFocusedRouteNameFromRoute(route) ?? "RunStack";
   /*const title =
     options.headerTitle !== undefined
       ? options.headerTitle
       : options.title !== undefined
       ? options.title
       : route.name;*/
-
-  //console.log(routeName);
-  //console.log(route.name);
 
   return (
     <Appbar.Header
@@ -49,7 +48,7 @@ export const AppHeader = ({ options, back, routeName, navigation }) => {
             </TouchableOpacity>
             <Avatar.Image
               size={40}
-              source={require("../../assets/images/Avatar.png")}
+              source={profileData.avatar}
               style={{ marginHorizontal: 12 }}
             />
             <View>
@@ -60,7 +59,7 @@ export const AppHeader = ({ options, back, routeName, navigation }) => {
                   color: theme.colors.onBackground,
                 }}
               >
-                Hello!
+                Hello,
               </Text>
               <Text
                 style={{
@@ -69,7 +68,7 @@ export const AppHeader = ({ options, back, routeName, navigation }) => {
                   color: theme.colors.onBackground,
                 }}
               >
-                UserName
+                {profileData.name}!
               </Text>
             </View>
           </>

@@ -10,6 +10,7 @@ import {
 } from "react-native-paper";
 
 import { appDarkColors, appDefaultColors } from "./src/utils/Constants";
+import ProfileContextProvider from "./src/context/ProfileContextProvider";
 //import { name as appName } from "./app.json";
 //import { AppRegistry } from "react-native";
 
@@ -51,7 +52,9 @@ export default function App() {
   return (
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
-        <StartingStack />
+        <ProfileContextProvider>
+          <StartingStack />
+        </ProfileContextProvider>
       </PaperProvider>
     </PreferencesContext.Provider>
   );

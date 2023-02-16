@@ -5,6 +5,7 @@ import { BottomTabs } from "./BottomTabs";
 import { HistoryScreen } from "../screens/HistoryScreen";
 import { AddAddress } from "../screens/AddAddress";
 import { RunAppBottomTabs } from "./RunAppBottomTabs";
+import { UpdateDataScreen } from "../screens/UpdateDataScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 //import { CarouselScreen } from "./screens/Carousel";
 //import { MyCarousel } from "./screens/MyCarousel";
@@ -55,6 +56,11 @@ export const RunStack = () => {
         name="AddAddress"
         component={AddAddress}
         options={{ headerTitle: "Address" }}
+      />
+      <Stack.Screen
+        name="DataUpdate"
+        component={UpdateDataScreen}
+        options={{ headerTitle: "Изменение данных" }}
       />
       {/*<Stack.Screen
         name="RunStack"
