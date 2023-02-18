@@ -9,8 +9,9 @@ const ProfileContextProvider = ({ children }) => {
     avatar: require("../../assets/images/Avatar.png"),
     gender: "male",
     email: "ab1975@mail.ru",
-    phone: '89166505275',
+    phone: "89166505275",
     address: "",
+    uri: null,
     CCInfo: {
       number: null,
       CVC: null,

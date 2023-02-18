@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
 import {
@@ -14,18 +14,20 @@ import {
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { PreferencesContext } from "../context/PreferencesContext";
+import ProfileContext from "../context/ProfileContext";
 
 function DrawerContent(props) {
   const theme = useTheme();
-  const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
+  const { toggleTheme, isThemeDark } = useContext(PreferencesContext);
+  const [profileData, setProfileDAta] = useContext(ProfileContext);
+  {
+    /*source={require("../../assets/images/Avatar.png")}*/
+  }
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
         <View style={styles.userInfoSection}>
-          <Avatar.Image
-            source={require("../../assets/images/Avatar.png")}
-            size={50}
-          />
+          <Avatar.Image source={{ uri: profileData.uri }} size={50} />
           <Title style={styles.title}>User Testovik</Title>
           <Caption style={styles.caption}>@trensik</Caption>
           <View style={styles.row}>

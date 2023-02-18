@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   Pressable,
+  Image,
   Alert,
   TextInput,
   SafeAreaView,
@@ -15,6 +16,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import formatDate from "../utils/formatDate";
+import UploadImage from "../components/UploadImage";
 
 export const ProfileScreen = ({ route, navigation }) => {
   const [profileData, setProfileDAta] = useContext(ProfileContext);
@@ -36,6 +38,7 @@ export const ProfileScreen = ({ route, navigation }) => {
       onChange,
       mode: currentMode,
       is24Hour: true,
+      //display: "spinner",
     });
   };
 
@@ -232,6 +235,29 @@ export const ProfileScreen = ({ route, navigation }) => {
           <Text style={styles.itemInfo}>{profileData.birthday}</Text>
         </View>
       </Pressable>
+      <Pressable
+        onPress={() => {}}
+        style={{
+          backgroundColor: "rgba(47, 60, 80, 0.4)",
+          width: WIDTH * 0.9,
+          height: 150,
+          paddingHorizontal: 15,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          alignSelf: "center",
+          borderRadius: 20,
+          marginBottom: 20,
+          overflow: "hidden",
+        }}
+      >
+        <View style={{ width: "45%" }}>
+          <Text style={styles.itemTitle}>Image</Text>
+        </View>
+        <View style={{ width: "45%" }}>
+          <UploadImage />
+        </View>
+      </Pressable>
     </View>
   );
 };
@@ -260,5 +286,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "400",
     color: "#ffffff",
+  },
+  filterTypesImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 100,
   },
 });

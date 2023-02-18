@@ -48,7 +48,7 @@ export const AppHeader = ({ options, back, routeName, navigation }) => {
             </TouchableOpacity>
             <Avatar.Image
               size={40}
-              source={profileData.avatar}
+              source={{ uri: profileData.uri }}
               style={{ marginHorizontal: 12 }}
             />
             <View>
