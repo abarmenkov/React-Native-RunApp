@@ -18,20 +18,22 @@ export default function UploadImage() {
   const [image, setImage] = useState(null);
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState("gallery");
+
   const showDialog = () => setVisible(true);
 
   const hideDialog = () => setVisible(false);
   const handleCancel = () => {
-    setValue("gallery");
     hideDialog();
+    setValue("gallery");
   };
   const handleConfirm = () => {
     if (value === "gallery") {
-      addImage();
+      openGallery();
     } else {
-      Alert.alert("camera");
+      openCamera();
     }
     hideDialog();
+    setValue("gallery");
   };
 
   const checkForCameraRollPermission = async () => {
@@ -48,19 +50,45 @@ export default function UploadImage() {
     checkForCameraRollPermission();
   }, []);
 
-  const addImage = async () => {
-    let _image = await ImagePicker.launchImageLibraryAsync({
+  const openGallery = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    if (!_image.cancelled) {
+    if (!result.canceled) {
       setProfileDAta({
         ...profileData,
-        uri: _image.uri,
+        uri: result.uri,
       });
-      setImage(_image.uri);
+      setImage(result.uri);
+    }
+  };
+  const openCamera = async () => {
+    // Ask the user for the permission to access the camera
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("You've refused to allow this appp to access your camera!");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    // Explore the result
+    console.log(result);
+
+    if (!result.canceled) {
+      setProfileDAta({
+        ...profileData,
+        uri: result.uri,
+      });
+      setImage(result.uri);
     }
   };
 
