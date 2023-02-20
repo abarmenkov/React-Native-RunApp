@@ -28,7 +28,7 @@ function DrawerContent(props) {
       <View style={styles.drawerContent}>
         <View style={styles.userInfoSection}>
           <Avatar.Image source={{ uri: profileData.uri }} size={50} />
-          <Title style={styles.title}>User Testovik</Title>
+          <Title style={styles.title}>{profileData.name}</Title>
           <Caption style={styles.caption}>@trensik</Caption>
           <View style={styles.row}>
             <View style={styles.section}>
