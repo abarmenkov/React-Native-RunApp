@@ -57,12 +57,14 @@ export default function UploadImage() {
       aspect: [4, 3],
       quality: 1,
     });
+    const [assetsObj] = result.assets;
+
     if (!result.canceled) {
       setProfileDAta({
         ...profileData,
-        uri: result.uri,
+        uri: assetsObj.uri,
       });
-      setImage(result.uri);
+      setImage(assetsObj.uri);
     }
   };
   const openCamera = async () => {
@@ -81,14 +83,16 @@ export default function UploadImage() {
     });
 
     // Explore the result
-    console.log(result);
+    const [assetsObj] = result.assets;
+    //const { uri } = assetsObj;
+    //console.log(uri);
 
     if (!result.canceled) {
       setProfileDAta({
         ...profileData,
-        uri: result.uri,
+        uri: assetsObj.uri,
       });
-      setImage(result.uri);
+      setImage(assetsObj.uri);
     }
   };
 
