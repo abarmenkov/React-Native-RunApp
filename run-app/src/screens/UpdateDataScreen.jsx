@@ -20,31 +20,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const UpdateDataScreen = ({ route, navigation }) => {
   const [profileData, setProfileData] = useContext(ProfileContext);
   const { field, fieldName, keyboardType } = route.params;
-  /*const [testData, setTestData] = useState();
-  useEffect(() => {
-    getData("@nickname", setTestData);
-  }, []);
-  const saveNickname = async () => {
-    try {
-      await AsyncStorage.setItem("@nickname", testData);
-    } catch (err) {
-      console.log(err);
-    }
-
-    Keyboard.dismiss();
-  };
-
-  // Delete nickname
-  const removeNickname = async () => {
-    try {
-      await AsyncStorage.removeItem("@nickname");
-      setTestData();
-    } catch (err) {
-      console.log(err);
-    }
-    Keyboard.dismiss();
-  };*/
-  //console.log(profileData);
   const [data, setData] = useState(profileData[field]);
   const onConfirm = () => {
     setProfileData({ ...profileData, [field]: data });
@@ -62,10 +37,6 @@ export const UpdateDataScreen = ({ route, navigation }) => {
       { text: "OK", onPress: () => onConfirm() },
     ]);
   };
-  /*const onSubmit = () => {
-    console.log("test");
-    return <UpdateDialog onConfirm={onConfirm} visibleState={true} />;
-  };*/
 
   return (
     <View style={styles.container}>

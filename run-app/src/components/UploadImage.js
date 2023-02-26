@@ -159,18 +159,7 @@ export default function UploadImage() {
     </View>
   );
 }
-{
-  /*        <TouchableOpacity
-          onPress={addImage}
-          style={imageUploaderStyles.uploadBtn}
-        >
-          <MaterialCommunityIcons
-            name={image ? "image-edit" : "camera-account"}
-            size={20}
-            color="black"
-          />
-        </TouchableOpacity>*/
-}
+
 const imageUploaderStyles = StyleSheet.create({
   container: {
     elevation: 2,

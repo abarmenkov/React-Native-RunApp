@@ -19,7 +19,7 @@ import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import formatDate from "../utils/formatDate";
 import UploadImage from "../components/UploadImage";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { saveData, STORAGE_KEY } from "../API/asyncStorageMethods";
 
 export const ProfileScreen = ({ route, navigation }) => {
   const [profileData, setProfileDAta] = useContext(ProfileContext);
@@ -35,6 +35,7 @@ export const ProfileScreen = ({ route, navigation }) => {
       ...profileData,
       birthday: currentDate,
     });
+    saveData(STORAGE_KEY, { ...profileData, birthday: currentDate });
     setDate(selectedDate);
   };
 
@@ -139,9 +140,10 @@ export const ProfileScreen = ({ route, navigation }) => {
           <View style={{ width: "45%" }}>
             <Picker
               selectedValue={profileData.gender}
-              onValueChange={(itemValue, itemIndex) =>
-                setProfileDAta({ ...profileData, gender: itemValue })
-              }
+              onValueChange={(itemValue, itemIndex) => {
+                setProfileDAta({ ...profileData, gender: itemValue });
+                setDate({ ...profileData, gender: itemValue });
+              }}
               style={{ ...styles.itemInfo }}
               mode={"dropdown"}
               dropdownIconColor={"#ffffff"}
@@ -257,7 +259,6 @@ export const ProfileScreen = ({ route, navigation }) => {
             <UploadImage />
           </View>
         </Pressable>
-        
       </ScrollView>
     </View>
   );
