@@ -58,18 +58,19 @@ export default function UploadImage() {
       aspect: [4, 3],
       quality: 1,
     });
-    const [assetsObj] = result.assets;
+    //console.log(result);
+    //const [assetsObj] = result.assets;
 
     if (!result.canceled) {
       setProfileData({
         ...profileData,
-        uri: assetsObj.uri,
+        uri: result.assets[0].uri,
       });
       saveData(STORAGE_KEY, {
         ...profileData,
-        uri: assetsObj.uri,
+        uri: result.assets[0].uri,
       });
-      setImage(assetsObj.uri);
+      setImage(result.assets[0].uri);
     }
   };
   const openCamera = async () => {
@@ -88,18 +89,17 @@ export default function UploadImage() {
     });
 
     // Explore the result
-    const [assetsObj] = result.assets;
 
     if (!result.canceled) {
       setProfileData({
         ...profileData,
-        uri: assetsObj.uri,
+        uri: result.assets[0].uri,
       });
       saveData(STORAGE_KEY, {
         ...profileData,
-        uri: assetsObj.uri,
+        uri: result.assets[0].uri,
       });
-      setImage(assetsObj.uri);
+      setImage(result.assets[0].uri);
     }
   };
 

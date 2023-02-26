@@ -40,13 +40,13 @@ export const AppHeader = ({ routeName, navigation }) => {
                 color={theme.colors.onBackground}
               />
             </TouchableOpacity>
-            {image && (
-              <Avatar.Image
-                size={40}
-                source={{ uri: image }}
-                style={{ marginHorizontal: 12 }}
-              />
-            )}
+
+            <Avatar.Image
+              size={40}
+              source={{ uri: profileData.uri }}
+              style={{ marginHorizontal: 12 }}
+            />
+
             <View>
               <Text
                 style={{
