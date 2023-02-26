@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
+import { List } from "react-native-paper";
 import { color } from "react-native-reanimated";
 import ProfileContext from "../context/ProfileContext";
 import { WIDTH } from "../utils/Constants";
@@ -18,11 +19,14 @@ import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import formatDate from "../utils/formatDate";
 import UploadImage from "../components/UploadImage";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const ProfileScreen = ({ route, navigation }) => {
   const [profileData, setProfileDAta] = useContext(ProfileContext);
   const [date, setDate] = useState(new Date());
+  const [expanded, setExpanded] = useState(true);
+
+  const handlePress = () => setExpanded(!expanded);
 
   const onChange = (event, selectedDate) => {
     //const currentDate = selectedDate.toLocaleDateString();
@@ -56,15 +60,6 @@ export const ProfileScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <ScrollView>
         <Pressable
-          /*onPress={() =>
-          Alert.alert("Изменение данных", "Изменить данные?", [
-            {
-              text: "Cancel",
-              style: "cancel",
-            },
-            { text: "OK", onPress: () => console.log("OK Pressed") },
-          ])
-        }*/
           onPress={() =>
             navigation.navigate("DataUpdate", {
               field: "name",
@@ -82,7 +77,7 @@ export const ProfileScreen = ({ route, navigation }) => {
             alignItems: "center",
             alignSelf: "center",
             borderRadius: 20,
-            overflow: "hidden",
+
             marginBottom: 20,
           }}
         >
@@ -262,6 +257,7 @@ export const ProfileScreen = ({ route, navigation }) => {
             <UploadImage />
           </View>
         </Pressable>
+        
       </ScrollView>
     </View>
   );

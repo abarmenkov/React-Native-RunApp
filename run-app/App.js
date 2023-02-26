@@ -1,5 +1,4 @@
-import React from "react";
-// import { RootNavigator } from "./src/navigation/rootNavigator";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { StartingStack } from "./src/navigation/startingStack";
 import { PreferencesContext } from "./src/context/PreferencesContext";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
@@ -8,9 +7,14 @@ import {
   MD3LightTheme,
   Provider as PaperProvider,
 } from "react-native-paper";
-
 import { appDarkColors, appDefaultColors } from "./src/utils/Constants";
-import ProfileContextProvider from "./src/context/ProfileContextProvider";
+import ProfileContext from "./src/context/ProfileContext";
+import {
+  STORAGE_KEY,
+  getData,
+  clearStorage,
+} from "./src/API/asyncStorageMethods";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 //import { name as appName } from "./app.json";
 //import { AppRegistry } from "react-native";
 
@@ -34,15 +38,41 @@ const CombinedDarkTheme = {
 };
 
 export default function App() {
-  const [isThemeDark, setIsThemeDark] = React.useState(false);
+  const [isThemeDark, setIsThemeDark] = useState(null);
+  const [profileData, setProfileData] = useState(null);
+  const initialState = {
+    name: "Andrey",
+    surname: "Barmenkov",
+    birthday: null,
+    avatar: null,
+    gender: "male",
+    email: "ab1975@mail.ru",
+    phone: "89166505275",
+    address: "",
+    uri: null,
+    CCInfo: null,
+  };
+
+  useEffect(() => {
+    //clearStorage();
+    getData(STORAGE_KEY, setProfileData, initialState);
+  }, []);
+
+  useEffect(() => {
+    const getTheme = async () => {
+      const value = await AsyncStorage.getItem("@theme");
+      setIsThemeDark(JSON.parse(value));
+    };
+    getTheme();
+  }, []);
 
   let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
-  const toggleTheme = React.useCallback(() => {
+  const toggleTheme = useCallback(() => {
     return setIsThemeDark(!isThemeDark);
   }, [isThemeDark]);
 
-  const preferences = React.useMemo(
+  const preferences = useMemo(
     () => ({
       toggleTheme,
       isThemeDark,
@@ -52,9 +82,9 @@ export default function App() {
   return (
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
-        <ProfileContextProvider>
+        <ProfileContext.Provider value={[profileData, setProfileData]}>
           <StartingStack />
-        </ProfileContextProvider>
+        </ProfileContext.Provider>
       </PaperProvider>
     </PreferencesContext.Provider>
   );

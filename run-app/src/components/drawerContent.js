@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { DrawerItem, DrawerContentScrollView } from "@react-navigation/drawer";
 import {
@@ -15,11 +15,24 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { PreferencesContext } from "../context/PreferencesContext";
 import ProfileContext from "../context/ProfileContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function DrawerContent(props) {
   const theme = useTheme();
   const { toggleTheme, isThemeDark } = useContext(PreferencesContext);
-  const [profileData, setProfileDAta] = useContext(ProfileContext);
+  const [profileData, setProfileData] = useContext(ProfileContext);
+  const [dark, setDark] = useState(isThemeDark);
+  useEffect(() => {
+    const saveTheme = async () => {
+      try {
+        await AsyncStorage.setItem("@theme", JSON.stringify(dark));
+      } catch (e) {
+        alert("Failed to save data");
+      }
+    };
+    saveTheme();
+  }, [dark]);
+
   {
     /*source={require("../../assets/images/Avatar.png")}*/
   }
@@ -77,14 +90,22 @@ function DrawerContent(props) {
           />
         </Drawer.Section>
         <Drawer.Section title="Preferences">
-          <TouchableRipple onPress={props.toggleTheme}>
+          <TouchableRipple
+            onPress={() => {
+              toggleTheme();
+              setDark(!dark);
+            }}
+          >
             <View style={styles.preference}>
               <Text>Dark Theme</Text>
               <View>
                 <Switch
                   color={theme.colors.primary}
                   value={isThemeDark}
-                  onValueChange={toggleTheme}
+                  onValueChange={() => {
+                    toggleTheme();
+                    setDark(!dark);
+                  }}
                 />
               </View>
             </View>

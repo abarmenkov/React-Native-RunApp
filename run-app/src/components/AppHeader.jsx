@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Appbar, Avatar, useTheme, Text } from "react-native-paper";
 import { TouchableOpacity, View } from "react-native";
 import {
@@ -10,16 +10,10 @@ import {
 import { WIDTH } from "../utils/Constants";
 import ProfileContext from "../context/ProfileContext";
 
-export const AppHeader = ({ options, back, routeName, navigation }) => {
+export const AppHeader = ({ routeName, navigation }) => {
   const theme = useTheme();
   const [profileData] = useContext(ProfileContext);
-  //const routeName1 = getFocusedRouteNameFromRoute(route) ?? "RunStack";
-  /*const title =
-    options.headerTitle !== undefined
-      ? options.headerTitle
-      : options.title !== undefined
-      ? options.title
-      : route.name;*/
+  const [image, setImage] = useState(profileData.uri);
 
   return (
     <Appbar.Header
@@ -46,11 +40,13 @@ export const AppHeader = ({ options, back, routeName, navigation }) => {
                 color={theme.colors.onBackground}
               />
             </TouchableOpacity>
-            <Avatar.Image
-              size={40}
-              source={{ uri: profileData.uri }}
-              style={{ marginHorizontal: 12 }}
-            />
+            {image && (
+              <Avatar.Image
+                size={40}
+                source={{ uri: image }}
+                style={{ marginHorizontal: 12 }}
+              />
+            )}
             <View>
               <Text
                 style={{

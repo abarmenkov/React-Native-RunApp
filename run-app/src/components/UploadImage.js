@@ -12,10 +12,11 @@ import { Button, Portal, Dialog, RadioButton } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import ProfileContext from "../context/ProfileContext";
+import { STORAGE_KEY, saveData } from "../API/asyncStorageMethods";
 
 export default function UploadImage() {
-  const [profileData, setProfileDAta] = useContext(ProfileContext);
-  const [image, setImage] = useState(null);
+  const [profileData, setProfileData] = useContext(ProfileContext);
+  const [image, setImage] = useState(profileData.uri);
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState("gallery");
 
@@ -60,7 +61,11 @@ export default function UploadImage() {
     const [assetsObj] = result.assets;
 
     if (!result.canceled) {
-      setProfileDAta({
+      setProfileData({
+        ...profileData,
+        uri: assetsObj.uri,
+      });
+      saveData(STORAGE_KEY, {
         ...profileData,
         uri: assetsObj.uri,
       });
@@ -84,11 +89,13 @@ export default function UploadImage() {
 
     // Explore the result
     const [assetsObj] = result.assets;
-    //const { uri } = assetsObj;
-    //console.log(uri);
 
     if (!result.canceled) {
-      setProfileDAta({
+      setProfileData({
+        ...profileData,
+        uri: assetsObj.uri,
+      });
+      saveData(STORAGE_KEY, {
         ...profileData,
         uri: assetsObj.uri,
       });

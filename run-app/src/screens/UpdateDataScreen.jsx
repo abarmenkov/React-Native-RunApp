@@ -7,20 +7,49 @@ import {
   Alert,
   TextInput,
   SafeAreaView,
+  Keyboard,
 } from "react-native";
 import { color } from "react-native-reanimated";
 import ProfileContext from "../context/ProfileContext";
 import { WIDTH } from "../utils/Constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { UpdateDialog } from "../components/UpdateDialog.jsx";
+import { STORAGE_KEY, saveData, getData } from "../API/asyncStorageMethods";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const UpdateDataScreen = ({ route, navigation }) => {
-  const [profileData, setProfileDAta] = useContext(ProfileContext);
+  const [profileData, setProfileData] = useContext(ProfileContext);
   const { field, fieldName, keyboardType } = route.params;
+  /*const [testData, setTestData] = useState();
+  useEffect(() => {
+    getData("@nickname", setTestData);
+  }, []);
+  const saveNickname = async () => {
+    try {
+      await AsyncStorage.setItem("@nickname", testData);
+    } catch (err) {
+      console.log(err);
+    }
 
+    Keyboard.dismiss();
+  };
+
+  // Delete nickname
+  const removeNickname = async () => {
+    try {
+      await AsyncStorage.removeItem("@nickname");
+      setTestData();
+    } catch (err) {
+      console.log(err);
+    }
+    Keyboard.dismiss();
+  };*/
+  //console.log(profileData);
   const [data, setData] = useState(profileData[field]);
   const onConfirm = () => {
-    setProfileDAta({ ...profileData, [field]: data });
+    setProfileData({ ...profileData, [field]: data });
+
+    saveData(STORAGE_KEY, { ...profileData, [field]: data });
     navigation.goBack();
   };
 
@@ -59,14 +88,16 @@ export const UpdateDataScreen = ({ route, navigation }) => {
           <Text style={styles.itemTitle}>{fieldName}</Text>
         </View>
         <View
-          style={{ width: "60%", backgroundColor: "grey", borderRadius: 20 }}
+          style={{ width: "40%", backgroundColor: "grey", borderRadius: 20 }}
         >
           <TextInput
             style={{
               ...styles.itemInfo,
               width: "100%",
             }}
-            onChangeText={(text) => setData(text)}
+            onChangeText={(text) => {
+              setData(text);
+            }}
             value={data}
             keyboardType={keyboardType}
             autoFocus={true}
