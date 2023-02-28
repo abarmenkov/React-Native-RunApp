@@ -16,6 +16,9 @@ import {
   Checkbox,
   Divider,
 } from "react-native-paper";
+import MyButton from "../components/MyButton";
+import MyTextInput from "../components/MyInput";
+import { WIDTH } from "../utils/Constants";
 
 export const Login = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
@@ -32,13 +35,6 @@ export const Login = ({ route, navigation }) => {
     return !email.includes("@");
   };
 
-  //const { title } = route.params;
-  /*useEffect(() => {
-    navigation.setOptions({
-      headerTitle: title,
-    });
-  });*/
-
   return (
     <View style={styles.container}>
       <Image
@@ -47,6 +43,40 @@ export const Login = ({ route, navigation }) => {
       />
       <View style={styles.loginForm}>
         <Headline style={styles.headline}>Log In</Headline>
+        <View style={styles.textInputView}>
+          <MyTextInput
+            icon="email"
+            placeholder="Enter your email"
+            autoCapitalize="none"
+            autoCompleteType="email"
+            keyboardType="email-address"
+            keyboardAppearance="dark"
+            returnKeyType="next"
+            returnKeyLabel="next"
+            textColor="#ffffff"
+            style={styles.textInput}
+            viewStyle={styles.textInputView}
+          />
+        </View>
+        <View style={styles.textInputView}>
+          <MyTextInput
+            icon="key"
+            placeholder="Enter your password"
+            secureTextEntry={secureTextEntry}
+            autoCompleteType="password"
+            autoCapitalize="none"
+            keyboardAppearance="dark"
+            returnKeyType="go"
+            returnKeyLabel="go"
+            style={styles.textInput}
+            viewStyle={styles.textInputView}
+            secureIcon="eye"
+            onPressSecureIcon={() => setSecure()}
+            secureIconColor="gray"
+          />
+        </View>
+
+        {/*<Headline style={styles.headline}>Log In</Headline>
         <TextInput
           theme={{ roundness: 12 }}
           style={styles.textInput}
@@ -79,7 +109,7 @@ export const Login = ({ route, navigation }) => {
               color={(isTextInputFocused) => "#7B61FF"}
             />
           }
-        />
+        />*/}
         <View style={styles.rememberPassword}>
           <View style={styles.checkBox}>
             <Checkbox
@@ -97,12 +127,12 @@ export const Login = ({ route, navigation }) => {
             Forgot Password ?
           </Button>
         </View>
-        <Pressable
-          onPress={() => navigation.navigate("Onboard")}
+        <MyButton
+          label="Log in"
+          onPress={() => {}}
           style={styles.button}
-        >
-          <Text style={{ ...styles.btnText }}>Log In</Text>
-        </Pressable>
+          textStyle={styles.btnText}
+        />
       </View>
       <View style={styles.socials}>
         <View style={styles.divider}>
@@ -189,14 +219,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textInput: {
-    height: 56,
-    width: 327,
-    borderRadius: 12,
-    backgroundColor: "#2F3C50",
+    fontSize: 16,
+    color: "#ffffff",
   },
   btnText: {
     fontSize: 18,
     color: "#ffffff",
+    textTransform: "uppercase",
   },
   divider: {
     flexDirection: "row",
@@ -243,11 +272,18 @@ const styles = StyleSheet.create({
   checkBoxText: { fontSize: 14, color: "#ffffff" },
   button: {
     marginVertical: 25,
-    width: 326,
+    width: WIDTH * 0.8,
     height: 56,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
     backgroundColor: "#7B61FF",
+  },
+  textInputView: {
+    marginBottom: 16,
+    width: WIDTH * 0.8,
+    height: 56,
+    borderRadius: 12,
+    backgroundColor: "#2F3C50",
   },
 });
