@@ -19,12 +19,20 @@ import {
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
 import { WIDTH } from "../utils/Constants";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export const Login = ({ route, navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  //const [email, setEmail] = useState("");
+  //const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
+
+  const { handleChange, handleSubmit, values } = useFormik({
+    initialValues: { email: "", password: "" },
+    onSubmit: (values) =>
+      alert(`Email: ${values.email}, Password: ${values.password}`),
+  });
 
   const setSecure = () => {
     setSecureTestEntry(false);
@@ -56,6 +64,7 @@ export const Login = ({ route, navigation }) => {
             textColor="#ffffff"
             style={styles.textInput}
             viewStyle={styles.textInputView}
+            onChangeText={handleChange("email")}
           />
         </View>
         <View style={styles.textInputView}>
@@ -73,6 +82,7 @@ export const Login = ({ route, navigation }) => {
             secureIcon="eye"
             onPressSecureIcon={() => setSecure()}
             secureIconColor="gray"
+            onChangeText={handleChange("password")}
           />
         </View>
 
@@ -129,7 +139,10 @@ export const Login = ({ route, navigation }) => {
         </View>
         <MyButton
           label="Log in"
-          onPress={() => {}}
+          onPress={() => {
+            handleSubmit();
+            //navigation.navigate("SignUp");
+          }}
           style={styles.button}
           textStyle={styles.btnText}
         />
