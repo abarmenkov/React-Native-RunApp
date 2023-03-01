@@ -17,6 +17,11 @@ import {
   Checkbox,
   Divider,
 } from "react-native-paper";
+import MyButton from "../components/MyButton";
+import MyTextInput from "../components/MyInput";
+import { WIDTH } from "../utils/Constants";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export const SignUp = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
@@ -24,6 +29,24 @@ export const SignUp = ({ route, navigation }) => {
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
+
+  const passwordRef = useRef(null);
+  const passwordConfirmRef = useRef(null);
+
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string()
+      .min(6, "Too Short!")
+      .max(10, "Too Long!")
+      .required("Required"),
+  });
+  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
+    useFormik({
+      validationSchema: LoginSchema,
+      initialValues: { email: "", password: "" },
+      onSubmit: (values) =>
+        alert(`Email: ${values.email}, Password: ${values.password}`),
+    });
 
   const setSecure = () => {
     setSecureTestEntry(false);
@@ -38,13 +61,6 @@ export const SignUp = ({ route, navigation }) => {
     return password !== confirmedPassword;
   };
 
-  //const { title } = route.params;
-  /*useEffect(() => {
-    navigation.setOptions({
-      headerTitle: title,
-    });
-  });*/
-
   return (
     <View style={styles.container}>
       <Image
@@ -53,66 +69,81 @@ export const SignUp = ({ route, navigation }) => {
       />
       <View style={styles.loginForm}>
         <Headline style={styles.headline}>Sign Up</Headline>
-        <TextInput
-          theme={{ roundness: 12 }}
-          style={styles.textInput}
-          mode="flat"
-          value={email}
-          textColor="#ffffff"
-          placeholder="Email"
-          placeholderTextColor="gray"
-          onChangeText={(text) => setEmail(text)}
-          maxLength={15}
-        />
+        <View style={styles.textInputView}>
+          <MyTextInput
+            icon="email"
+            placeholder="Enter your email"
+            autoCapitalize="none"
+            autoCompleteType="email"
+            keyboardType="email-address"
+            keyboardAppearance="dark"
+            returnKeyType="next"
+            returnKeyLabel="next"
+            textColor="#ffffff"
+            style={styles.textInput}
+            viewStyle={styles.textInputView}
+            onChangeText={handleChange("email")}
+            onBlur={handleBlur("email")}
+            error={errors.email}
+            touched={touched.email}
+            onSubmitEditing={() => passwordRef.current?.focus()}
+          />
+        </View>
+        <View style={styles.textInputView}>
+          <MyTextInput
+            ref={passwordRef}
+            icon="key"
+            placeholder="Enter your password"
+            secureTextEntry={secureTextEntry}
+            autoCompleteType="password"
+            autoCapitalize="none"
+            keyboardAppearance="dark"
+            returnKeyType="next"
+            returnKeyLabel="next"
+            style={styles.textInput}
+            viewStyle={styles.textInputView}
+            secureIcon="eye"
+            onPressSecureIcon={() => setSecure()}
+            secureIconColor="gray"
+            onChangeText={handleChange("password")}
+            onBlur={handleBlur("password")}
+            error={errors.password}
+            touched={touched.password}
+            onSubmitEditing={() => passwordConfirmRef.current?.focus()}
+          />
+        </View>
+        <View style={styles.textInputView}>
+          <MyTextInput
+            ref={passwordConfirmRef}
+            icon="key-plus"
+            placeholder="Confirm your password"
+            secureTextEntry={secureTextEntry}
+            autoCompleteType="password"
+            autoCapitalize="none"
+            keyboardAppearance="dark"
+            returnKeyType="go"
+            returnKeyLabel="go"
+            style={styles.textInput}
+            viewStyle={styles.textInputView}
+            secureIcon="eye"
+            onPressSecureIcon={() => setSecure()}
+            secureIconColor="gray"
+            onChangeText={handleChange("password")}
+            onBlur={handleBlur("password")}
+            error={errors.password}
+            touched={touched.password}
+          />
+        </View>
 
-        <TextInput
-          theme={{ roundness: 12 }}
-          style={styles.textInput}
-          mode="flat"
-          value={password}
-          textColor="#ffffff"
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          maxLength={15}
-          placeholderTextColor="gray"
-          secureTextEntry={secureTextEntry}
-          right={
-            <TextInput.Icon
-              icon="eye"
-              onPress={() => setSecure()}
-              color={(isTextInputFocused) => "#7B61FF"}
-            />
-          }
-        />
-        <TextInput
-          theme={{ roundness: 12 }}
-          style={styles.textInput}
-          mode="flat"
-          value={confirmedPassword}
-          textColor="#ffffff"
-          placeholder="Confirm Password"
-          onChangeText={(text) => setConfirmedPassword(text)}
-          maxLength={15}
-          placeholderTextColor="gray"
-          secureTextEntry={secureTextEntry}
-          right={
-            <TextInput.Icon
-              icon="eye"
-              onPress={() => setSecure()}
-              color={(isTextInputFocused) => "#7B61FF"}
-            />
-          }
-        />
-        <HelperText type="error" visible={hasPasswordErrors()}>
-          ConfirmedPassword is invalid!
-        </HelperText>
-
-        <Pressable
-          onPress={() => navigation.navigate("VerifyEmail")}
+        <MyButton
+          label="Sign Up"
+          onPress={() => {
+            handleSubmit();
+            navigation.navigate("VerifyEmail");
+          }}
           style={styles.button}
-        >
-          <Text style={{ ...styles.btnText }}>Sign Up</Text>
-        </Pressable>
+          textStyle={styles.btnText}
+        />
       </View>
       <View style={styles.socials}>
         <View style={styles.divider}>
@@ -199,11 +230,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textInput: {
-    height: 56,
-    width: 327,
-    borderRadius: 12,
-    backgroundColor: "#2F3C50",
-    marginBottom: 10,
+    fontSize: 16,
+    color: "#ffffff",
   },
   btnText: {
     fontSize: 18,
@@ -243,12 +271,19 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginVertical: 15,
-    width: 326,
+    marginVertical: 25,
+    width: WIDTH * 0.8,
     height: 56,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
     backgroundColor: "#7B61FF",
+  },
+  textInputView: {
+    marginBottom: 16,
+    width: WIDTH * 0.8,
+    height: 56,
+    borderRadius: 12,
+    backgroundColor: "#2F3C50",
   },
 });

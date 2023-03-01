@@ -27,12 +27,22 @@ export const Login = ({ route, navigation }) => {
   //const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
+  const passwordRef = useRef(null);
 
-  const { handleChange, handleSubmit, values } = useFormik({
-    initialValues: { email: "", password: "" },
-    onSubmit: (values) =>
-      alert(`Email: ${values.email}, Password: ${values.password}`),
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string()
+      .min(6, "Too Short!")
+      .max(10, "Too Long!")
+      .required("Required"),
   });
+  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
+    useFormik({
+      validationSchema: LoginSchema,
+      initialValues: { email: "", password: "" },
+      onSubmit: (values) =>
+        alert(`Email: ${values.email}, Password: ${values.password}`),
+    });
 
   const setSecure = () => {
     setSecureTestEntry(false);
@@ -65,10 +75,15 @@ export const Login = ({ route, navigation }) => {
             style={styles.textInput}
             viewStyle={styles.textInputView}
             onChangeText={handleChange("email")}
+            onBlur={handleBlur("email")}
+            error={errors.email}
+            touched={touched.email}
+            onSubmitEditing={() => passwordRef.current?.focus()}
           />
         </View>
         <View style={styles.textInputView}>
           <MyTextInput
+            ref={passwordRef}
             icon="key"
             placeholder="Enter your password"
             secureTextEntry={secureTextEntry}
@@ -83,6 +98,9 @@ export const Login = ({ route, navigation }) => {
             onPressSecureIcon={() => setSecure()}
             secureIconColor="gray"
             onChangeText={handleChange("password")}
+            onBlur={handleBlur("password")}
+            error={errors.password}
+            touched={touched.password}
           />
         </View>
 
@@ -238,7 +256,6 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 18,
     color: "#ffffff",
-    textTransform: "uppercase",
   },
   divider: {
     flexDirection: "row",
