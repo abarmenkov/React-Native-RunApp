@@ -18,6 +18,7 @@ import {
 } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
+import InfoMessage from "../components/InfoMessage";
 import { WIDTH } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -30,11 +31,11 @@ export const Login = ({ route, navigation }) => {
   const passwordRef = useRef(null);
 
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Required"),
+    email: Yup.string().email("Invalid email").required("Required field"),
     password: Yup.string()
       .min(6, "Too Short!")
       .max(10, "Too Long!")
-      .required("Required"),
+      .required("Required field"),
   });
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
@@ -49,9 +50,9 @@ export const Login = ({ route, navigation }) => {
     setTimeout(() => setSecureTestEntry(true), 1000);
   };
 
-  const hasErrors = () => {
+  /*const hasErrors = () => {
     return !email.includes("@");
-  };
+  };*/
 
   return (
     <View style={styles.container}>
@@ -61,7 +62,7 @@ export const Login = ({ route, navigation }) => {
       />
       <View style={styles.loginForm}>
         <Headline style={styles.headline}>Log In</Headline>
-        <View style={styles.textInputView}>
+        <View style={styles.textInputContainer}>
           <MyTextInput
             icon="email"
             placeholder="Enter your email"
@@ -80,8 +81,10 @@ export const Login = ({ route, navigation }) => {
             touched={touched.email}
             onSubmitEditing={() => passwordRef.current?.focus()}
           />
+
+          <InfoMessage errorValue={touched.email && errors.email} info='Required'/>
         </View>
-        <View style={styles.textInputView}>
+        <View style={styles.textInputContainer}>
           <MyTextInput
             ref={passwordRef}
             icon="key"
@@ -102,6 +105,7 @@ export const Login = ({ route, navigation }) => {
             error={errors.password}
             touched={touched.password}
           />
+          <InfoMessage errorValue={touched.password && errors.password} info='Length 6-10, required'/>
         </View>
 
         {/*<Headline style={styles.headline}>Log In</Headline>
@@ -309,8 +313,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "#7B61FF",
   },
-  textInputView: {
+  textInputContainer: {
     marginBottom: 16,
+    height: 66,
+    
+  },
+  textInputView: {
     width: WIDTH * 0.8,
     height: 56,
     borderRadius: 12,

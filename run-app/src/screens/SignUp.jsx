@@ -39,11 +39,15 @@ export const SignUp = ({ route, navigation }) => {
       .min(6, "Too Short!")
       .max(10, "Too Long!")
       .required("Required"),
+    passwordConfirmation: Yup.string()
+      .min(6, "Too Short!")
+      .max(10, "Too Long!")
+      .required("Required").oneOf([Yup.ref('password')], 'Passwords must match'),
   });
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
       validationSchema: LoginSchema,
-      initialValues: { email: "", password: "" },
+      initialValues: { email: "", password: "", passwordConfirmation: "" },
       onSubmit: (values) =>
         alert(`Email: ${values.email}, Password: ${values.password}`),
     });
@@ -128,10 +132,10 @@ export const SignUp = ({ route, navigation }) => {
             secureIcon="eye"
             onPressSecureIcon={() => setSecure()}
             secureIconColor="gray"
-            onChangeText={handleChange("password")}
-            onBlur={handleBlur("password")}
-            error={errors.password}
-            touched={touched.password}
+            onChangeText={handleChange("passwordConfirmation")}
+            onBlur={handleBlur("passwordConfirmation")}
+            error={errors.passwordConfirmation}
+            touched={touched.passwordConfirmation}
           />
         </View>
 
