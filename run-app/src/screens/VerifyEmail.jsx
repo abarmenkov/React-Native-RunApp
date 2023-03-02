@@ -75,6 +75,8 @@ export const VerifyEmail = ({ route, navigation }) => {
           }}
           maxLength={1}
           keyboardType={"numeric"}
+          underlineColor="transparent"
+          activeUnderlineColor="trasparent"
         />
         <TextInput
           ref={num2Ref}
@@ -90,6 +92,8 @@ export const VerifyEmail = ({ route, navigation }) => {
           }}
           maxLength={1}
           keyboardType={"numeric"}
+          underlineColor="transparent"
+          activeUnderlineColor="trasparent"
         />
         <TextInput
           ref={num3Ref}
@@ -105,6 +109,8 @@ export const VerifyEmail = ({ route, navigation }) => {
           }}
           maxLength={1}
           keyboardType={"numeric"}
+          underlineColor="transparent"
+          activeUnderlineColor="trasparent"
         />
         <TextInput
           ref={num4Ref}
@@ -126,6 +132,8 @@ export const VerifyEmail = ({ route, navigation }) => {
           }}
           maxLength={1}
           keyboardType={"numeric"}
+          underlineColor="transparent"
+          activeUnderlineColor="trasparent"
         />
       </KeyboardAvoidingView>
       <Portal>
