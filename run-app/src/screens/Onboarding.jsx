@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import Carousel, {
-  Pagination,
-} from "react-native-snap-carousel";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 import {
   View,
   Text,
@@ -107,8 +105,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#2F3C50",
     marginVertical: 20,
-    width: 303,
-    height: 303,
+    width: WIDTH * 0.75,
+    height: WIDTH * 0.75,
   },
   imageContainer: {
     marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue

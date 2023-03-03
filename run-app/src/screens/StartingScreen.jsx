@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { Headline, Caption, useTheme } from "react-native-paper";
 //import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import MyButton from "../components/MyButton";
+import { WIDTH } from "../utils/Constants";
 
 export const StartingScreen = ({ route, navigation }) => {
   const theme = useTheme();
@@ -22,12 +24,13 @@ export const StartingScreen = ({ route, navigation }) => {
         <Caption style={styles.caption}>
           Run and earn with our app. Some text Example will be her
         </Caption>
-        <Pressable
+        <MyButton
+          label="Get Started"
           onPress={() => navigation.navigate("RootNavigator")}
-          style={styles.button}
-        >
-          <Text style={{ ...styles.btnText }}>Get Started</Text>
-        </Pressable>
+          style={{ ...styles.button }}
+          textStyle={styles.btnText}
+          //disabled={!isValid || isSubmitting}
+        />
       </ImageBackground>
     </View>
   );
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 25,
-    width: 300,
+    width: WIDTH * 0.65,
     height: 56,
     justifyContent: "center",
     alignItems: "center",
