@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 12,
+    marginVertical: 12,
   },
   dividerItem: {
     width: 80,
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   },
   checkBoxText: { fontSize: 14, color: "#ffffff" },
   button: {
-    marginVertical: 25,
+    marginTop: 25,
     width: WIDTH * 0.8,
     height: 56,
     justifyContent: "center",

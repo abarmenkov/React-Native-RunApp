@@ -6,19 +6,11 @@ import {
   TouchableOpacity,
   Platform,
   Image,
-  Pressable,
 } from "react-native";
-import {
-  Button,
-  Headline,
-  Caption,
-  TextInput,
-  HelperText,
-  Checkbox,
-  Divider,
-} from "react-native-paper";
+import { Button, Headline, Divider } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
+import InfoMessage from "../components/InfoMessage";
 import { WIDTH } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -27,7 +19,8 @@ export const SignUp = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
-  const [secureTextEntry, setSecureTestEntry] = useState(true);
+  const [securePasswordEntry, setSecurePasswordEntry] = useState(true);
+  const [secureConfirmationEntry, setSecureConfirmationEntry] = useState(true);
   const [checked, setChecked] = useState(false);
 
   const passwordRef = useRef(null);
@@ -42,7 +35,8 @@ export const SignUp = ({ route, navigation }) => {
     passwordConfirmation: Yup.string()
       .min(6, "Too Short!")
       .max(10, "Too Long!")
-      .required("Required").oneOf([Yup.ref('password')], 'Passwords must match'),
+      .required("Required")
+      .oneOf([Yup.ref("password")], "Passwords must match"),
   });
   const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
     useFormik({
@@ -52,17 +46,19 @@ export const SignUp = ({ route, navigation }) => {
         alert(`Email: ${values.email}, Password: ${values.password}`),
     });
 
-  const setSecure = () => {
-    setSecureTestEntry(false);
-    setTimeout(() => setSecureTestEntry(true), 1000);
-  };
-
-  const hasEmailErrors = () => {
-    return email.length > 5 && !email.includes("@");
-  };
-
-  const hasPasswordErrors = () => {
-    return password !== confirmedPassword;
+  const setSecure = (value) => {
+    switch (value) {
+      case "password":
+        setSecurePasswordEntry(false);
+        setTimeout(() => setSecurePasswordEntry(true), 1000);
+        break;
+      case "confirmation":
+        setSecureConfirmationEntry(false);
+        setTimeout(() => setSecureConfirmationEntry(true), 1000);
+        break;
+      default:
+        console.log(`${value} is uknown`);
+    }
   };
 
   return (
@@ -73,7 +69,7 @@ export const SignUp = ({ route, navigation }) => {
       />
       <View style={styles.loginForm}>
         <Headline style={styles.headline}>Sign Up</Headline>
-        <View style={styles.textInputView}>
+        <View style={styles.textInputContainer}>
           <MyTextInput
             icon="email"
             placeholder="Enter your email"
@@ -92,36 +88,18 @@ export const SignUp = ({ route, navigation }) => {
             touched={touched.email}
             onSubmitEditing={() => passwordRef.current?.focus()}
           />
+
+          <InfoMessage
+            errorValue={touched.email && errors.email}
+            info="Required"
+          />
         </View>
-        <View style={styles.textInputView}>
+        <View style={styles.textInputContainer}>
           <MyTextInput
             ref={passwordRef}
             icon="key"
             placeholder="Enter your password"
-            secureTextEntry={secureTextEntry}
-            autoCompleteType="password"
-            autoCapitalize="none"
-            keyboardAppearance="dark"
-            returnKeyType="next"
-            returnKeyLabel="next"
-            style={styles.textInput}
-            viewStyle={styles.textInputView}
-            secureIcon="eye"
-            onPressSecureIcon={() => setSecure()}
-            secureIconColor="gray"
-            onChangeText={handleChange("password")}
-            onBlur={handleBlur("password")}
-            error={errors.password}
-            touched={touched.password}
-            onSubmitEditing={() => passwordConfirmRef.current?.focus()}
-          />
-        </View>
-        <View style={styles.textInputView}>
-          <MyTextInput
-            ref={passwordConfirmRef}
-            icon="key-plus"
-            placeholder="Confirm your password"
-            secureTextEntry={secureTextEntry}
+            secureTextEntry={securePasswordEntry}
             autoCompleteType="password"
             autoCapitalize="none"
             keyboardAppearance="dark"
@@ -130,12 +108,44 @@ export const SignUp = ({ route, navigation }) => {
             style={styles.textInput}
             viewStyle={styles.textInputView}
             secureIcon="eye"
-            onPressSecureIcon={() => setSecure()}
-            secureIconColor="gray"
+            onPressSecureIcon={() => setSecure("password")}
+            secureIconColor={securePasswordEntry ? "gray" : "#7B61FF"}
+            onChangeText={handleChange("password")}
+            onBlur={handleBlur("password")}
+            error={errors.password}
+            touched={touched.password}
+          />
+          <InfoMessage
+            errorValue={touched.password && errors.password}
+            info="Length 6-10, required"
+          />
+        </View>
+        <View style={styles.textInputContainer}>
+          <MyTextInput
+            ref={passwordConfirmRef}
+            icon="key-plus"
+            placeholder="Confirm your password"
+            secureTextEntry={secureConfirmationEntry}
+            autoCompleteType="password"
+            autoCapitalize="none"
+            keyboardAppearance="dark"
+            returnKeyType="go"
+            returnKeyLabel="go"
+            style={styles.textInput}
+            viewStyle={styles.textInputView}
+            secureIcon="eye"
+            onPressSecureIcon={() => setSecure("confirmation")}
+            secureIconColor={secureConfirmationEntry ? "gray" : "#7B61FF"}
             onChangeText={handleChange("passwordConfirmation")}
             onBlur={handleBlur("passwordConfirmation")}
             error={errors.passwordConfirmation}
             touched={touched.passwordConfirmation}
+          />
+          <InfoMessage
+            errorValue={
+              touched.passwordConfirmation && errors.passwordConfirmation
+            }
+            info="Repeat password, required"
           />
         </View>
 
@@ -245,7 +255,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 12,
+    marginVertical: 12,
   },
   dividerItem: {
     width: 80,
@@ -257,8 +267,8 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   socials: {
-    width: 327,
-    marginBottom: 30,
+    width: WIDTH * 0.8,
+    marginBottom: 20,
   },
   socialsBtn: {
     flexDirection: "row",
@@ -273,9 +283,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   button: {
-    marginVertical: 25,
+    marginTop: 10,
     width: WIDTH * 0.8,
     height: 56,
     justifyContent: "center",
@@ -283,8 +292,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "#7B61FF",
   },
-  textInputView: {
+  textInputContainer: {
     marginBottom: 16,
+    height: 66,
+  },
+  textInputView: {
     width: WIDTH * 0.8,
     height: 56,
     borderRadius: 12,
