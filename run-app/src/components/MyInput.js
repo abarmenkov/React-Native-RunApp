@@ -16,7 +16,7 @@ const MyTextInput = forwardRef(
     },
     ref
   ) => {
-    const validationColor = !touched ? "gray" : error ? "#FF5A5F" : "gray";
+    const validationColor = !touched ? "gray" : error ? "#CD0074" : "gray";
     return (
       <View
         style={{

@@ -29,6 +29,7 @@ export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
   const passwordRef = useRef(null);
+  //const myButtonOpacity = !isValid || isSubmitting ? 0.2 : 1;
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required field"),
@@ -37,13 +38,26 @@ export const Login = ({ route, navigation }) => {
       .max(10, "Too Long!")
       .required("Required field"),
   });
-  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
-    useFormik({
-      validationSchema: LoginSchema,
-      initialValues: { email: "", password: "" },
-      onSubmit: (values) =>
-        alert(`Email: ${values.email}, Password: ${values.password}`),
-    });
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    isValid,
+    isSubmitting,
+  } = useFormik({
+    validationSchema: LoginSchema,
+    initialValues: { email: "", password: "" },
+    onSubmit: (values) => {
+      if (values.email.length > 0 && values.password.length > 0) {
+        setTimeout(() => {
+          alert("test");
+        }, 1000);
+      }
+    },
+  });
 
   const setSecure = () => {
     setSecureTestEntry(false);
@@ -82,7 +96,10 @@ export const Login = ({ route, navigation }) => {
             onSubmitEditing={() => passwordRef.current?.focus()}
           />
 
-          <InfoMessage errorValue={touched.email && errors.email} info='Required'/>
+          <InfoMessage
+            errorValue={touched.email && errors.email}
+            info="Required"
+          />
         </View>
         <View style={styles.textInputContainer}>
           <MyTextInput
@@ -99,13 +116,16 @@ export const Login = ({ route, navigation }) => {
             viewStyle={styles.textInputView}
             secureIcon="eye"
             onPressSecureIcon={() => setSecure()}
-            secureIconColor="gray"
+            secureIconColor={secureTextEntry ? "gray" : "#7B61FF"}
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
             error={errors.password}
             touched={touched.password}
           />
-          <InfoMessage errorValue={touched.password && errors.password} info='Length 6-10, required'/>
+          <InfoMessage
+            errorValue={touched.password && errors.password}
+            info="Length 6-10, required"
+          />
         </View>
 
         {/*<Headline style={styles.headline}>Log In</Headline>
@@ -163,10 +183,10 @@ export const Login = ({ route, navigation }) => {
           label="Log in"
           onPress={() => {
             handleSubmit();
-            //navigation.navigate("SignUp");
           }}
-          style={styles.button}
+          style={{ ...styles.button }}
           textStyle={styles.btnText}
+          disabled={!isValid || isSubmitting}
         />
       </View>
       <View style={styles.socials}>
@@ -316,7 +336,6 @@ const styles = StyleSheet.create({
   textInputContainer: {
     marginBottom: 16,
     height: 66,
-    
   },
   textInputView: {
     width: WIDTH * 0.8,
