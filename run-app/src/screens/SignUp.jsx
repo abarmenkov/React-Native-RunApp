@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "#28333F",
     alignItems: "center",
-    paddingTop: 30,
+    paddingTop: 10,
   },
   logo: {
     marginTop: 14,

@@ -1,11 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Button, Headline, Checkbox, Divider } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
@@ -70,7 +64,11 @@ export const Login = ({ route, navigation }) => {
         style={styles.logo}
       />
       <View style={styles.loginForm}>
-        <Headline style={styles.headline}>Log In</Headline>
+        <Headline
+          style={{ ...styles.headline, color: theme.colors.onBackground }}
+        >
+          Log In
+        </Headline>
         <View style={styles.textInputContainer}>
           <MyTextInput
             icon="email"
@@ -83,7 +81,10 @@ export const Login = ({ route, navigation }) => {
             returnKeyLabel="next"
             textColor="#ffffff"
             style={styles.textInput}
-            viewStyle={styles.textInputView}
+            viewStyle={{
+              ...styles.textInputView,
+              backgroundColor: theme.colors.onSecondaryContainer,
+            }}
             onChangeText={handleChange("email")}
             onBlur={handleBlur("email")}
             error={errors.email}
@@ -108,7 +109,10 @@ export const Login = ({ route, navigation }) => {
             returnKeyType="go"
             returnKeyLabel="go"
             style={styles.textInput}
-            viewStyle={styles.textInputView}
+            viewStyle={{
+              ...styles.textInputView,
+              backgroundColor: theme.colors.onSecondaryContainer,
+            }}
             secureIcon="eye"
             onPressSecureIcon={() => setSecure()}
             secureIconColor={secureTextEntry ? "gray" : "#7B61FF"}
@@ -133,7 +137,14 @@ export const Login = ({ route, navigation }) => {
               color="#7B61FF"
               uncheckedColor={theme.colors.primaryContainer}
             />
-            <Text style={styles.checkBoxText}>Remember Me</Text>
+            <Text
+              style={{
+                ...styles.checkBoxText,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Remember Me
+            </Text>
           </View>
 
           <Button type="text" textColor={theme.colors.primaryContainer}>
@@ -146,7 +157,7 @@ export const Login = ({ route, navigation }) => {
             handleSubmit();
           }}
           style={{ ...styles.button }}
-          textStyle={styles.btnText}
+          textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
           disabled={!isValid || isSubmitting}
         />
       </View>
@@ -158,19 +169,34 @@ export const Login = ({ route, navigation }) => {
         </View>
         <View style={styles.socialsBtn}>
           <TouchableOpacity>
-            <View style={styles.socialsBtnItem}>
+            <View
+              style={{
+                ...styles.socialsBtnItem,
+                backgroundColor: theme.colors.onSecondaryContainer,
+              }}
+            >
               <Image source={require("../../assets/images/Google-logo.png")} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <View style={styles.socialsBtnItem}>
+            <View
+              style={{
+                ...styles.socialsBtnItem,
+                backgroundColor: theme.colors.onSecondaryContainer,
+              }}
+            >
               <Image
                 source={require("../../assets/images/Facebook-logo.png")}
               />
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <View style={styles.socialsBtnItem}>
+            <View
+              style={{
+                ...styles.socialsBtnItem,
+                backgroundColor: theme.colors.onSecondaryContainer,
+              }}
+            >
               <Image source={require("../../assets/images/Twitter-logo.png")} />
             </View>
           </TouchableOpacity>
@@ -178,7 +204,11 @@ export const Login = ({ route, navigation }) => {
       </View>
 
       <View style={styles.BottomView}>
-        <Text style={styles.BottomViewtext}>New User?</Text>
+        <Text
+          style={{ ...styles.BottomViewtext, color: theme.colors.onBackground }}
+        >
+          New User?
+        </Text>
         <Button
           style={styles.btnText}
           type="text"
@@ -197,7 +227,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: 30,
+    paddingTop: 10,
   },
   logo: {
     marginTop: 14,
@@ -218,7 +248,6 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   BottomViewtext: {
-    color: "#ffffff",
     fontSize: 14,
   },
   loginForm: {
@@ -227,11 +256,10 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 16,
-    color: "#ffffff",
   },
   btnText: {
     fontSize: 18,
-    color: "#ffffff",
+    fontWeight: "700",
   },
   divider: {
     flexDirection: "row",
@@ -260,7 +288,6 @@ const styles = StyleSheet.create({
   socialsBtnItem: {
     width: 98,
     height: 72,
-    backgroundColor: "#2F3C50",
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -275,7 +302,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  checkBoxText: { fontSize: 14, color: "#ffffff" },
+  checkBoxText: { fontSize: 14 },
   button: {
     marginTop: 25,
     width: WIDTH * 0.8,
@@ -283,7 +310,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
-    backgroundColor: "#7B61FF",
   },
   textInputContainer: {
     marginBottom: 16,
@@ -293,6 +319,5 @@ const styles = StyleSheet.create({
     width: WIDTH * 0.8,
     height: 56,
     borderRadius: 12,
-    backgroundColor: "#2F3C50",
   },
 });
