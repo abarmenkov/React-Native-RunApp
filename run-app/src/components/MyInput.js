@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { TextInput as RNTextInput, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
+import { useTheme } from "react-native-paper";
 
 const MyTextInput = forwardRef(
   (
@@ -16,14 +17,19 @@ const MyTextInput = forwardRef(
     },
     ref
   ) => {
-    const validationColor = !touched ? "gray" : error ? "#CD0074" : "gray";
+    const theme = useTheme();
+    const validationColor = !touched
+      ? "gray"
+      : error
+      ? theme.colors.error
+      : "green";
     return (
       <View
         style={{
           ...viewStyle,
           flexDirection: "row",
           alignItems: "center",
-          borderColor: !touched ? "#223e4b" : error ? "#FF5A5F" : null,
+          borderColor: !touched ? null : error ? theme.colors.error : "green",
           borderWidth: StyleSheet.hairlineWidth,
         }}
       >

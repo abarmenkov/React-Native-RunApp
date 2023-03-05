@@ -5,23 +5,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Pressable,
 } from "react-native";
-import {
-  Button,
-  Headline,
-  Caption,
-  TextInput,
-  HelperText,
-  Checkbox,
-  Divider,
-} from "react-native-paper";
+import { Button, Headline, Checkbox, Divider } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
 import InfoMessage from "../components/InfoMessage";
 import { WIDTH } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useTheme } from "react-native-paper";
 
 export const Login = ({ route, navigation }) => {
   //const [email, setEmail] = useState("");
@@ -29,6 +21,7 @@ export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
   const passwordRef = useRef(null);
+  const theme = useTheme();
   //const myButtonOpacity = !isValid || isSubmitting ? 0.2 : 1;
 
   const LoginSchema = Yup.object().shape({
@@ -69,7 +62,9 @@ export const Login = ({ route, navigation }) => {
   };*/
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+    >
       <Image
         source={require("../../assets/images/Logo.png")}
         style={styles.logo}
@@ -128,40 +123,6 @@ export const Login = ({ route, navigation }) => {
           />
         </View>
 
-        {/*<Headline style={styles.headline}>Log In</Headline>
-        <TextInput
-          theme={{ roundness: 12 }}
-          style={styles.textInput}
-          mode="flat"
-          value={email}
-          textColor="#ffffff"
-          placeholder="Email"
-          placeholderTextColor="gray"
-          onChangeText={(text) => setEmail(text)}
-          maxLength={15}
-        />
-        <HelperText type="error" visible={hasErrors()}>
-          Email address is invalid!
-        </HelperText>
-        <TextInput
-          theme={{ roundness: 12 }}
-          style={styles.textInput}
-          mode="flat"
-          value={password}
-          textColor="#ffffff"
-          placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
-          maxLength={15}
-          placeholderTextColor="gray"
-          secureTextEntry={secureTextEntry}
-          right={
-            <TextInput.Icon
-              icon="eye"
-              onPress={() => setSecure()}
-              color={(isTextInputFocused) => "#7B61FF"}
-            />
-          }
-        />*/}
         <View style={styles.rememberPassword}>
           <View style={styles.checkBox}>
             <Checkbox
@@ -170,12 +131,12 @@ export const Login = ({ route, navigation }) => {
                 setChecked(!checked);
               }}
               color="#7B61FF"
-              uncheckedColor="#7B61FF"
+              uncheckedColor={theme.colors.primaryContainer}
             />
             <Text style={styles.checkBoxText}>Remember Me</Text>
           </View>
 
-          <Button type="text" textColor="#7B61FF">
+          <Button type="text" textColor={theme.colors.primaryContainer}>
             Forgot Password ?
           </Button>
         </View>
@@ -221,7 +182,7 @@ export const Login = ({ route, navigation }) => {
         <Button
           style={styles.btnText}
           type="text"
-          textColor="#7B61FF"
+          textColor={theme.colors.primaryContainer}
           onPress={() => navigation.navigate("SignUp")}
         >
           Sign Up
@@ -235,7 +196,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#28333F",
     alignItems: "center",
     paddingTop: 30,
   },
@@ -251,14 +211,6 @@ const styles = StyleSheet.create({
     fontSize: 21,
     color: "#ffffff",
     marginBottom: 16,
-  },
-  caption: {
-    color: "#AEA8B3",
-    fontStyle: "normal",
-    fontWeight: "400",
-    fontSize: 14,
-    paddingHorizontal: 72,
-    textAlign: "center",
   },
   BottomView: {
     flexDirection: "row",
@@ -297,7 +249,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   socials: {
-    width: 327,
+    width: WIDTH * 0.8,
     marginBottom: 30,
   },
   socialsBtn: {
@@ -316,7 +268,7 @@ const styles = StyleSheet.create({
   rememberPassword: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: 327,
+    width: WIDTH * 0.8,
     alignItems: "center",
   },
   checkBox: {
