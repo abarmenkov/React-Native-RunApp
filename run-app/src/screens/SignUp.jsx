@@ -7,7 +7,7 @@ import {
   Platform,
   Image,
 } from "react-native";
-import { Button, Headline, Divider } from "react-native-paper";
+import { Button, Headline, Divider, useTheme } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
 import InfoMessage from "../components/InfoMessage";
@@ -25,6 +25,7 @@ export const SignUp = ({ route, navigation }) => {
 
   const passwordRef = useRef(null);
   const passwordConfirmRef = useRef(null);
+  const theme = useTheme();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -62,13 +63,19 @@ export const SignUp = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+    >
       <Image
         source={require("../../assets/images/Logo.png")}
         style={styles.logo}
       />
       <View style={styles.loginForm}>
-        <Headline style={styles.headline}>Sign Up</Headline>
+        <Headline
+          style={{ ...styles.headline, color: theme.colors.onBackground }}
+        >
+          Sign Up
+        </Headline>
         <View style={styles.textInputContainer}>
           <MyTextInput
             icon="email"
@@ -79,9 +86,11 @@ export const SignUp = ({ route, navigation }) => {
             keyboardAppearance="dark"
             returnKeyType="next"
             returnKeyLabel="next"
-            textColor="#ffffff"
-            style={styles.textInput}
-            viewStyle={styles.textInputView}
+            style={{ ...styles.textInput, color: theme.colors.onBackground }}
+            viewStyle={{
+              ...styles.textInputView,
+              backgroundColor: theme.colors.onSecondaryContainer,
+            }}
             onChangeText={handleChange("email")}
             onBlur={handleBlur("email")}
             error={errors.email}
@@ -105,11 +114,16 @@ export const SignUp = ({ route, navigation }) => {
             keyboardAppearance="dark"
             returnKeyType="go"
             returnKeyLabel="go"
-            style={styles.textInput}
-            viewStyle={styles.textInputView}
+            style={{ ...styles.textInput, color: theme.colors.onBackground }}
+            viewStyle={{
+              ...styles.textInputView,
+              backgroundColor: theme.colors.onSecondaryContainer,
+            }}
             secureIcon="eye"
             onPressSecureIcon={() => setSecure("password")}
-            secureIconColor={securePasswordEntry ? "gray" : "#7B61FF"}
+            secureIconColor={
+              securePasswordEntry ? "gray" : theme.colors.primaryContainer
+            }
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
             error={errors.password}
@@ -131,11 +145,16 @@ export const SignUp = ({ route, navigation }) => {
             keyboardAppearance="dark"
             returnKeyType="go"
             returnKeyLabel="go"
-            style={styles.textInput}
-            viewStyle={styles.textInputView}
+            style={{ ...styles.textInput, color: theme.colors.onBackground }}
+            viewStyle={{
+              ...styles.textInputView,
+              backgroundColor: theme.colors.onSecondaryContainer,
+            }}
             secureIcon="eye"
             onPressSecureIcon={() => setSecure("confirmation")}
-            secureIconColor={secureConfirmationEntry ? "gray" : "#7B61FF"}
+            secureIconColor={
+              secureConfirmationEntry ? "gray" : theme.colors.primaryContainer
+            }
             onChangeText={handleChange("passwordConfirmation")}
             onBlur={handleBlur("passwordConfirmation")}
             error={errors.passwordConfirmation}
@@ -155,8 +174,8 @@ export const SignUp = ({ route, navigation }) => {
             handleSubmit();
             navigation.navigate("VerifyEmail");
           }}
-          style={styles.button}
-          textStyle={styles.btnText}
+          style={{ ...styles.button }}
+          textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
         />
       </View>
       <View style={styles.socials}>
@@ -167,19 +186,34 @@ export const SignUp = ({ route, navigation }) => {
         </View>
         <View style={styles.socialsBtn}>
           <TouchableOpacity>
-            <View style={styles.socialsBtnItem}>
+            <View
+              style={{
+                ...styles.socialsBtnItem,
+                backgroundColor: theme.colors.onSecondaryContainer,
+              }}
+            >
               <Image source={require("../../assets/images/Google-logo.png")} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <View style={styles.socialsBtnItem}>
+            <View
+              style={{
+                ...styles.socialsBtnItem,
+                backgroundColor: theme.colors.onSecondaryContainer,
+              }}
+            >
               <Image
                 source={require("../../assets/images/Facebook-logo.png")}
               />
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <View style={styles.socialsBtnItem}>
+            <View
+              style={{
+                ...styles.socialsBtnItem,
+                backgroundColor: theme.colors.onSecondaryContainer,
+              }}
+            >
               <Image source={require("../../assets/images/Twitter-logo.png")} />
             </View>
           </TouchableOpacity>
@@ -187,11 +221,15 @@ export const SignUp = ({ route, navigation }) => {
       </View>
 
       <View style={styles.BottomView}>
-        <Text style={styles.BottomViewtext}>Have Account?</Text>
+        <Text
+          style={{ ...styles.BottomViewtext, color: theme.colors.onBackground }}
+        >
+          Have Account?
+        </Text>
         <Button
           style={styles.btnText}
           type="text"
-          textColor="#7B61FF"
+          textColor={theme.colors.primaryContainer}
           onPress={() => navigation.navigate("Login")}
         >
           Sign in
@@ -205,13 +243,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#28333F",
     alignItems: "center",
     paddingTop: 10,
   },
   logo: {
     marginTop: 14,
-    marginBottom: 14,
+    marginBottom: 22,
     width: 100,
     height: 100,
   },
@@ -219,16 +256,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 21,
-    color: "#ffffff",
     marginBottom: 16,
-  },
-  caption: {
-    color: "#AEA8B3",
-    fontStyle: "normal",
-    fontWeight: "400",
-    fontSize: 14,
-    paddingHorizontal: 72,
-    textAlign: "center",
   },
   BottomView: {
     flexDirection: "row",
@@ -236,7 +264,6 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   BottomViewtext: {
-    color: "#ffffff",
     fontSize: 14,
   },
   loginForm: {
@@ -245,11 +272,10 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 16,
-    color: "#ffffff",
   },
   btnText: {
     fontSize: 18,
-    color: "#ffffff",
+    fontWeight: "700",
   },
   divider: {
     flexDirection: "row",
@@ -278,19 +304,28 @@ const styles = StyleSheet.create({
   socialsBtnItem: {
     width: 98,
     height: 72,
-    backgroundColor: "#2F3C50",
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
   },
+  rememberPassword: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: WIDTH * 0.8,
+    alignItems: "center",
+  },
+  checkBox: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkBoxText: { fontSize: 14 },
   button: {
-    marginTop: 10,
+    marginTop: 15,
     width: WIDTH * 0.8,
     height: 56,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
-    backgroundColor: "#7B61FF",
   },
   textInputContainer: {
     marginBottom: 16,
@@ -300,6 +335,5 @@ const styles = StyleSheet.create({
     width: WIDTH * 0.8,
     height: 56,
     borderRadius: 12,
-    backgroundColor: "#2F3C50",
   },
 });

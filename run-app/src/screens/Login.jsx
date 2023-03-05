@@ -1,13 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Button, Headline, Checkbox, Divider } from "react-native-paper";
+import { Button, Headline, Checkbox, Divider, useTheme } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
 import InfoMessage from "../components/InfoMessage";
 import { WIDTH } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useTheme } from "react-native-paper";
 
 export const Login = ({ route, navigation }) => {
   //const [email, setEmail] = useState("");
@@ -79,8 +78,7 @@ export const Login = ({ route, navigation }) => {
             keyboardAppearance="dark"
             returnKeyType="next"
             returnKeyLabel="next"
-            textColor="#ffffff"
-            style={styles.textInput}
+            style={{ ...styles.textInput, color: theme.colors.onBackground }}
             viewStyle={{
               ...styles.textInputView,
               backgroundColor: theme.colors.onSecondaryContainer,
@@ -108,14 +106,16 @@ export const Login = ({ route, navigation }) => {
             keyboardAppearance="dark"
             returnKeyType="go"
             returnKeyLabel="go"
-            style={styles.textInput}
+            style={{ ...styles.textInput, color: theme.colors.onBackground }}
             viewStyle={{
               ...styles.textInputView,
               backgroundColor: theme.colors.onSecondaryContainer,
             }}
             secureIcon="eye"
             onPressSecureIcon={() => setSecure()}
-            secureIconColor={secureTextEntry ? "gray" : "#7B61FF"}
+            secureIconColor={
+              secureTextEntry ? "gray" : theme.colors.primaryContainer
+            }
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
             error={errors.password}
@@ -239,7 +239,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 21,
-    color: "#ffffff",
     marginBottom: 16,
   },
   BottomView: {

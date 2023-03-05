@@ -14,13 +14,17 @@ import { WIDTH } from "../utils/Constants";
 export const StartingScreen = ({ route, navigation }) => {
   const theme = useTheme();
   return (
-    <View style={{ ...styles.view, color: theme.colors.surface }}>
+    <View style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}>
       <ImageBackground
         source={require("../../assets/images/getStarted.png")}
         resizeMode="cover"
         style={styles.image}
       >
-        <Headline style={styles.headline}>Running App</Headline>
+        <Headline
+          style={{ ...styles.headline, color: theme.colors.onBackground }}
+        >
+          Running App
+        </Headline>
         <Caption style={styles.caption}>
           Run and earn with our app. Some text Example will be her
         </Caption>
@@ -28,7 +32,7 @@ export const StartingScreen = ({ route, navigation }) => {
           label="Get Started"
           onPress={() => navigation.navigate("RootNavigator")}
           style={{ ...styles.button }}
-          textStyle={styles.btnText}
+          textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
           //disabled={!isValid || isSubmitting}
         />
       </ImageBackground>
@@ -37,11 +41,10 @@ export const StartingScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  view: {
+  container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#28333F",
   },
   image: {
     flex: 1,
@@ -53,7 +56,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 30,
-    color: "#ffffff",
   },
   caption: {
     color: "#AEA8B3",
@@ -71,10 +73,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
-    backgroundColor: "#7B61FF",
   },
   btnText: {
-    color: "#ffffff",
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: 18,
