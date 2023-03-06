@@ -31,7 +31,7 @@ export const StartingScreen = ({ route, navigation }) => {
         <MyButton
           label="Get Started"
           onPress={() => navigation.navigate("RootNavigator")}
-          style={{ ...styles.button }}
+          style={{ ...styles.button, backgroundColor: theme.colors.primaryContainer }}
           textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
           //disabled={!isValid || isSubmitting}
         />

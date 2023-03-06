@@ -18,6 +18,8 @@ import {
   useTheme,
 } from "react-native-paper";
 // import { openInbox } from "react-native-email-link";
+import MyButton from "../components/MyButton";
+import { WIDTH } from "../utils/Constants";
 
 export const VerifyEmail = ({ route, navigation }) => {
   const theme = useTheme();
@@ -47,12 +49,18 @@ export const VerifyEmail = ({ route, navigation }) => {
     marginRight: 50,
   };
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+    >
       <Image
         source={require("../../assets/images/verifyEmail.png")}
         style={styles.image}
       />
-      <Headline style={styles.headline}>Verify your email</Headline>
+      <Headline
+        style={{ ...styles.headline, color: theme.colors.onBackground }}
+      >
+        Verify your email
+      </Headline>
       <Caption style={styles.caption}>
         Enter the email associated with your account we’ll send email with
         password to verify
@@ -64,11 +72,14 @@ export const VerifyEmail = ({ route, navigation }) => {
         <TextInput
           ref={num1Ref}
           theme={{ roundness: 12 }}
-          style={styles.textInput}
+          style={{
+            ...styles.textInput,
+            backgroundColor: theme.colors.onSecondaryContainer,
+          }}
           contentStyle={{ fontSize: 40, fontWeight: "700" }}
           mode="flat"
           value={num1}
-          textColor="#ffffff"
+          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum1(text);
             if (text) num2Ref.current.focus();
@@ -81,11 +92,14 @@ export const VerifyEmail = ({ route, navigation }) => {
         <TextInput
           ref={num2Ref}
           theme={{ roundness: 12 }}
-          style={styles.textInput}
+          style={{
+            ...styles.textInput,
+            backgroundColor: theme.colors.onSecondaryContainer,
+          }}
           contentStyle={{ fontSize: 40, fontWeight: "700" }}
           mode="flat"
           value={num2}
-          textColor="#ffffff"
+          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum2(text);
             if (text) num3Ref.current.focus();
@@ -98,11 +112,14 @@ export const VerifyEmail = ({ route, navigation }) => {
         <TextInput
           ref={num3Ref}
           theme={{ roundness: 12 }}
-          style={styles.textInput}
+          style={{
+            ...styles.textInput,
+            backgroundColor: theme.colors.onSecondaryContainer,
+          }}
           contentStyle={{ fontSize: 40, fontWeight: "700" }}
           mode="flat"
           value={num3}
-          textColor="#ffffff"
+          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum3(text);
             if (text) num4Ref.current.focus();
@@ -115,11 +132,14 @@ export const VerifyEmail = ({ route, navigation }) => {
         <TextInput
           ref={num4Ref}
           theme={{ roundness: 12 }}
-          style={styles.textInput}
+          style={{
+            ...styles.textInput,
+            backgroundColor: theme.colors.onSecondaryContainer,
+          }}
           contentStyle={{ fontSize: 40, fontWeight: "700" }}
           mode="flat"
           value={num4}
-          textColor="#ffffff"
+          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum4(text);
           }}
@@ -154,17 +174,20 @@ export const VerifyEmail = ({ route, navigation }) => {
           <Text>Successful verification</Text>
         </Modal>
       </Portal>
-      <Pressable
+      <MyButton
+        label="Verify Email"
         onPress={() => navigation.navigate("AddAddress")}
-        style={styles.button}
-      >
-        <Text style={{ ...styles.btnText }}>Verify Email</Text>
-      </Pressable>
-      <Pressable
+        style={{
+          ...styles.button,
+          backgroundColor: theme.colors.primaryContainer,
+        }}
+        textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
+      />
+      <MyButton
+        label="Open mail app"
         onPress={() =>
           Linking.openURL("mailto:ab1975@mail.ru?subject=sendmail&body=details")
         }
-        /*onPress={() => openInbox()}*/
         style={{
           ...styles.button,
           borderColor: "#7B61FF",
@@ -174,11 +197,8 @@ export const VerifyEmail = ({ route, navigation }) => {
           borderRightWidth: 1.5,
           backgroundColor: "rgba(28, 37, 44, 0.08)",
         }}
-      >
-        <Text style={{ ...styles.btnText, color: "#7B61FF" }}>
-          Open mail app
-        </Text>
-      </Pressable>
+        textStyle={{ ...styles.btnText, color: theme.colors.primaryContainer }}
+      />
     </View>
   );
 };
@@ -187,7 +207,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#28333F",
     alignItems: "center",
   },
   image: {
@@ -199,7 +218,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 21,
-    color: "#ffffff",
   },
   caption: {
     color: "#AEA8B3",
@@ -222,24 +240,19 @@ const styles = StyleSheet.create({
     height: 64,
     width: 64,
     borderRadius: 12,
-    backgroundColor: "#2F3C50",
     marginHorizontal: 12,
     textAlign: "center",
   },
   button: {
     marginVertical: 12,
-    width: 325,
+    width: WIDTH * 0.8,
     height: 56,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 12,
-    backgroundColor: "#7B61FF",
   },
-
   btnText: {
-    color: "#ffffff",
-    fontStyle: "normal",
-    fontWeight: "600",
+    fontWeight: "700",
     fontSize: 18,
   },
 });

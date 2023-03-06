@@ -63,7 +63,7 @@ export const OnBoard = ({ route, navigation }) => {
             onPress={() => {
               goForward();
             }}
-            style={{ ...styles.button }}
+            style={{ ...styles.button, backgroundColor: theme.colors.primaryContainer }}
             textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
           />
         </View>

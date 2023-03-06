@@ -162,7 +162,7 @@ export const Login = ({ route, navigation }) => {
           onPress={() => {
             handleSubmit();
           }}
-          style={{ ...styles.button }}
+          style={{ ...styles.button, backgroundColor: theme.colors.primaryContainer }}
           textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
           disabled={!isValid || isSubmitting}
         />
