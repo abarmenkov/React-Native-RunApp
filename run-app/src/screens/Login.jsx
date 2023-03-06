@@ -1,6 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { Button, Headline, Checkbox, Divider, useTheme } from "react-native-paper";
+import {
+  Button,
+  Headline,
+  Checkbox,
+  Divider,
+  useTheme,
+} from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
 import InfoMessage from "../components/InfoMessage";
@@ -256,10 +262,7 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 16,
   },
-  btnText: {
-    fontSize: 18,
-    fontWeight: "700",
-  },
+
   divider: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -302,6 +305,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   checkBoxText: { fontSize: 14 },
+  btnText: {
+    fontSize: 18,
+    fontWeight: "700",
+  },
   button: {
     marginTop: 25,
     width: WIDTH * 0.8,

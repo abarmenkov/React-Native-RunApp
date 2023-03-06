@@ -8,9 +8,10 @@ import {
   Platform,
   Image,
 } from "react-native";
-import { Button, Headline, Caption } from "react-native-paper";
+import { Button, Headline, Caption, useTheme } from "react-native-paper";
 import { sliderOnboard } from "../utils/data";
 import { WIDTH } from "../utils/Constants";
+import MyButton from "../components/MyButton";
 
 export const SLIDER_WIDTH = WIDTH;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.75);
@@ -19,6 +20,7 @@ export const OnBoard = ({ route, navigation }) => {
   const [index, setIndex] = useState(0);
   const [data, setData] = useState([]);
   const carouselRef = useRef(null);
+  const theme = useTheme();
 
   const goForward = () => {
     carouselRef.current.snapToNext();
@@ -31,35 +33,48 @@ export const OnBoard = ({ route, navigation }) => {
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity>
-        <View style={styles.item}>
-          <Headline style={styles.headline}>{item.name}</Headline>
+        <View
+          style={{
+            ...styles.item,
+            backgroundColor: theme.colors.onSecondaryContainer,
+          }}
+        >
+          <Headline
+            style={{ ...styles.headline, color: theme.colors.onBackground }}
+          >
+            {item.name}
+          </Headline>
           <Caption style={styles.caption}>{item.description}</Caption>
           <Pagination
             dotsLength={data.length}
             activeDotIndex={index}
             carouselRef={carouselRef}
-            dotStyle={styles.dotStyle}
+            dotStyle={{
+              ...styles.dotStyle,
+              backgroundColor: theme.colors.primaryContainer,
+            }}
             tappableDots={false}
             inactiveDotStyle={styles.inactiveDotStyle}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
           />
-          <Button
-            onPress={goForward}
-            mode="contained"
-            buttonColor="#7B61FF"
-            labelStyle={{ color: "white", fontSize: 18 }}
-            contentStyle={{ width: 150, height: 56 }}
-          >
-            Next {"->"}
-          </Button>
+          <MyButton
+            label="Next->"
+            onPress={() => {
+              goForward();
+            }}
+            style={{ ...styles.button }}
+            textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
+          />
         </View>
       </TouchableOpacity>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+    >
       <Image
         source={require("../../assets/images/onboarding.png")}
         style={styles.onboardImage}
@@ -78,11 +93,15 @@ export const OnBoard = ({ route, navigation }) => {
         hasParallaxImages={false}
       />
       <View style={styles.BottomView}>
-        <Text style={styles.BottomViewtext}>Already have an account? </Text>
+        <Text
+          style={{ ...styles.BottomViewtext, color: theme.colors.onBackground }}
+        >
+          Already have an account?{" "}
+        </Text>
         <Button
           type="text"
           onPress={() => navigation.navigate("Login")}
-          textColor="#7B61FF"
+          textColor={theme.colors.primaryContainer}
         >
           Sign In
         </Button>
@@ -95,7 +114,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#28333F",
     alignItems: "center",
     paddingTop: 30,
   },
@@ -103,7 +121,6 @@ const styles = StyleSheet.create({
   item: {
     borderRadius: 64,
     alignItems: "center",
-    backgroundColor: "#2F3C50",
     marginVertical: 20,
     width: WIDTH * 0.75,
     height: WIDTH * 0.75,
@@ -120,7 +137,6 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: "#7B61FF",
   },
   inactiveDotStyle: {
     backgroundColor: "gray",
@@ -136,7 +152,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 30,
-    color: "#ffffff",
     paddingVertical: 20,
   },
   caption: {
@@ -154,7 +169,17 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   BottomViewtext: {
-    color: "#ffffff",
     fontSize: 14,
+  },
+  btnText: {
+    fontSize: 18,
+    fontWeight: "700",
+  },
+  button: {
+    width: WIDTH * 0.35,
+    height: 54,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
   },
 });
