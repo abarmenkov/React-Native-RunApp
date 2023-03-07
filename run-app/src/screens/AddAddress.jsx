@@ -8,15 +8,9 @@ import {
   Pressable,
   KeyboardAvoidingView,
 } from "react-native";
-import {
-  Headline,
-  Caption,
-  TextInput,
-  Modal,
-  Portal,
-  useTheme,
-} from "react-native-paper";
+import { Headline, Caption, useTheme } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
+import { WIDTH } from "../utils/Constants";
 
 export const AddAddress = ({ route, navigation }) => {
   const theme = useTheme();
@@ -53,7 +47,11 @@ export const AddAddress = ({ route, navigation }) => {
         >
           <Pressable
             onPress={() => {}}
-            android_ripple={{ color: "#43D4FF", borderless: "false" }}
+            android_ripple={{
+              color: "#43D4FF",
+              borderless: true,
+              //radius: 100,
+            }}
             style={styles.buttonPressable}
           >
             <Text style={{ ...styles.btnText }}>Add Address</Text>
@@ -94,23 +92,9 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     textAlign: "center",
   },
-  pressableView: {
-    marginTop: 100,
-    width: 325,
-    height: 56,
-    borderRadius: 12,
-    overflow: "hidden",
-    alignItems: "center",
-    borderColor: "#7B61FF",
-    borderBottomWidth: 1.5,
-    borderTopWidth: 1.5,
-    borderLeftWidth: 1.5,
-    borderRightWidth: 1.5,
-    backgroundColor: "rgba(28, 37, 44, 0.08)",
-  },
   button: {
     marginTop: 100,
-    width: 325,
+    width: WIDTH * 0.8,
     height: 56,
     borderRadius: 12,
     justifyContent: "center",
@@ -123,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(28, 37, 44, 0.08)",
   },
   buttonPressable: {
-    width: 325,
+    width: WIDTH * 0.8,
     height: 56,
     justifyContent: "center",
     alignItems: "center",
