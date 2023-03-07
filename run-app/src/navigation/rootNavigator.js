@@ -13,6 +13,7 @@ import { VerifyEmail } from "../screens/VerifyEmail";
 import { SignUp } from "../screens/SignUp";
 import { Header } from "../components/Header";
 import { OnBoard } from "../screens/Onboarding";
+import { AddAddress } from "../screens/AddAddress";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -49,6 +50,7 @@ export const RootNavigator = ({ navigation }) => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+      <Stack.Screen name="AddAddress" component={AddAddress} />
     </Stack.Navigator>
   );
 };
