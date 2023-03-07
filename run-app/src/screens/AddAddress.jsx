@@ -11,12 +11,13 @@ import {
 import { Headline, Caption, useTheme } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
 import { WIDTH } from "../utils/Constants";
+import MyButton from "../components/MyButton";
 
 export const AddAddress = ({ route, navigation }) => {
   const theme = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}>
       <LinearGradient
         colors={["#28333F", "#71647E"]}
         start={{
@@ -33,11 +34,11 @@ export const AddAddress = ({ route, navigation }) => {
           source={require("../../assets/images/addAddress.png")}
           style={styles.image}
         />
-        <Headline style={styles.headline}>Add your address</Headline>
+        <Headline style={{...styles.headline, color: theme.colors.onBackground}}>Add your address</Headline>
         <Caption style={styles.caption}>
           Unfortunately we don't know where to deliver your items to you
         </Caption>
-        <LinearGradient
+        {/*<LinearGradient
           colors={[
             "rgba(28, 37, 44, 0.08)",
             "#43D4FF",
@@ -56,7 +57,16 @@ export const AddAddress = ({ route, navigation }) => {
           >
             <Text style={{ ...styles.btnText }}>Add Address</Text>
           </Pressable>
-        </LinearGradient>
+        </LinearGradient>*/}
+        <MyButton
+          label="Add Address"
+          onPress={() => {}}
+          style={{
+            ...styles.button,
+            backgroundColor: theme.colors.primaryContainer,
+          }}
+          textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
+        />
       </LinearGradient>
     </View>
   );
@@ -65,6 +75,9 @@ export const AddAddress = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: 10,
   },
   box: {
     flex: 1,
@@ -73,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    marginTop: 129,
+    marginTop: 110,
     marginBottom: 24,
   },
 
@@ -81,7 +94,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 21,
-    color: "#ffffff",
   },
   caption: {
     color: "#AEA8B3",
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     textAlign: "center",
   },
-  button: {
+  /*button: {
     marginTop: 100,
     width: WIDTH * 0.8,
     height: 56,
@@ -118,5 +130,17 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "600",
     fontSize: 18,
+  },*/
+  btnText: {
+    fontSize: 18,
+    fontWeight: "700",
+  },
+  button: {
+    marginTop: 110,
+    width: WIDTH * 0.8,
+    height: 56,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 12,
   },
 });
