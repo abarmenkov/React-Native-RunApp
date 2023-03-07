@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 export const RootNavigator = ({ navigation }) => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   const theme = useTheme();
   const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 

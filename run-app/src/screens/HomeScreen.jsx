@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { History } from "../components/History";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ProgressBar } from "react-native-paper";
+import { ProgressBar, useTheme } from "react-native-paper";
 //import { AnimatedCircularProgress } from "react-native-circular-progress";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 
 export const HomeScreen = ({ navigation, route }) => {
   /*useEffect(() => {
@@ -13,9 +13,15 @@ export const HomeScreen = ({ navigation, route }) => {
       headerTitle: "Home",
     });
   });*/
+  const theme = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+      }}
+    >
       <View style={styles.top}>
         <View style={styles.topProgress}>
           <View style={styles.topProgressInfo}>
@@ -145,12 +151,6 @@ export const HomeScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#28333F",
-    alignItems: "center",
-  },
   top: {
     flex: 1,
     alignItems: "center",

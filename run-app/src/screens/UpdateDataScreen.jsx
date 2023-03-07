@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { color } from "react-native-reanimated";
 import ProfileContext from "../context/ProfileContext";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { UpdateDialog } from "../components/UpdateDialog.jsx";
 import { STORAGE_KEY, saveData, getData } from "../API/asyncStorageMethods";
@@ -42,7 +42,10 @@ export const UpdateDataScreen = ({ route, navigation }) => {
 
   return (
     <View
-      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+      }}
     >
       <Pressable
         style={{
@@ -92,11 +95,7 @@ export const UpdateDataScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-  },
+
   item: {
     flexDirection: "row",
     justifyContent: "space-between",

@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, Pressable } from "react-native";
-import { useTheme } from "react-native-paper";
+//import { useTheme } from "react-native-paper";
 
 const MyButton = ({ label, onPress, style, textStyle, disabled, ...rest }) => {
   //const disabledOpacity = disabled ? 0.2 : 1;
-  const theme = useTheme();
+  //const theme = useTheme();
   return (
     <Pressable
       onPress={onPress}

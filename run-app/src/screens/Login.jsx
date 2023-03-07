@@ -10,7 +10,7 @@ import {
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
 import InfoMessage from "../components/InfoMessage";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -62,7 +62,10 @@ export const Login = ({ route, navigation }) => {
 
   return (
     <View
-      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+      }}
     >
       <Image
         source={require("../../assets/images/Logo.png")}
@@ -162,8 +165,15 @@ export const Login = ({ route, navigation }) => {
           onPress={() => {
             handleSubmit();
           }}
-          style={{ ...styles.button, backgroundColor: theme.colors.primaryContainer }}
-          textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
+          style={{
+            ...AppStyles.button,
+            backgroundColor: theme.colors.primaryContainer,
+            marginTop: 25,
+          }}
+          textStyle={{
+            ...AppStyles.btnText,
+            color: theme.colors.onBackground,
+          }}
           disabled={!isValid || isSubmitting}
         />
       </View>
@@ -229,12 +239,6 @@ export const Login = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    paddingTop: 10,
-  },
   logo: {
     marginTop: 14,
     marginBottom: 22,
@@ -305,18 +309,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   checkBoxText: { fontSize: 14 },
-  btnText: {
-    fontSize: 18,
-    fontWeight: "700",
-  },
-  button: {
-    marginTop: 25,
-    width: WIDTH * 0.8,
-    height: 56,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 12,
-  },
   textInputContainer: {
     marginBottom: 16,
     height: 66,

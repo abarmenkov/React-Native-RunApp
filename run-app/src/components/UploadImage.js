@@ -106,7 +106,7 @@ export default function UploadImage() {
   return (
     <View style={imageUploaderStyles.container}>
       {image && (
-        <Image source={{ uri: image }} style={{ width: 60, height: 60 }} />
+        <Image source={{ uri: image }} style={{ width: 52, height: 52 }} />
       )}
       <View style={imageUploaderStyles.uploadBtnContainer}>
         <TouchableOpacity
@@ -163,8 +163,8 @@ export default function UploadImage() {
 const imageUploaderStyles = StyleSheet.create({
   container: {
     elevation: 2,
-    height: 60,
-    width: 60,
+    height: 52,
+    width: 52,
     backgroundColor: "#efefef",
     position: "relative",
     borderRadius: 999,

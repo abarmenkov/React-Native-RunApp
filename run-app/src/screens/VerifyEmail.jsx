@@ -19,7 +19,7 @@ import {
 } from "react-native-paper";
 // import { openInbox } from "react-native-email-link";
 import MyButton from "../components/MyButton";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 
 export const VerifyEmail = ({ route, navigation }) => {
   const theme = useTheme();
@@ -50,7 +50,10 @@ export const VerifyEmail = ({ route, navigation }) => {
   };
   return (
     <View
-      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+      }}
     >
       <Image
         source={require("../../assets/images/verifyEmail.png")}
@@ -178,10 +181,11 @@ export const VerifyEmail = ({ route, navigation }) => {
         label="Verify Email"
         onPress={() => navigation.navigate("AddAddress")}
         style={{
-          ...styles.button,
+          ...AppStyles.button,
           backgroundColor: theme.colors.primaryContainer,
+          marginVertical: 12,
         }}
-        textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
+        textStyle={{ ...AppStyles.btnText, color: theme.colors.onBackground }}
       />
       <MyButton
         label="Open mail app"
@@ -189,7 +193,8 @@ export const VerifyEmail = ({ route, navigation }) => {
           Linking.openURL("mailto:ab1975@mail.ru?subject=sendmail&body=details")
         }
         style={{
-          ...styles.button,
+          ...AppStyles.button,
+          marginVertical: 12,
           borderColor: theme.colors.primaryContainer,
           borderBottomWidth: 1.5,
           borderTopWidth: 1.5,
@@ -197,18 +202,16 @@ export const VerifyEmail = ({ route, navigation }) => {
           borderRightWidth: 1.5,
           backgroundColor: "rgba(28, 37, 44, 0.08)",
         }}
-        textStyle={{ ...styles.btnText, color: theme.colors.primaryContainer }}
+        textStyle={{
+          ...AppStyles.btnText,
+          color: theme.colors.primaryContainer,
+        }}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-  },
   image: {
     marginTop: 30,
     marginBottom: 30,
@@ -242,17 +245,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginHorizontal: 12,
     textAlign: "center",
-  },
-  button: {
-    marginVertical: 12,
-    width: WIDTH * 0.8,
-    height: 56,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 12,
-  },
-  btnText: {
-    fontWeight: "700",
-    fontSize: 18,
   },
 });

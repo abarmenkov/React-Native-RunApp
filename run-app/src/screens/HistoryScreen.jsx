@@ -4,7 +4,7 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { activityHistory } from "../utils/data";
 import { History } from "../components/History";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 
 export const HistoryScreen = ({ route, navigation }) => {
   const theme = useTheme();
@@ -24,7 +24,12 @@ export const HistoryScreen = ({ route, navigation }) => {
     }, 0) / data.length;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+      }}
+    >
       <View style={styles.totalInfoContainer}>
         <View style={styles.totalItem}>
           <Image
@@ -63,12 +68,6 @@ export const HistoryScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#28333F",
-    alignItems: "center",
-  },
   totalInfoContainer: {
     flexDirection: "row",
     width: WIDTH * 0.9,

@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Button, Headline, Caption, useTheme } from "react-native-paper";
 import { sliderOnboard } from "../utils/data";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 import MyButton from "../components/MyButton";
 
 export const SLIDER_WIDTH = WIDTH;
@@ -63,8 +63,17 @@ export const OnBoard = ({ route, navigation }) => {
             onPress={() => {
               goForward();
             }}
-            style={{ ...styles.button, backgroundColor: theme.colors.primaryContainer }}
-            textStyle={{ ...styles.btnText, color: theme.colors.onBackground }}
+            style={{
+              ...AppStyles.button,
+              backgroundColor: theme.colors.primaryContainer,
+              width: WIDTH * 0.35,
+              height: 54,
+              borderRadius: 20,
+            }}
+            textStyle={{
+              ...AppStyles.btnText,
+              color: theme.colors.onBackground,
+            }}
           />
         </View>
       </TouchableOpacity>
@@ -73,7 +82,11 @@ export const OnBoard = ({ route, navigation }) => {
 
   return (
     <View
-      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+        paddingTop: 30,
+      }}
     >
       <Image
         source={require("../../assets/images/onboarding.png")}
@@ -111,13 +124,6 @@ export const OnBoard = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    paddingTop: 30,
-  },
-
   item: {
     borderRadius: 64,
     alignItems: "center",
@@ -170,16 +176,5 @@ const styles = StyleSheet.create({
   },
   BottomViewtext: {
     fontSize: 14,
-  },
-  btnText: {
-    fontSize: 18,
-    fontWeight: "700",
-  },
-  button: {
-    width: WIDTH * 0.35,
-    height: 54,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
   },
 });

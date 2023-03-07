@@ -1,5 +1,6 @@
 import React from "react";
-import { Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+
 export const appDarkColors = {
   colors: {
     primary: "rgb(153, 203, 255)",
@@ -91,3 +92,33 @@ export const appDefaultColors = {
 };
 
 export const WIDTH = Dimensions.get("window").width;
+
+export const AppStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  btnText: {
+    fontSize: 18,
+    fontWeight: "700",
+  },
+  button: {
+    width: WIDTH * 0.8,
+    height: 56,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 12,
+  },
+  profilePressable: {
+    width: WIDTH * 0.85,
+    height: 56,
+    paddingHorizontal: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "center",
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+});

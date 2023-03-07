@@ -10,10 +10,10 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { List } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import { color } from "react-native-reanimated";
 import ProfileContext from "../context/ProfileContext";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
@@ -22,6 +22,7 @@ import UploadImage from "../components/UploadImage";
 import { saveData, STORAGE_KEY } from "../API/asyncStorageMethods";
 
 export const ProfileScreen = ({ route, navigation }) => {
+  const theme = useTheme();
   const [profileData, setProfileDAta] = useContext(ProfileContext);
   const [date, setDate] = useState(new Date());
   const [expanded, setExpanded] = useState(true);
@@ -58,7 +59,13 @@ export const ProfileScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+        paddingVertical: 50,
+      }}
+    >
       <ScrollView>
         <Pressable
           onPress={() =>
@@ -69,17 +76,8 @@ export const ProfileScreen = ({ route, navigation }) => {
             })
           }
           style={{
-            backgroundColor: "rgba(47, 60, 80, 0.4)",
-            width: WIDTH * 0.9,
-            height: 50,
-            paddingHorizontal: 15,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-
-            marginBottom: 20,
+            ...AppStyles.profilePressable,
+            backgroundColor: theme.colors.onSecondaryContainer,
           }}
         >
           <View style={{ width: "45%" }}>
@@ -98,17 +96,8 @@ export const ProfileScreen = ({ route, navigation }) => {
             })
           }
           style={{
-            backgroundColor: "rgba(47, 60, 80, 0.4)",
-            width: WIDTH * 0.9,
-            height: 50,
-            paddingHorizontal: 15,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-            overflow: "hidden",
-            marginBottom: 20,
+            ...AppStyles.profilePressable,
+            backgroundColor: theme.colors.onSecondaryContainer,
           }}
         >
           <View style={{ width: "45%" }}>
@@ -121,17 +110,8 @@ export const ProfileScreen = ({ route, navigation }) => {
         <Pressable
           onPress={() => {}}
           style={{
-            backgroundColor: "rgba(47, 60, 80, 0.4)",
-            width: WIDTH * 0.9,
-            height: 50,
-            paddingHorizontal: 15,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-            overflow: "hidden",
-            marginBottom: 20,
+            ...AppStyles.profilePressable,
+            backgroundColor: theme.colors.onSecondaryContainer,
           }}
         >
           <View style={{ width: "45%" }}>
@@ -163,17 +143,8 @@ export const ProfileScreen = ({ route, navigation }) => {
             })
           }
           style={{
-            backgroundColor: "rgba(47, 60, 80, 0.4)",
-            width: WIDTH * 0.9,
-            height: 50,
-            paddingHorizontal: 15,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-            overflow: "hidden",
-            marginBottom: 20,
+            ...AppStyles.profilePressable,
+            backgroundColor: theme.colors.onSecondaryContainer,
           }}
         >
           <View style={{ width: "45%" }}>
@@ -192,17 +163,8 @@ export const ProfileScreen = ({ route, navigation }) => {
             })
           }
           style={{
-            backgroundColor: "rgba(47, 60, 80, 0.4)",
-            width: WIDTH * 0.9,
-            height: 50,
-            paddingHorizontal: 15,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-            marginBottom: 20,
-            overflow: "hidden",
+            ...AppStyles.profilePressable,
+            backgroundColor: theme.colors.onSecondaryContainer,
           }}
         >
           <View style={{ width: "45%" }}>
@@ -215,17 +177,8 @@ export const ProfileScreen = ({ route, navigation }) => {
         <Pressable
           onPress={showDatepicker}
           style={{
-            backgroundColor: "rgba(47, 60, 80, 0.4)",
-            width: WIDTH * 0.9,
-            height: 50,
-            paddingHorizontal: 15,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-            marginBottom: 20,
-            overflow: "hidden",
+            ...AppStyles.profilePressable,
+            backgroundColor: theme.colors.onSecondaryContainer,
           }}
         >
           <View style={{ width: "45%" }}>
@@ -239,17 +192,8 @@ export const ProfileScreen = ({ route, navigation }) => {
         <Pressable
           onPress={() => {}}
           style={{
-            backgroundColor: "rgba(47, 60, 80, 0.4)",
-            width: WIDTH * 0.9,
-            height: 100,
-            paddingHorizontal: 15,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            alignSelf: "center",
-            borderRadius: 20,
-            marginBottom: 20,
-            overflow: "hidden",
+            ...AppStyles.profilePressable,
+            backgroundColor: theme.colors.onSecondaryContainer,
           }}
         >
           <View style={{ width: "45%" }}>
@@ -265,13 +209,6 @@ export const ProfileScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#28333F",
-    alignItems: "center",
-    paddingVertical: 50,
-  },
   item: {
     flexDirection: "row",
     justifyContent: "space-between",
