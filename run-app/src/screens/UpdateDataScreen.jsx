@@ -16,11 +16,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { UpdateDialog } from "../components/UpdateDialog.jsx";
 import { STORAGE_KEY, saveData, getData } from "../API/asyncStorageMethods";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTheme } from "react-native-paper";
 
 export const UpdateDataScreen = ({ route, navigation }) => {
   const [profileData, setProfileData] = useContext(ProfileContext);
   const { field, fieldName, keyboardType } = route.params;
   const [data, setData] = useState(profileData[field]);
+  const theme = useTheme();
   const onConfirm = () => {
     setProfileData({ ...profileData, [field]: data });
 
@@ -39,7 +41,9 @@ export const UpdateDataScreen = ({ route, navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.onSecondary }}
+    >
       <Pressable
         style={{
           backgroundColor: "rgba(47, 60, 80, 0.4)",
@@ -56,7 +60,11 @@ export const UpdateDataScreen = ({ route, navigation }) => {
         }}
       >
         <View style={{ width: "35%" }}>
-          <Text style={styles.itemTitle}>{fieldName}</Text>
+          <Text
+            style={{ ...styles.itemTitle, color: theme.colors.onBackground }}
+          >
+            {fieldName}
+          </Text>
         </View>
         <View
           style={{ width: "40%", backgroundColor: "grey", borderRadius: 20 }}
@@ -65,6 +73,7 @@ export const UpdateDataScreen = ({ route, navigation }) => {
             style={{
               ...styles.itemInfo,
               width: "100%",
+              color: theme.colors.onBackground,
             }}
             onChangeText={(text) => {
               setData(text);
@@ -86,7 +95,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#28333F",
     alignItems: "center",
   },
   item: {
@@ -99,14 +107,11 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontSize: 16,
     fontWeight: "400",
-    color: "#ffffff",
-
     textAlign: "left",
   },
   itemInfo: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#ffffff",
     textAlign: "center",
   },
 });

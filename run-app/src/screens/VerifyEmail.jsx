@@ -190,7 +190,7 @@ export const VerifyEmail = ({ route, navigation }) => {
         }
         style={{
           ...styles.button,
-          borderColor: "#7B61FF",
+          borderColor: theme.colors.primaryContainer,
           borderBottomWidth: 1.5,
           borderTopWidth: 1.5,
           borderLeftWidth: 1.5,
