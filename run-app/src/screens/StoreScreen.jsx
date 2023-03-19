@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Headline, Caption, useTheme } from "react-native-paper";
 import { storeData } from "../utils/data";
-import { WIDTH } from "../utils/Constants";
+import { WIDTH, AppStyles } from "../utils/Constants";
 
 export const StoreScreen = ({ route, navigation }) => {
   const { filterTypes, specials } = storeData;
@@ -62,14 +62,19 @@ export const StoreScreen = ({ route, navigation }) => {
     );
   };
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...AppStyles.container,
+        backgroundColor: theme.colors.onSecondary,
+      }}
+    >
       <View style={styles.topFilter}>
         <FlatList
           contentContainerStyle={{
-            backgroundColor: "#28333F",
+            backgroundColor: theme.colors.onSecondary,
           }}
           style={{
-            backgroundColor: "#28333F",
+            backgroundColor: theme.colors.onSecondary,
           }}
           data={filterTypes}
           renderItem={renderItem}
@@ -83,10 +88,10 @@ export const StoreScreen = ({ route, navigation }) => {
       <View style={styles.specials}>
         <FlatList
           contentContainerStyle={{
-            backgroundColor: "#28333F",
+            backgroundColor: theme.colors.onSecondary,
           }}
           style={{
-            backgroundColor: "#28333F",
+            backgroundColor: theme.colors.onSecondary,
           }}
           data={specials}
           renderItem={renderSpecial}
@@ -170,7 +175,13 @@ export const StoreScreen = ({ route, navigation }) => {
           </Text>
         </View>
         <View style={styles.popularItems}>
-          <Pressable style={styles.popularItem} onPress={() => {}}>
+          <Pressable
+            style={{
+              ...styles.popularItem,
+              backgroundColor: theme.colors.onSecondaryContainer,
+            }}
+            onPress={() => {}}
+          >
             <View style={styles.popularItemImageBlock}>
               <Image
                 source={require("../../assets/images/nike2.png")}
@@ -188,7 +199,13 @@ export const StoreScreen = ({ route, navigation }) => {
             <Text style={styles.popularItemBrand}>Nike</Text>
             <Text style={styles.popularItemModel}>Air Force 1 Low '07</Text>
           </Pressable>
-          <Pressable style={styles.popularItem} onPress={() => {}}>
+          <Pressable
+            style={{
+              ...styles.popularItem,
+              backgroundColor: theme.colors.onSecondaryContainer,
+            }}
+            onPress={() => {}}
+          >
             <View style={styles.popularItemImageBlock}>
               <Image
                 source={require("../../assets/images/nike1.png")}
@@ -213,11 +230,6 @@ export const StoreScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#28333F",
-  },
   topFilter: {
     width: WIDTH,
     paddingHorizontal: 8,
@@ -254,17 +266,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 5,
   },
 
-  item: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderRadius: 24,
-    alignItems: "center",
-    backgroundColor: "#2F3C50",
-    marginVertical: 12,
-    width: 343,
-    height: 148,
-    paddingHorizontal: 16,
-  },
   specials: {
     width: WIDTH,
   },
@@ -317,6 +318,7 @@ const styles = StyleSheet.create({
   brands: {
     paddingHorizontal: 16,
     paddingVertical: 24,
+    width: WIDTH,
   },
   brandsRow: {
     flexDirection: "row",
@@ -342,6 +344,7 @@ const styles = StyleSheet.create({
   },
   popular: {
     paddingHorizontal: 16,
+    width: WIDTH,
   },
   popularTitle: {
     flexDirection: "row",
@@ -367,7 +370,6 @@ const styles = StyleSheet.create({
   popularItem: {
     width: WIDTH * 0.43,
     height: 174,
-    backgroundColor: "#2F3C50",
     borderRadius: 12,
     borderColor: "#484C53",
     borderWidth: 0.5,

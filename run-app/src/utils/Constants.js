@@ -112,7 +112,7 @@ export const AppStyles = StyleSheet.create({
   },
   profilePressable: {
     width: WIDTH * 0.85,
-    height: 56,
+    height: 60,
     paddingHorizontal: 15,
     flexDirection: "row",
     justifyContent: "space-between",

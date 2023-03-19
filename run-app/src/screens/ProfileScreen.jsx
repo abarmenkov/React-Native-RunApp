@@ -209,13 +209,6 @@ export const ProfileScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  item: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginVertical: 25,
-    width: WIDTH * 0.85,
-  },
   itemTitle: {
     fontSize: 14,
     fontWeight: "400",
