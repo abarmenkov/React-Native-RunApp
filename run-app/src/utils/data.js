@@ -39,7 +39,7 @@ export const activityHistory = [
   },
   {
     id: 3,
-    date: "25 jan",
+    date: "27 jan",
     time: 60,
     numberOfSteps: 1234,
     distance: 10,
@@ -49,7 +49,7 @@ export const activityHistory = [
   },
   {
     id: 4,
-    date: "26 jan",
+    date: "28 jan",
     time: 30,
     numberOfSteps: 1331,
     distance: 11,
@@ -59,7 +59,7 @@ export const activityHistory = [
   },
   {
     id: 5,
-    date: "25 jan",
+    date: "29 jan",
     time: 60,
     numberOfSteps: 1234,
     distance: 10,
@@ -69,7 +69,7 @@ export const activityHistory = [
   },
   {
     id: 6,
-    date: "26 jan",
+    date: "26 feb",
     time: 30,
     numberOfSteps: 1331,
     distance: 11,
@@ -79,7 +79,7 @@ export const activityHistory = [
   },
   {
     id: 7,
-    date: "25 jan",
+    date: "27 feb",
     time: 60,
     numberOfSteps: 1234,
     distance: 10,
@@ -89,7 +89,7 @@ export const activityHistory = [
   },
   {
     id: 8,
-    date: "26 jan",
+    date: "28 feb",
     time: 30,
     numberOfSteps: 1331,
     distance: 11,

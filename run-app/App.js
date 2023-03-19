@@ -9,12 +9,14 @@ import {
 } from "react-native-paper";
 import { appDarkColors, appDefaultColors } from "./src/utils/Constants";
 import ProfileContext from "./src/context/ProfileContext";
+import AchievementsContext from "./src/context/AchievementsContext";
 import {
   STORAGE_KEY,
   getData,
   clearStorage,
 } from "./src/API/asyncStorageMethods";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { activityHistory } from "./src/utils/data";
 //import { name as appName } from "./app.json";
 //import { AppRegistry } from "react-native";
 
@@ -40,6 +42,7 @@ const CombinedDarkTheme = {
 export default function App() {
   const [isThemeDark, setIsThemeDark] = useState(null);
   const [profileData, setProfileData] = useState(null);
+  const [achievementsData, setAchievementsData] = useState(activityHistory);
   const initialState = {
     name: "Andrey",
     surname: "Barmenkov",
@@ -83,7 +86,11 @@ export default function App() {
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
         <ProfileContext.Provider value={[profileData, setProfileData]}>
-          <StartingStack />
+          <AchievementsContext.Provider
+            value={[achievementsData, setAchievementsData]}
+          >
+            <StartingStack />
+          </AchievementsContext.Provider>
         </ProfileContext.Provider>
       </PaperProvider>
     </PreferencesContext.Provider>

@@ -1,14 +1,17 @@
 //import { rows } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
-import React from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { activityHistory } from "../utils/data";
 import { History } from "../components/History";
 import { WIDTH, AppStyles } from "../utils/Constants";
+import AchievementsContext from "../context/AchievementsContext";
 
 export const HistoryScreen = ({ route, navigation }) => {
   const theme = useTheme();
-  const data = [...activityHistory];
+  const [achievementsData, setAchievementsData] =
+    useContext(AchievementsContext);
+  const data = [...achievementsData];
   const totalTime = data.reduce((acc, current) => {
     acc += current.time;
     return acc;
