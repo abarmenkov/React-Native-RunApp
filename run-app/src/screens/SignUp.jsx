@@ -16,12 +16,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 export const SignUp = ({ route, navigation }) => {
-  const [email, setEmail] = useState("");
+  /*const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [checked, setChecked] = useState(false);*/
   const [securePasswordEntry, setSecurePasswordEntry] = useState(true);
   const [secureConfirmationEntry, setSecureConfirmationEntry] = useState(true);
-  const [checked, setChecked] = useState(false);
 
   const passwordRef = useRef(null);
   const passwordConfirmRef = useRef(null);

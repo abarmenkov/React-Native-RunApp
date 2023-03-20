@@ -121,4 +121,12 @@ export const AppStyles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 20,
   },
+  itemTitle: {
+    fontSize: 14,
+    fontWeight: "400",
+  },
+  itemInfo: {
+    fontSize: 16,
+    fontWeight: "400",
+  },
 });

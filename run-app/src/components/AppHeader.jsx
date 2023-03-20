@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Appbar, Avatar, useTheme, Text } from "react-native-paper";
-import { TouchableOpacity, View } from "react-native";
+import { Alert, TouchableOpacity, View } from "react-native";
 import {
   MaterialCommunityIcons,
   MaterialIcons,
@@ -89,7 +89,13 @@ export const AppHeader = ({ routeName, navigation }) => {
                 icon={require("../../assets/images/direct-notification.png")}
                 size={24}
                 color={theme.colors.onBackground}
-                onPress={() => {}}
+                onPress={
+                  routeName !== "Achievements"
+                    ? () => Alert.alert(routeName)
+                    : () => {
+                        navigation.navigate("AddActivity");
+                      }
+                }
               />
 
               <Appbar.Action

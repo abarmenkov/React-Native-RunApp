@@ -1,15 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  Image,
-  Alert,
-  TextInput,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { View, Text, Pressable, ScrollView } from "react-native";
 import { useTheme } from "react-native-paper";
 import { color } from "react-native-reanimated";
 import ProfileContext from "../context/ProfileContext";
@@ -81,10 +71,24 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemTitle}>Имя</Text>
+            <Text
+              style={{
+                ...AppStyles.itemTitle,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Имя
+            </Text>
           </View>
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemInfo}>{profileData.name}</Text>
+            <Text
+              style={{
+                ...AppStyles.itemInfo,
+                color: theme.colors.onBackground,
+              }}
+            >
+              {profileData.name}
+            </Text>
           </View>
         </Pressable>
         <Pressable
@@ -101,10 +105,24 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemTitle}>Фамилия</Text>
+            <Text
+              style={{
+                ...AppStyles.itemTitle,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Фамилия
+            </Text>
           </View>
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemInfo}>{profileData.surname}</Text>
+            <Text
+              style={{
+                ...AppStyles.itemInfo,
+                color: theme.colors.onBackground,
+              }}
+            >
+              {profileData.surname}
+            </Text>
           </View>
         </Pressable>
         <Pressable
@@ -115,7 +133,14 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemTitle}>Пол</Text>
+            <Text
+              style={{
+                ...AppStyles.itemTitle,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Пол
+            </Text>
           </View>
           <View style={{ width: "45%" }}>
             <Picker
@@ -124,7 +149,10 @@ export const ProfileScreen = ({ route, navigation }) => {
                 setProfileDAta({ ...profileData, gender: itemValue });
                 setDate({ ...profileData, gender: itemValue });
               }}
-              style={{ ...styles.itemInfo }}
+              style={{
+                ...AppStyles.itemInfo,
+                color: theme.colors.onBackground,
+              }}
               mode={"dropdown"}
               dropdownIconColor={"#ffffff"}
               dropdownIconRippleColor={"green"}
@@ -148,10 +176,24 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemTitle}>Телефон</Text>
+            <Text
+              style={{
+                ...AppStyles.itemTitle,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Телефон
+            </Text>
           </View>
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemInfo}>{profileData.phone}</Text>
+            <Text
+              style={{
+                ...AppStyles.itemInfo,
+                color: theme.colors.onBackground,
+              }}
+            >
+              {profileData.phone}
+            </Text>
           </View>
         </Pressable>
         <Pressable
@@ -168,10 +210,24 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemTitle}>Email</Text>
+            <Text
+              style={{
+                ...AppStyles.itemTitle,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Email
+            </Text>
           </View>
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemInfo}>{profileData.email}</Text>
+            <Text
+              style={{
+                ...AppStyles.itemInfo,
+                color: theme.colors.onBackground,
+              }}
+            >
+              {profileData.email}
+            </Text>
           </View>
         </Pressable>
         <Pressable
@@ -182,10 +238,24 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemTitle}>Birthday</Text>
+            <Text
+              style={{
+                ...AppStyles.itemTitle,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Birthday
+            </Text>
           </View>
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemInfo}>{profileData.birthday}</Text>
+            <Text
+              style={{
+                ...AppStyles.itemInfo,
+                color: theme.colors.onBackground,
+              }}
+            >
+              {profileData.birthday}
+            </Text>
           </View>
         </Pressable>
 
@@ -197,7 +267,14 @@ export const ProfileScreen = ({ route, navigation }) => {
           }}
         >
           <View style={{ width: "45%" }}>
-            <Text style={styles.itemTitle}>Image</Text>
+            <Text
+              style={{
+                ...AppStyles.itemTitle,
+                color: theme.colors.onBackground,
+              }}
+            >
+              Image
+            </Text>
           </View>
           <View style={{ width: "45%" }}>
             <UploadImage />
@@ -207,21 +284,3 @@ export const ProfileScreen = ({ route, navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  itemTitle: {
-    fontSize: 14,
-    fontWeight: "400",
-    color: "#ffffff",
-  },
-  itemInfo: {
-    fontSize: 16,
-    fontWeight: "400",
-    color: "#ffffff",
-  },
-  filterTypesImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 100,
-  },
-});

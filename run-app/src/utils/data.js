@@ -173,3 +173,16 @@ export const storeData = {
     },
   ],
 };
+
+export const initialState = {
+  name: "Andrey",
+  surname: "Barmenkov",
+  birthday: null,
+  avatar: null,
+  gender: "male",
+  email: "ab1975@mail.ru",
+  phone: "89166505275",
+  address: "",
+  uri: null,
+  CCInfo: null,
+};

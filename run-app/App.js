@@ -16,7 +16,7 @@ import {
   clearStorage,
 } from "./src/API/asyncStorageMethods";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { activityHistory } from "./src/utils/data";
+import { activityHistory, initialState } from "./src/utils/data";
 //import { name as appName } from "./app.json";
 //import { AppRegistry } from "react-native";
 
@@ -43,7 +43,7 @@ export default function App() {
   const [isThemeDark, setIsThemeDark] = useState(null);
   const [profileData, setProfileData] = useState(null);
   const [achievementsData, setAchievementsData] = useState(activityHistory);
-  const initialState = {
+  /*const initialState = {
     name: "Andrey",
     surname: "Barmenkov",
     birthday: null,
@@ -54,8 +54,7 @@ export default function App() {
     address: "",
     uri: null,
     CCInfo: null,
-  };
-
+  };*/
   useEffect(() => {
     //clearStorage();
     getData(STORAGE_KEY, setProfileData, initialState);
