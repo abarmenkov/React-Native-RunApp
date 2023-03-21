@@ -26,11 +26,11 @@ const MyTextInput = forwardRef(
     return (
       <View
         style={{
-          ...viewStyle,
           flexDirection: "row",
           alignItems: "center",
           borderColor: !touched ? null : error ? theme.colors.error : "green",
           borderWidth: StyleSheet.hairlineWidth,
+          ...viewStyle,
         }}
       >
         <View style={{ padding: 8 }}>

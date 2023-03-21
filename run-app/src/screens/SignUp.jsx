@@ -131,6 +131,7 @@ export const SignUp = ({ route, navigation }) => {
             onBlur={handleBlur("password")}
             error={errors.password}
             touched={touched.password}
+            onSubmitEditing={() => passwordConfirmRef.current?.focus()}
           />
           <InfoMessage
             errorValue={touched.password && errors.password}

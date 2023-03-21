@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import formatDate from "../utils/formatDate";
 import { saveData, STORAGE_KEY } from "../API/asyncStorageMethods";
 import AchievementsContext from "../context/AchievementsContext";
 import MyButton from "../components/MyButton";
+import MyTextInput from "../components/MyInput";
 
 export const AddActivityScreen = ({ route, navigation }) => {
   const theme = useTheme();
@@ -31,6 +32,11 @@ export const AddActivityScreen = ({ route, navigation }) => {
   const [steps, setSteps] = useState(null);
   const [calories, setCalories] = useState(null);
   const [expanded, setExpanded] = useState(true);
+
+  const stepsRef = useRef(null);
+  const caloriesRef = useRef(null);
+  const distanceRef = useRef(null);
+
   const MyButtonOnPress = () => {
     setAchievementsData([
       ...achievementsData,
@@ -48,16 +54,6 @@ export const AddActivityScreen = ({ route, navigation }) => {
     navigation.goBack();
   };
 
-  const activity = {
-    id: uid(),
-    date: null,
-    time: 60,
-    numberOfSteps: null,
-    distance: null,
-    weight: 80,
-    calories: null,
-    heartBeat: 120,
-  };
   const onSubmit = () => {
     Alert.alert("Изменение данных", "Изменить данные?", [
       {
@@ -155,21 +151,31 @@ export const AddActivityScreen = ({ route, navigation }) => {
               backgroundColor: theme.colors.onSecondaryContainer,
             }}
           >
-            <TextInput
+            <MyTextInput
               style={{
                 ...AppStyles.itemInfo,
                 width: "100%",
                 color: theme.colors.onBackground,
               }}
+              viewStyle={{
+                fontSize: 16,
+                borderColor: "gray",
+                backgroundColor: theme.colors.onSecondaryContainer,
+                borderRadius: 12,
+              }}
               onChangeText={(text) => {
                 setSteps(text);
               }}
+              placeholder="add steps"
               value={steps}
               keyboardType={"number-pad"}
+              keyboardAppearance="dark"
+              returnKeyType="next"
+              returnKeyLabel="next"
               //autoFocus={true}
-              maxLength={12}
+              maxLength={5}
               editable
-              //onSubmitEditing={() => onSubmit()}
+              onSubmitEditing={() => caloriesRef.current?.focus()}
             />
           </View>
         </Pressable>
@@ -195,21 +201,32 @@ export const AddActivityScreen = ({ route, navigation }) => {
               backgroundColor: theme.colors.onSecondaryContainer,
             }}
           >
-            <TextInput
+            <MyTextInput
+              ref={caloriesRef}
               style={{
                 ...AppStyles.itemInfo,
                 width: "100%",
                 color: theme.colors.onBackground,
               }}
+              viewStyle={{
+                fontSize: 16,
+                borderColor: "gray",
+                backgroundColor: theme.colors.onSecondaryContainer,
+                borderRadius: 12,
+              }}
               onChangeText={(text) => {
                 setCalories(text);
               }}
+              placeholder="add calories"
               value={calories}
               keyboardType={"number-pad"}
+              keyboardAppearance="dark"
+              returnKeyType="next"
+              returnKeyLabel="next"
               //autoFocus={true}
-              maxLength={12}
+              maxLength={7}
               editable
-              //onSubmitEditing={() => onSubmit()}
+              onSubmitEditing={() => distanceRef.current?.focus()}
             />
           </View>
         </Pressable>
@@ -236,27 +253,37 @@ export const AddActivityScreen = ({ route, navigation }) => {
               backgroundColor: theme.colors.onSecondaryContainer,
             }}
           >
-            <TextInput
+            <MyTextInput
+              ref={distanceRef}
               style={{
                 ...AppStyles.itemInfo,
                 width: "100%",
                 color: theme.colors.onBackground,
               }}
+              viewStyle={{
+                fontSize: 16,
+                borderColor: "gray",
+                backgroundColor: theme.colors.onSecondaryContainer,
+                borderRadius: 12,
+              }}
               onChangeText={(text) => {
                 setDistance(text);
               }}
+              placeholder="add distance"
               value={distance}
               keyboardType={"number-pad"}
+              keyboardAppearance="dark"
+              returnKeyType="go"
+              returnKeyLabel="go"
               //autoFocus={true}
-              maxLength={12}
+              maxLength={5}
               editable
-              //onSubmitEditing={() => onSubmit()}
             />
           </View>
         </Pressable>
       </ScrollView>
       <MyButton
-        label="Сохранить"
+        label="Save"
         onPress={() => MyButtonOnPress()}
         style={{
           ...AppStyles.button,
