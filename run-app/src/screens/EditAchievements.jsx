@@ -18,6 +18,7 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import formatDate from "../utils/formatDate";
 import { saveData, STORAGE_KEY } from "../API/asyncStorageMethods";
 import AchievementsContext from "../context/AchievementsContext";
+import MyButton from "../components/MyButton";
 
 export const AddActivityScreen = ({ route, navigation }) => {
   const theme = useTheme();
@@ -30,6 +31,22 @@ export const AddActivityScreen = ({ route, navigation }) => {
   const [steps, setSteps] = useState(null);
   const [calories, setCalories] = useState(null);
   const [expanded, setExpanded] = useState(true);
+  const MyButtonOnPress = () => {
+    setAchievementsData([
+      ...achievementsData,
+      {
+        id: uid(),
+        date: activityDate,
+        time: 60,
+        numberOfSteps: steps,
+        distance,
+        weight: 80,
+        calories,
+        heartBeat: 120,
+      },
+    ]);
+    navigation.goBack();
+  };
 
   const activity = {
     id: uid(),
@@ -56,10 +73,7 @@ export const AddActivityScreen = ({ route, navigation }) => {
   const onChange = (event, selectedDate) => {
     //const currentDate = selectedDate.toLocaleDateString();
     const currentDate = formatDate(selectedDate);
-    //Alert.alert(currentDate);
-    activity.date = currentDate;
-    //Alert.alert(activity.date);
-    //saveData(STORAGE_KEY, { ...profileData, birthday: currentDate });
+
     setDate(selectedDate);
     setActivityDate(currentDate);
   };
@@ -241,6 +255,17 @@ export const AddActivityScreen = ({ route, navigation }) => {
           </View>
         </Pressable>
       </ScrollView>
+      <MyButton
+        label="Сохранить"
+        onPress={() => MyButtonOnPress()}
+        style={{
+          ...AppStyles.button,
+          backgroundColor: theme.colors.primaryContainer,
+          marginVertical: 25,
+        }}
+        textStyle={{ ...AppStyles.btnText, color: theme.colors.onBackground }}
+        disabled={false}
+      />
     </View>
   );
 };

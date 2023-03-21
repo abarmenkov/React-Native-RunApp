@@ -22,12 +22,12 @@ export const activityHistory = [
     date: "25 jan",
     time: 60,
     numberOfSteps: 1234,
-    distance: 10,
+    distance: 100,
     weight: 80,
     calories: 250,
     heartBeat: 120,
   },
-  {
+  /*{
     id: 2,
     date: "26 jan",
     time: 30,
@@ -116,7 +116,7 @@ export const activityHistory = [
     weight: 80,
     calories: 260,
     heartBeat: 123,
-  },
+  },*/
 ];
 
 export const storeData = {

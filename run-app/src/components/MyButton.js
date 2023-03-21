@@ -11,7 +11,7 @@ const MyButton = ({ label, onPress, style, textStyle, disabled, ...rest }) => {
       style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }, style]}
 
       //activeOpacity={0.7}
-      //disabled={disabled}
+      disabled={disabled}
       {...rest}
     >
       <Text style={textStyle}>{label}</Text>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -9,9 +9,12 @@ import {
 } from "react-native";
 import { activityHistory } from "../utils/data";
 import { WIDTH } from "../utils/Constants";
+import AchievementsContext from "../context/AchievementsContext";
 
 export const History = () => {
-  const data = [...activityHistory];
+  const [achievementsData, setAchievementsData] =
+    useContext(AchievementsContext);
+  const data = [...achievementsData];
 
   const renderItem = ({ item }) => {
     return (

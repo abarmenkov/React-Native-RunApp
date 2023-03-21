@@ -11,13 +11,14 @@ export const HistoryScreen = ({ route, navigation }) => {
   const theme = useTheme();
   const [achievementsData, setAchievementsData] =
     useContext(AchievementsContext);
+    
   const data = [...achievementsData];
   const totalTime = data.reduce((acc, current) => {
     acc += current.time;
     return acc;
   }, 0);
   const totalDistance = data.reduce((acc, current) => {
-    acc += current.distance;
+    acc += Number(current.distance);
     return acc;
   }, 0);
   const heartBeat =
