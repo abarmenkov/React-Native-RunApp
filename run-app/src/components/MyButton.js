@@ -8,8 +8,7 @@ const MyButton = ({ label, onPress, style, textStyle, disabled, ...rest }) => {
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }, style]}
-
+      style={({ pressed }) => [style, { opacity: pressed ? 0.5 : 1 }]}
       //activeOpacity={0.7}
       disabled={disabled}
       {...rest}

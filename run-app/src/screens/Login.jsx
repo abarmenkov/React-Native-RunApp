@@ -1,5 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import {
   Button,
   Headline,
@@ -30,6 +37,7 @@ export const Login = ({ route, navigation }) => {
       .max(10, "Too Long!")
       .required("Required field"),
   });
+
   const {
     handleChange,
     handleSubmit,
@@ -44,9 +52,7 @@ export const Login = ({ route, navigation }) => {
     initialValues: { email: "", password: "" },
     onSubmit: (values) => {
       if (values.email.length > 0 && values.password.length > 0) {
-        setTimeout(() => {
-          alert("test");
-        }, 1000);
+        Alert.alert("testscreen", values.email);
       }
     },
   });
@@ -81,7 +87,9 @@ export const Login = ({ route, navigation }) => {
           <MyTextInput
             icon="email"
             placeholder="Enter your email"
+            value={values.email}
             autoCapitalize="none"
+            //autoFocus={true}
             autoCompleteType="email"
             keyboardType="email-address"
             keyboardAppearance="dark"
@@ -169,6 +177,11 @@ export const Login = ({ route, navigation }) => {
             ...AppStyles.button,
             backgroundColor: theme.colors.primaryContainer,
             marginTop: 25,
+            opacity:
+              (isValid && isSubmitting) ||
+              (values.email.length > 1 && values.password.length > 1)
+                ? 1
+                : 0.4,
           }}
           textStyle={{
             ...AppStyles.btnText,

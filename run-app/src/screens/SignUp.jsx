@@ -39,13 +39,21 @@ export const SignUp = ({ route, navigation }) => {
       .required("Required")
       .oneOf([Yup.ref("password")], "Passwords must match"),
   });
-  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
-    useFormik({
-      validationSchema: LoginSchema,
-      initialValues: { email: "", password: "", passwordConfirmation: "" },
-      onSubmit: (values) =>
-        alert(`Email: ${values.email}, Password: ${values.password}`),
-    });
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    isValid,
+    isSubmitting,
+  } = useFormik({
+    validationSchema: LoginSchema,
+    initialValues: { email: "", password: "", passwordConfirmation: "" },
+    onSubmit: (values) =>
+      alert(`Email: ${values.email}, Password: ${values.password}`),
+  });
 
   const setSecure = (value) => {
     switch (value) {
@@ -85,6 +93,7 @@ export const SignUp = ({ route, navigation }) => {
             placeholder="Enter your email"
             autoCapitalize="none"
             autoCompleteType="email"
+            autoFocus={true}
             keyboardType="email-address"
             keyboardAppearance="dark"
             returnKeyType="next"
@@ -115,8 +124,8 @@ export const SignUp = ({ route, navigation }) => {
             autoCompleteType="password"
             autoCapitalize="none"
             keyboardAppearance="dark"
-            returnKeyType="go"
-            returnKeyLabel="go"
+            returnKeyType="next"
+            returnKeyLabel="next"
             style={{ ...styles.textInput, color: theme.colors.onBackground }}
             viewStyle={{
               ...styles.textInputView,
@@ -182,8 +191,16 @@ export const SignUp = ({ route, navigation }) => {
             ...AppStyles.button,
             backgroundColor: theme.colors.primaryContainer,
             marginTop: 15,
+            opacity:
+              isValid &&
+              values.email.length > 1 &&
+              values.password.length > 1 &&
+              values.passwordConfirmation.length > 1
+                ? 1
+                : 0.4,
           }}
           textStyle={{ ...AppStyles.btnText, color: theme.colors.onBackground }}
+          disabled={!isValid || isSubmitting}
         />
       </View>
       <View style={styles.socials}>
