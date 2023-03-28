@@ -17,7 +17,7 @@ export const sliderOnboard = [
 ];
 
 export const activityHistory = [
-  {
+  /*{
     id: 1,
     date: "25 jan",
     time: 60,
@@ -27,7 +27,7 @@ export const activityHistory = [
     calories: 250,
     heartBeat: 120,
   },
-  /*{
+  {
     id: 2,
     date: "26 jan",
     time: 30,

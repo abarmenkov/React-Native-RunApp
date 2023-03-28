@@ -42,22 +42,15 @@ const CombinedDarkTheme = {
 export default function App() {
   const [isThemeDark, setIsThemeDark] = useState(null);
   const [profileData, setProfileData] = useState(null);
-  const [achievementsData, setAchievementsData] = useState(activityHistory);
-  /*const initialState = {
-    name: "Andrey",
-    surname: "Barmenkov",
-    birthday: null,
-    avatar: null,
-    gender: "male",
-    email: "ab1975@mail.ru",
-    phone: "89166505275",
-    address: "",
-    uri: null,
-    CCInfo: null,
-  };*/
+  const [achievementsData, setAchievementsData] = useState(null);
   useEffect(() => {
     //clearStorage();
     getData(STORAGE_KEY, setProfileData, initialState);
+  }, []);
+
+  useEffect(() => {
+    //clearStorage();
+    getData("@achievements", setAchievementsData, activityHistory);
   }, []);
 
   useEffect(() => {

@@ -39,21 +39,19 @@ export const AddActivityScreen = ({ route, navigation }) => {
   const saveButtonActive =
     activityDate && distance && steps && calories ? false : true;
 
-  const opacity1 = false;
+  const newAchievement = {
+    id: uid(),
+    date: activityDate,
+    time: 60,
+    numberOfSteps: steps,
+    distance,
+    weight: 80,
+    calories,
+    heartBeat: 120,
+  };
   const MyButtonOnPress = () => {
-    setAchievementsData([
-      ...achievementsData,
-      {
-        id: uid(),
-        date: activityDate,
-        time: 60,
-        numberOfSteps: steps,
-        distance,
-        weight: 80,
-        calories,
-        heartBeat: 120,
-      },
-    ]);
+    setAchievementsData([...achievementsData, newAchievement]);
+    saveData("@achievements", [...achievementsData, newAchievement]);
     navigation.goBack();
   };
 

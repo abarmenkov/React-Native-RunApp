@@ -147,7 +147,7 @@ export const ProfileScreen = ({ route, navigation }) => {
               selectedValue={profileData.gender}
               onValueChange={(itemValue, itemIndex) => {
                 setProfileDAta({ ...profileData, gender: itemValue });
-                setDate({ ...profileData, gender: itemValue });
+                saveData(STORAGE_KEY, { ...profileData, gender: itemValue });
               }}
               style={{
                 ...AppStyles.itemInfo,
