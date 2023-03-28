@@ -191,16 +191,13 @@ export const SignUp = ({ route, navigation }) => {
             ...AppStyles.button,
             backgroundColor: theme.colors.primaryContainer,
             marginTop: 15,
-            opacity:
-              isValid &&
-              values.email.length > 1 &&
-              values.password.length > 1 &&
-              values.passwordConfirmation.length > 1
-                ? 1
-                : 0.4,
           }}
           textStyle={{ ...AppStyles.btnText, color: theme.colors.onBackground }}
-          disabled={!isValid || isSubmitting}
+          disabled={
+            !isValid ||
+            isSubmitting ||
+            (values.email.length < 1 && values.password.length < 1)
+          }
         />
       </View>
       <View style={styles.socials}>

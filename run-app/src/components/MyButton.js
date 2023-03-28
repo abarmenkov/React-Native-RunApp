@@ -3,12 +3,12 @@ import { Text, Pressable } from "react-native";
 //import { useTheme } from "react-native-paper";
 
 const MyButton = ({ label, onPress, style, textStyle, disabled, ...rest }) => {
-  //const disabledOpacity = disabled ? 0.2 : 1;
+  const disabledOpacity = disabled ? 0.2 : 1;
   //const theme = useTheme();
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [style, { opacity: pressed ? 0.5 : 1 }]}
+      style={({ pressed }) => [style, { opacity: pressed ? 0.5 : disabledOpacity }]}
       //activeOpacity={0.7}
       disabled={disabled}
       {...rest}

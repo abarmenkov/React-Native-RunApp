@@ -177,17 +177,16 @@ export const Login = ({ route, navigation }) => {
             ...AppStyles.button,
             backgroundColor: theme.colors.primaryContainer,
             marginTop: 25,
-            opacity:
-              (isValid && isSubmitting) ||
-              (values.email.length > 1 && values.password.length > 1)
-                ? 1
-                : 0.4,
           }}
           textStyle={{
             ...AppStyles.btnText,
             color: theme.colors.onBackground,
           }}
-          disabled={!isValid || isSubmitting}
+          disabled={
+            !isValid ||
+            isSubmitting ||
+            (values.email.length < 1 && values.password.length < 1)
+          }
         />
       </View>
       <View style={styles.socials}>

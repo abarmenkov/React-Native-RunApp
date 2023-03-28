@@ -39,6 +39,7 @@ export const AddActivityScreen = ({ route, navigation }) => {
   const saveButtonActive =
     activityDate && distance && steps && calories ? false : true;
 
+  const opacity1 = false;
   const MyButtonOnPress = () => {
     setAchievementsData([
       ...achievementsData,
@@ -290,8 +291,7 @@ export const AddActivityScreen = ({ route, navigation }) => {
         style={{
           ...AppStyles.button,
           backgroundColor: theme.colors.primaryContainer,
-          opacity: !saveButtonActive ? 1 : 0.3,
-          marginVertical: 25,
+          marginTop: 25,
         }}
         textStyle={{ ...AppStyles.btnText, color: theme.colors.onBackground }}
         disabled={saveButtonActive}
