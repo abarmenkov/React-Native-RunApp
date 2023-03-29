@@ -1,17 +1,57 @@
 //import { rows } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
-import React, { useContext } from "react";
+import React, { useContext, useCallback, useEffect, useState } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { activityHistory } from "../utils/data";
 import { History } from "../components/History";
 import { WIDTH, AppStyles } from "../utils/Constants";
 import AchievementsContext from "../context/AchievementsContext";
+import { ActionHeader } from "../components/ActionHeader";
+import { AppHeader } from "../components/AppHeader";
 
 export const HistoryScreen = ({ route, navigation }) => {
   const theme = useTheme();
   const [achievementsData, setAchievementsData] =
     useContext(AchievementsContext);
-    
+  const [actionIsOpen, setActionIsOpen] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState("");
+
+  const openActionHeader = useCallback(
+    (id) => {
+      setSelectedItemId(id);
+      setActionIsOpen(!actionIsOpen);
+    },
+    [actionIsOpen]
+  );
+  const closeActionHeader = useCallback(() => {
+    setActionIsOpen(false);
+    setSelectedItemId("");
+  }, []);
+
+  useEffect(() => {
+    if (actionIsOpen) {
+      navigation.setOptions({
+        header: (props) => (
+          <ActionHeader
+            {...props}
+            title={selectedItemId}
+            close={closeActionHeader}
+          />
+        ),
+      });
+    } else {
+      navigation.setOptions({
+        header: ({ options, navigation }) => (
+          <AppHeader
+            options={options}
+            routeName={route.name}
+            navigation={navigation}
+          />
+        ),
+      });
+    }
+  }, [actionIsOpen, selectedItemId]);
+
   const data = [...achievementsData];
   const totalTime = data.reduce((acc, current) => {
     acc += current.time;
@@ -65,7 +105,7 @@ export const HistoryScreen = ({ route, navigation }) => {
         </View>
       </View>
       <View>
-        <History />
+        <History openActionHeader={openActionHeader} />
       </View>
     </View>
   );

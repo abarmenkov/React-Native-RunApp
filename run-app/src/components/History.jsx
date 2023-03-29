@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback, useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -7,14 +7,17 @@ import {
   Alert,
   FlatList,
 } from "react-native";
-import { activityHistory } from "../utils/data";
 import { WIDTH } from "../utils/Constants";
 import AchievementsContext from "../context/AchievementsContext";
+import { Header } from "./Header";
+import { ActionHeader } from "./ActionHeader";
 
-export const History = () => {
+export const History = ({ openActionHeader}) => {
+
   const [achievementsData, setAchievementsData] =
     useContext(AchievementsContext);
   const data = [...achievementsData];
+  
 
   const renderItem = ({ item }) => {
     return (
@@ -26,6 +29,7 @@ export const History = () => {
           styles.listItem,
         ]}
         onPress={() => Alert.alert("test", `${item.id}`)}
+        onLongPress={() => openActionHeader(item.id)}
       >
         <View style={styles.listItemGeneralInfo}>
           <Text style={styles.listItemDate}>{item.date}</Text>

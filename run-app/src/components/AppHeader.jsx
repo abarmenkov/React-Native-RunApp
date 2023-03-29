@@ -14,6 +14,7 @@ export const AppHeader = ({ routeName, navigation }) => {
   const theme = useTheme();
   const [profileData] = useContext(ProfileContext);
   const [image, setImage] = useState(profileData.uri);
+  //console.log(routeName);
 
   return (
     <Appbar.Header
