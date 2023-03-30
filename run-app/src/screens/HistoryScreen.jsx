@@ -1,6 +1,6 @@
 //import { rows } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
 import React, { useContext, useCallback, useEffect, useState } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, Alert } from "react-native";
 import { useTheme } from "react-native-paper";
 import { activityHistory } from "../utils/data";
 import { History } from "../components/History";
@@ -16,6 +16,8 @@ export const HistoryScreen = ({ route, navigation }) => {
   const [actionIsOpen, setActionIsOpen] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState("");
 
+  const data = [...achievementsData];
+
   const openActionHeader = useCallback(
     (id) => {
       setSelectedItemId(id);
@@ -28,6 +30,26 @@ export const HistoryScreen = ({ route, navigation }) => {
     setSelectedItemId("");
   }, []);
 
+  const deleteActivity = (id) => {
+    const newData = data.filter((item) => item.id !== id);
+    closeActionHeader();
+    setAchievementsData(newData);
+    console.log(newData);
+    console.log(`id ${id} deleted successfully`);
+  };
+
+  const deleteConfirm = (id) => {
+    {
+      Alert.alert("Удаление данных", "Удалить тренировку?", [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        { text: "OK", onPress: () => deleteActivity(id) },
+      ]);
+    }
+  };
+
   useEffect(() => {
     if (actionIsOpen) {
       navigation.setOptions({
@@ -36,6 +58,8 @@ export const HistoryScreen = ({ route, navigation }) => {
             {...props}
             title={selectedItemId}
             close={closeActionHeader}
+            deleteItem={deleteConfirm}
+            id={selectedItemId}
           />
         ),
       });
@@ -52,7 +76,6 @@ export const HistoryScreen = ({ route, navigation }) => {
     }
   }, [actionIsOpen, selectedItemId]);
 
-  const data = [...achievementsData];
   const totalTime = data.reduce((acc, current) => {
     acc += current.time;
     return acc;
