@@ -362,4 +362,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "400",
   },
+  historyBlock: {
+    flex: 1,
+  },
 });

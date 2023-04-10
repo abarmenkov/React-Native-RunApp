@@ -138,7 +138,7 @@ export const HistoryScreen = ({ route, navigation }) => {
           <Text style={styles.totalItemTitle}>Heart Beat</Text>
         </View>
       </View>
-      <View>
+      <View style={{ flex: 1 }}>
         <History
           onLongPress={openActionHeader}
           backgroundColor={backgroundColor}

@@ -60,6 +60,7 @@ export const History = ({
         backgroundColor: "#28333F",
       }}
       style={{
+       // flexGrow: 1,
         backgroundColor: "#28333F",
       }}
       data={data}
