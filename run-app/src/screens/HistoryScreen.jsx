@@ -15,6 +15,10 @@ export const HistoryScreen = ({ route, navigation }) => {
     useContext(AchievementsContext);
   const [actionIsOpen, setActionIsOpen] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState(
+    theme.colors.onSecondaryContainer
+  );
+  const itemColor = theme.colors.onSecondaryContainer;
 
   const data = [...achievementsData];
 
@@ -22,12 +26,14 @@ export const HistoryScreen = ({ route, navigation }) => {
     (id) => {
       setSelectedItemId(id);
       setActionIsOpen(!actionIsOpen);
+      setBackgroundColor(theme.colors.primaryContainer);
     },
     [actionIsOpen]
   );
   const closeActionHeader = useCallback(() => {
     setActionIsOpen(false);
     setSelectedItemId("");
+    setBackgroundColor(theme.colors.onSecondaryContainer);
   }, []);
 
   const deleteActivity = (id) => {
@@ -97,7 +103,12 @@ export const HistoryScreen = ({ route, navigation }) => {
         backgroundColor: theme.colors.onSecondary,
       }}
     >
-      <View style={styles.totalInfoContainer}>
+      <View
+        style={{
+          ...styles.totalInfoContainer,
+          backgroundColor: theme.colors.onSecondaryContainer,
+        }}
+      >
         <View style={styles.totalItem}>
           <Image
             source={require("../../assets/images/timer.png")}
@@ -128,7 +139,13 @@ export const HistoryScreen = ({ route, navigation }) => {
         </View>
       </View>
       <View>
-        <History openActionHeader={openActionHeader} />
+        <History
+          onLongPress={openActionHeader}
+          backgroundColor={backgroundColor}
+          itemId={selectedItemId}
+          itemColor={itemColor}
+          onPress={(item) => Alert.alert("test", `${item.id}`)}
+        />
       </View>
     </View>
   );
@@ -140,7 +157,6 @@ const styles = StyleSheet.create({
     width: WIDTH * 0.9,
     height: 96,
     borderRadius: 20,
-    backgroundColor: "#2F3C50",
     justifyContent: "space-evenly",
     alignItems: "center",
     marginVertical: 32,

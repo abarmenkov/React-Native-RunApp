@@ -12,24 +12,32 @@ import AchievementsContext from "../context/AchievementsContext";
 import { Header } from "./Header";
 import { ActionHeader } from "./ActionHeader";
 
-export const History = ({ openActionHeader}) => {
-
+export const History = ({
+  onLongPress,
+  backgroundColor,
+  itemId,
+  itemColor,
+  onPress,
+}) => {
   const [achievementsData, setAchievementsData] =
     useContext(AchievementsContext);
   const data = [...achievementsData];
-  
 
   const renderItem = ({ item }) => {
     return (
       <Pressable
         style={({ pressed }) => [
           {
-            backgroundColor: pressed ? "#2f353b" : "rgba(47, 60, 80, 0.4)",
+            backgroundColor: pressed
+              ? "#2f353b"
+              : item.id === itemId
+              ? backgroundColor
+              : itemColor,
           },
           styles.listItem,
         ]}
-        onPress={() => Alert.alert("test", `${item.id}`)}
-        onLongPress={() => openActionHeader(item.id)}
+        onPress={() => onPress(item)}
+        onLongPress={() => onLongPress(item.id)}
       >
         <View style={styles.listItemGeneralInfo}>
           <Text style={styles.listItemDate}>{item.date}</Text>

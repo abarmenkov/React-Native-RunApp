@@ -137,13 +137,23 @@ export const HomeScreen = ({ navigation, route }) => {
             <Text
               style={styles.historyLink}
               onPress={() => {
-                navigation.navigate("History");
+                navigation.navigate("Achievements");
               }}
             >
               See All
             </Text>
           </View>
-          <History />
+          <History
+            onLongPress={() => {
+              navigation.navigate("Achievements");
+            }}
+            backgroundColor={theme.colors.onSecondaryContainer}
+            itemId={null}
+            itemColor={theme.colors.onSecondaryContainer}
+            onPress={() => {
+              navigation.navigate("Achievements");
+            }}
+          />
         </View>
       </View>
     </View>
