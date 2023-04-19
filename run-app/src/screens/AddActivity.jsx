@@ -72,7 +72,7 @@ export const AddActivityScreen = ({ route, navigation }) => {
     const currentDate = formatDate(selectedDate);
     setDate(selectedDate);
     setActivityDate(currentDate);
-    
+    stepsRef.current?.focus();
   };
 
   const showMode = (currentMode) => {
@@ -153,6 +153,7 @@ export const AddActivityScreen = ({ route, navigation }) => {
             }}
           >
             <MyTextInput
+              ref={stepsRef}
               style={{
                 ...AppStyles.itemInfo,
                 width: "100%",

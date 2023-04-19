@@ -37,7 +37,7 @@ export const EditActivityScreen = ({ route, navigation }) => {
   const [calories, setCalories] = useState(item.calories);
   //const [expanded, setExpanded] = useState(true);
 
-  //const stepsRef = useRef(null);
+  const stepsRef = useRef(null);
   const caloriesRef = useRef(null);
   const distanceRef = useRef(null);
   const saveButtonActive =
@@ -77,6 +77,7 @@ export const EditActivityScreen = ({ route, navigation }) => {
 
     setDate(selectedDate);
     setActivityDate(currentDate);
+    stepsRef.current?.focus();
   };
 
   const showMode = (currentMode) => {
@@ -157,6 +158,7 @@ export const EditActivityScreen = ({ route, navigation }) => {
             }}
           >
             <MyTextInput
+              ref={stepsRef}
               style={{
                 ...AppStyles.itemInfo,
                 width: "100%",
