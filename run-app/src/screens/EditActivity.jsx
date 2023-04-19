@@ -21,26 +21,30 @@ import AchievementsContext from "../context/AchievementsContext";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
 
-export const AddActivityScreen = ({ route, navigation }) => {
+export const EditActivityScreen = ({ route, navigation }) => {
   const theme = useTheme();
+  const { itemId } = route.params;
   const [achievementsData, setAchievementsData] =
     useContext(AchievementsContext);
 
-  const [date, setDate] = useState(new Date());
-  const [activityDate, setActivityDate] = useState(null);
-  const [distance, setDistance] = useState(null);
-  const [steps, setSteps] = useState(null);
-  const [calories, setCalories] = useState(null);
-  const [expanded, setExpanded] = useState(true);
+  const item = achievementsData.find((item) => item.id == itemId);
+  const data = achievementsData.filter((item) => item.id !== itemId);
 
-  const stepsRef = useRef(null);
+  const [date, setDate] = useState(new Date());
+  const [activityDate, setActivityDate] = useState(item.date);
+  const [distance, setDistance] = useState(item.distance);
+  const [steps, setSteps] = useState(item.numberOfSteps);
+  const [calories, setCalories] = useState(item.calories);
+  //const [expanded, setExpanded] = useState(true);
+
+  //const stepsRef = useRef(null);
   const caloriesRef = useRef(null);
   const distanceRef = useRef(null);
   const saveButtonActive =
     activityDate && distance && steps && calories ? false : true;
 
   const newAchievement = {
-    id: uid(),
+    id: item.id,
     date: activityDate,
     time: 60,
     numberOfSteps: steps,
@@ -50,12 +54,12 @@ export const AddActivityScreen = ({ route, navigation }) => {
     heartBeat: 120,
   };
   const MyButtonOnPress = () => {
-    setAchievementsData([...achievementsData, newAchievement]);
-    saveData("@achievements", [...achievementsData, newAchievement]);
+    setAchievementsData([...data, newAchievement]);
+    saveData("@achievements", [...data, newAchievement]);
     navigation.goBack();
   };
 
-  const onSubmit = () => {
+  /*const onSubmit = () => {
     Alert.alert("Изменение данных", "Изменить данные?", [
       {
         text: "Cancel",
@@ -63,9 +67,9 @@ export const AddActivityScreen = ({ route, navigation }) => {
       },
       { text: "OK", onPress: () => onConfirm() },
     ]);
-  };
+  };*/
 
-  const handlePress = () => setExpanded(!expanded);
+  //const handlePress = () => setExpanded(!expanded);
 
   const onChange = (event, selectedDate) => {
     //const currentDate = selectedDate.toLocaleDateString();

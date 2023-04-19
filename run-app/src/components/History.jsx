@@ -23,6 +23,9 @@ export const History = ({
     useContext(AchievementsContext);
   const data = [...achievementsData];
 
+  //сортировка по дате
+  const sortedData = data.sort((a, b) => a.date.split('.').reverse().join('') - b.date.split('.').reverse().join(''));
+
   const renderItem = ({ item }) => {
     return (
       <Pressable
@@ -60,10 +63,10 @@ export const History = ({
         backgroundColor: "#28333F",
       }}
       style={{
-       // flexGrow: 1,
+        // flexGrow: 1,
         backgroundColor: "#28333F",
       }}
-      data={data}
+      data={sortedData}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       horizontal="false"

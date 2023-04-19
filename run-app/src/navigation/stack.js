@@ -6,7 +6,8 @@ import { HistoryScreen } from "../screens/HistoryScreen";
 import { AddAddress } from "../screens/AddAddress";
 import { RunAppBottomTabs } from "./RunAppBottomTabs";
 import { UpdateDataScreen } from "../screens/UpdateDataScreen";
-import { AddActivityScreen } from "../screens/EditAchievements";
+import { AddActivityScreen } from "../screens/AddActivity";
+import { EditActivityScreen } from "../screens/EditActivity";
 import { MaterialIcons } from "@expo/vector-icons";
 //import { CarouselScreen } from "./screens/Carousel";
 //import { MyCarousel } from "./screens/MyCarousel";
@@ -66,7 +67,12 @@ export const RunStack = () => {
       <Stack.Screen
         name="AddActivity"
         component={AddActivityScreen}
-        options={{ headerTitle: "Добавить активность" }}
+        options={{ headerTitle: "Добавить тренировку" }}
+      />
+      <Stack.Screen
+        name="EditActivity"
+        component={EditActivityScreen}
+        options={{ headerTitle: "Изменить тренировку" }}
       />
       {/*<Stack.Screen
         name="Carousel"

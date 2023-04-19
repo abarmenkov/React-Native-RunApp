@@ -91,10 +91,12 @@ export const HistoryScreen = ({ route, navigation }) => {
     return acc;
   }, 0);
   const heartBeat =
-    data.reduce((acc, current) => {
-      acc += current.heartBeat;
-      return acc;
-    }, 0) / data.length;
+    data.length < 1
+      ? 0
+      : data.reduce((acc, current) => {
+          acc += current.heartBeat;
+          return acc;
+        }, 0) / data.length;
 
   return (
     <View
@@ -144,7 +146,9 @@ export const HistoryScreen = ({ route, navigation }) => {
           backgroundColor={backgroundColor}
           itemId={selectedItemId}
           itemColor={itemColor}
-          onPress={(item) => Alert.alert("test", `${item.id}`)}
+          onPress={(item) =>
+            navigation.navigate("EditActivity", { itemId: item.id })
+          }
         />
       </View>
     </View>

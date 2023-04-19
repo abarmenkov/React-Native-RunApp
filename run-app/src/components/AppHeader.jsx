@@ -103,7 +103,13 @@ export const AppHeader = ({ routeName, navigation }) => {
                 icon={require("../../assets/images/sms-notification.png")}
                 size={24}
                 color={theme.colors.onBackground}
-                onPress={() => {}}
+                onPress={
+                  routeName !== "Achievements"
+                    ? () => Alert.alert(routeName)
+                    : () => {
+                        navigation.navigate("AddActivity");
+                      }
+                }
               />
             </View>
           </>
