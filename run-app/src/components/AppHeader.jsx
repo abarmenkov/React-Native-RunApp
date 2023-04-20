@@ -87,7 +87,7 @@ export const AppHeader = ({ routeName, navigation }) => {
               }}
             >
               <Appbar.Action
-                icon={require("../../assets/images/direct-notification.png")}
+                icon="plus-circle-outline"
                 size={24}
                 color={theme.colors.onBackground}
                 onPress={

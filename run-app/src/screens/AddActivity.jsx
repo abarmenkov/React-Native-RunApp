@@ -72,6 +72,7 @@ export const AddActivityScreen = ({ route, navigation }) => {
     const currentDate = formatDate(selectedDate);
     setDate(selectedDate);
     setActivityDate(currentDate);
+    // set focus on next field
     stepsRef.current?.focus();
   };
 

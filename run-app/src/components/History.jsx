@@ -24,9 +24,14 @@ export const History = ({
   const data = [...achievementsData];
 
   //сортировка по дате
-  const sortedData = data.sort((a, b) => a.date.split('.').reverse().join('') - b.date.split('.').reverse().join(''));
+  const sortedData = data.sort(
+    (a, b) =>
+      a.date.split(".").reverse().join("") -
+      b.date.split(".").reverse().join("")
+  );
 
   const renderItem = ({ item }) => {
+    const disabled = itemId && item.id !== itemId ? true : false;
     return (
       <Pressable
         style={({ pressed }) => [
@@ -41,6 +46,7 @@ export const History = ({
         ]}
         onPress={() => onPress(item)}
         onLongPress={() => onLongPress(item.id)}
+        disabled={disabled}
       >
         <View style={styles.listItemGeneralInfo}>
           <Text style={styles.listItemDate}>{item.date}</Text>

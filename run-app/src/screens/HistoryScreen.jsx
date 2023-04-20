@@ -25,7 +25,7 @@ export const HistoryScreen = ({ route, navigation }) => {
   const openActionHeader = useCallback(
     (id) => {
       setSelectedItemId(id);
-      setActionIsOpen(!actionIsOpen);
+      setActionIsOpen(true);
       setBackgroundColor(theme.colors.primaryContainer);
     },
     [actionIsOpen]
@@ -62,9 +62,13 @@ export const HistoryScreen = ({ route, navigation }) => {
         header: (props) => (
           <ActionHeader
             {...props}
-            title={selectedItemId}
+            //title={selectedItemId}
+            title={"Изменение данных"}
             close={closeActionHeader}
             deleteItem={deleteConfirm}
+            editItem={(id) =>
+              navigation.navigate("EditActivity", { itemId: id })
+            }
             id={selectedItemId}
           />
         ),
