@@ -17,7 +17,8 @@ import { PreferencesContext } from "../context/PreferencesContext";
 import ProfileContext from "../context/ProfileContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function DrawerContent(props) {
+export const DrawerContent = (props) => {
+  const { navigation } = props;
   const theme = useTheme();
   const { toggleTheme, isThemeDark } = useContext(PreferencesContext);
   const [profileData, setProfileData] = useContext(ProfileContext);
@@ -68,7 +69,9 @@ function DrawerContent(props) {
               />
             )}
             label="Profile"
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate("Profile");
+            }}
           />
           <DrawerItem
             icon={({ color, size }) => (
@@ -77,7 +80,7 @@ function DrawerContent(props) {
             label="Preferences"
             onPress={() => {}}
           />
-          <DrawerItem
+          {/*<DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="bookmark-outline"
@@ -87,7 +90,7 @@ function DrawerContent(props) {
             )}
             label="Bookmarks"
             onPress={() => {}}
-          />
+          />*/}
         </Drawer.Section>
         <Drawer.Section title="Preferences">
           <TouchableRipple
@@ -122,7 +125,7 @@ function DrawerContent(props) {
       </View>
     </DrawerContentScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   drawerContent: {
@@ -164,5 +167,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 });
-
-export default DrawerContent;

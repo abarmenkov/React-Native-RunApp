@@ -1,16 +1,10 @@
 import React, { useEffect } from "react";
-//import color from "color";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { Portal, FAB, useTheme } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
 import { HistoryScreen } from "../screens/HistoryScreen";
 import { StoreScreen } from "../screens/StoreScreen";
-//import { Feed } from "./screens/Feed";
-//import { Messages } from "./screens/Messages";
-//import { Notifications } from "./screens/Notifications";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-//import { Alert } from "react-native";
-//import { RunApp } from "./screens/RunApp";
 import { HomeScreen } from "../screens/HomeScreen";
 import { AccountScreen } from "../screens/ProfileScreen";
 

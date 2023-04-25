@@ -7,7 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { useTheme } from "react-native-paper";
 import { RunStack } from "./stack";
-import DrawerContent from "../components/drawerContent";
+import { DrawerContent } from "../components/drawerContent";
 import { Login } from "../screens/Login";
 import { VerifyEmail } from "../screens/VerifyEmail";
 import { SignUp } from "../screens/SignUp";
