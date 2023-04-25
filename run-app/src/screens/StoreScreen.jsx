@@ -169,7 +169,10 @@ export const StoreScreen = ({ route, navigation }) => {
           <Text style={styles.popularHeader}>Popular</Text>
           <Text
             style={styles.popularLink}
-            onPress={() => navigation.navigate("AddAddress")}
+            /*onPress={() => navigation.navigate("AddAddress")}*/
+            onPress={() =>
+              Alert.alert("Info", "Products page is in development")
+            }
           >
             See All
           </Text>
