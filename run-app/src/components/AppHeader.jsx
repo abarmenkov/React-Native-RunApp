@@ -86,20 +86,22 @@ export const AppHeader = ({ routeName, navigation }) => {
                 alignItems: "center",
               }}
             >
-              <Appbar.Action
-                icon="plus-circle-outline"
-                size={24}
-                color={theme.colors.onBackground}
-                onPress={
-                  routeName !== "Achievements"
-                    ? () => Alert.alert(routeName)
-                    : () => {
-                        navigation.navigate("AddActivity");
-                      }
-                }
-              />
+              {routeName === "Achievements" && (
+                <Appbar.Action
+                  icon="plus-circle-outline"
+                  size={24}
+                  color={theme.colors.onBackground}
+                  onPress={
+                    routeName !== "Achievements"
+                      ? () => Alert.alert(routeName)
+                      : () => {
+                          navigation.navigate("AddActivity");
+                        }
+                  }
+                />
+              )}
 
-              <Appbar.Action
+              {/*<Appbar.Action
                 icon={require("../../assets/images/sms-notification.png")}
                 size={24}
                 color={theme.colors.onBackground}
@@ -110,12 +112,12 @@ export const AppHeader = ({ routeName, navigation }) => {
                         navigation.navigate("AddActivity");
                       }
                 }
-              />
+              />*/}
             </View>
           </>
         )}
       </View>
-      <View
+      {/*<View
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -134,7 +136,7 @@ export const AppHeader = ({ routeName, navigation }) => {
           color={theme.colors.onBackground}
           onPress={() => {}}
         />
-      </View>
+      </View>*/}
     </Appbar.Header>
   );
 };
