@@ -17,6 +17,8 @@ import {
 } from "./src/API/asyncStorageMethods";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { activityHistory, initialState } from "./src/utils/data";
+import { AuthProvider } from "./src/providers/AuthProvider";
+
 //import { name as appName } from "./app.json";
 //import { AppRegistry } from "react-native";
 
@@ -77,13 +79,15 @@ export default function App() {
   return (
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
-        <ProfileContext.Provider value={[profileData, setProfileData]}>
-          <AchievementsContext.Provider
-            value={[achievementsData, setAchievementsData]}
-          >
-            <StartingStack />
-          </AchievementsContext.Provider>
-        </ProfileContext.Provider>
+        <AuthProvider>
+          <ProfileContext.Provider value={[profileData, setProfileData]}>
+            <AchievementsContext.Provider
+              value={[achievementsData, setAchievementsData]}
+            >
+              <StartingStack />
+            </AchievementsContext.Provider>
+          </ProfileContext.Provider>
+        </AuthProvider>
       </PaperProvider>
     </PreferencesContext.Provider>
   );
