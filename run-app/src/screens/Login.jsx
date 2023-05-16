@@ -20,15 +20,14 @@ import InfoMessage from "../components/InfoMessage";
 import { WIDTH, AppStyles } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useAuth } from "../hooks/useAuth";
 
 export const Login = ({ route, navigation }) => {
-  //const [email, setEmail] = useState("");
-  //const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
   const passwordRef = useRef(null);
   const theme = useTheme();
-  //const myButtonOpacity = !isValid || isSubmitting ? 0.2 : 1;
+  const { signIn } = useAuth();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required field"),
@@ -51,10 +50,11 @@ export const Login = ({ route, navigation }) => {
     validationSchema: LoginSchema,
     initialValues: { email: "", password: "" },
     onSubmit: (values, { resetForm }) => {
-      if (values.email.length > 0 && values.password.length > 0) {
-        Alert.alert("testscreen", values.email);
-        resetForm();
-      }
+      /*if (values.email.length > 0 && values.password.length > 0) {
+        Alert.alert("testscreen", values.email);     
+      }*/
+      signIn("my_token");
+      resetForm();
     },
   });
 

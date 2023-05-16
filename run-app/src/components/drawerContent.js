@@ -16,6 +16,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { PreferencesContext } from "../context/PreferencesContext";
 import ProfileContext from "../context/ProfileContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../hooks/useAuth";
 
 export const DrawerContent = (props) => {
   const { navigation } = props;
@@ -23,6 +24,7 @@ export const DrawerContent = (props) => {
   const { toggleTheme, isThemeDark } = useContext(PreferencesContext);
   const [profileData, setProfileData] = useContext(ProfileContext);
   const [dark, setDark] = useState(isThemeDark);
+  const { signOut } = useAuth();
   useEffect(() => {
     const saveTheme = async () => {
       try {
@@ -121,6 +123,17 @@ export const DrawerContent = (props) => {
               </View>
             </View>
           </TouchableRipple>
+        </Drawer.Section>
+        <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons name="logout" color={color} size={size} />
+            )}
+            label="Log out"
+            onPress={() => {
+              signOut();
+            }}
+          />
         </Drawer.Section>
       </View>
     </DrawerContentScrollView>

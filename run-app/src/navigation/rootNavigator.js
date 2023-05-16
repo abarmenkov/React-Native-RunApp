@@ -14,16 +14,18 @@ import { SignUp } from "../screens/SignUp";
 import { Header } from "../components/Header";
 import { OnBoard } from "../screens/Onboarding";
 import { AddAddress } from "../screens/AddAddress";
+import { useAuth } from "../hooks/useAuth";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 export const RootNavigator = ({ navigation }) => {
-  const isLoggedIn = false;
+  const { status, userToken } = useAuth();
+  //const isLoggedIn = false;
   const theme = useTheme();
   const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 
-  return isLoggedIn ? (
+  return userToken ? (
     <Drawer.Navigator
       drawerContent={(props) => <DrawerContent {...props} />}
       screenOptions={{ headerShown: false }}
