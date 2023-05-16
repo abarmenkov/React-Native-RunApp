@@ -50,9 +50,10 @@ export const Login = ({ route, navigation }) => {
   } = useFormik({
     validationSchema: LoginSchema,
     initialValues: { email: "", password: "" },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       if (values.email.length > 0 && values.password.length > 0) {
         Alert.alert("testscreen", values.email);
+        resetForm();
       }
     },
   });
@@ -117,6 +118,7 @@ export const Login = ({ route, navigation }) => {
             ref={passwordRef}
             icon="key"
             placeholder="Enter your password"
+            value={values.password}
             secureTextEntry={secureTextEntry}
             autoCompleteType="password"
             autoCapitalize="none"

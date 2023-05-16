@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Platform,
   Image,
+  Alert,
 } from "react-native";
 import { Button, Headline, Divider, useTheme } from "react-native-paper";
 import MyButton from "../components/MyButton";
@@ -51,8 +52,10 @@ export const SignUp = ({ route, navigation }) => {
   } = useFormik({
     validationSchema: LoginSchema,
     initialValues: { email: "", password: "", passwordConfirmation: "" },
-    onSubmit: (values) =>
-      alert(`Email: ${values.email}, Password: ${values.password}`),
+    onSubmit: (values, { resetForm }) => {
+      Alert.alert(`Email: ${values.email}, Password: ${values.password}`);
+      resetForm();
+    },
   });
 
   const setSecure = (value) => {
@@ -91,6 +94,7 @@ export const SignUp = ({ route, navigation }) => {
           <MyTextInput
             icon="email"
             placeholder="Enter your email"
+            value={values.email}
             autoCapitalize="none"
             autoCompleteType="email"
             autoFocus={true}
@@ -119,6 +123,7 @@ export const SignUp = ({ route, navigation }) => {
           <MyTextInput
             ref={passwordRef}
             icon="key"
+            value={values.password}
             placeholder="Enter your password"
             secureTextEntry={securePasswordEntry}
             autoCompleteType="password"
@@ -151,6 +156,7 @@ export const SignUp = ({ route, navigation }) => {
           <MyTextInput
             ref={passwordConfirmRef}
             icon="key-plus"
+            value={values.passwordConfirmation}
             placeholder="Confirm your password"
             secureTextEntry={secureConfirmationEntry}
             autoCompleteType="password"
