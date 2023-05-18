@@ -44,9 +44,11 @@ export const AuthProvider = ({ children }) => {
 
   const authActions = useMemo(
     () => ({
-      signIn: async (token) => {
+      signIn: async (token, checked) => {
         dispatch({ type: "SIGN_IN", token });
-        await setToken(token);
+        if (checked) {
+          await setToken(token);
+        }
       },
       signOut: async () => {
         await removeToken(); // TODO: use Vars

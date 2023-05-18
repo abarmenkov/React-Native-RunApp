@@ -53,7 +53,7 @@ export const Login = ({ route, navigation }) => {
       /*if (values.email.length > 0 && values.password.length > 0) {
         Alert.alert("testscreen", values.email);     
       }*/
-      signIn("my_token");
+      signIn("my_token", checked);
       resetForm();
     },
   });
