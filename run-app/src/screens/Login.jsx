@@ -25,6 +25,7 @@ import { useAuth } from "../hooks/useAuth";
 export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const passwordRef = useRef(null);
   const theme = useTheme();
   const { signIn } = useAuth();
@@ -53,10 +54,32 @@ export const Login = ({ route, navigation }) => {
       /*if (values.email.length > 0 && values.password.length > 0) {
         Alert.alert("testscreen", values.email);     
       }*/
-      signIn("my_token", checked);
-      resetForm();
+      let options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values)
+      };
+      fetch('http://192.168.1.4:8080/login', options)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            signIn(data.accessToken, checked);
+            //setAuthToken(data.accessToken);
+          } else {
+            setErrorMessage(data.message);
+          }
+  
+          resetForm();
+          setChecked(false);
+        })
+        .catch(error => {
+          //resetForm();
+          console.error(error);
+        });
+      
     },
   });
+
 
   const setSecure = () => {
     setSecureTestEntry(false);
