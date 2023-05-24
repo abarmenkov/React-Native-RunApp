@@ -42,29 +42,22 @@ app.post("/login", (req, res) => {
       }
       break;
     case "registration":
-      res.send({ success: false, message: "Type registration" });
+      if (!email || !password || USERS.some((u) => u.email === email)) {
+        res.send({ success: false, message: "Login exists" });
+      } else {
+        USERS.push({ email, password });
+        console.log(USERS);
+        const accessToken = jwt.sign({ email: email }, SECRET);
+
+        res.json({
+          accessToken,
+          success: true,
+        });
+      }
       break;
     default:
       res.send({ success: false, message: "Type not found" });
   }
-  /*if (type === "login") {
-    if (
-      !email ||
-      !password ||
-      !USERS.some((u) => u.email === email && u.password === password)
-    ) {
-      res.send({ success: false, message: "Login not found" });
-    } else {
-      const accessToken = jwt.sign({ email: email }, SECRET);
-
-      res.json({
-        accessToken,
-        success: true,
-      });
-    }
-  } else {
-    res.send({ success: false, message: "Type not found" });
-  }*/
 });
 
 /*const express = require('express');

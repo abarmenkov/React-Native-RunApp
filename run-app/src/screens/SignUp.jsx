@@ -29,6 +29,7 @@ export const SignUp = ({ route, navigation }) => {
   const passwordRef = useRef(null);
   const passwordConfirmRef = useRef(null);
   const theme = useTheme();
+  const { signIn } = useAuth();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -85,7 +86,7 @@ export const SignUp = ({ route, navigation }) => {
           //resetForm();
           console.error(error);
         });
-      Alert.alert(`Email: ${values.email}, Password: ${values.password}`);
+      //Alert.alert(`Email: ${values.email}, Password: ${values.password}`);
     },
   });
 
@@ -222,7 +223,7 @@ export const SignUp = ({ route, navigation }) => {
           label="Sign Up"
           onPress={() => {
             handleSubmit();
-            navigation.navigate("VerifyEmail");
+            //navigation.navigate("VerifyEmail");
           }}
           style={{
             ...AppStyles.button,
