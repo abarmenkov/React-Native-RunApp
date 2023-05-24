@@ -49,37 +49,37 @@ export const Login = ({ route, navigation }) => {
     isSubmitting,
   } = useFormik({
     validationSchema: LoginSchema,
-    initialValues: { email: "", password: "" },
+    initialValues: { email: "", password: "", type: "login" },
     onSubmit: (values, { resetForm }) => {
       /*if (values.email.length > 0 && values.password.length > 0) {
         Alert.alert("testscreen", values.email);     
       }*/
       let options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
       };
-      fetch('http://192.168.1.4:8080/login', options)
-        .then(response => response.json())
-        .then(data => {
+      fetch("http://192.168.1.4:8080/login", options)
+        .then((response) => response.json())
+        .then((data) => {
           if (data.success) {
+            //console.log(data.accessToken);
             signIn(data.accessToken, checked);
             //setAuthToken(data.accessToken);
           } else {
+            console.log(data.message);
             setErrorMessage(data.message);
           }
-  
+
           resetForm();
           setChecked(false);
         })
-        .catch(error => {
+        .catch((error) => {
           //resetForm();
           console.error(error);
         });
-      
     },
   });
-
 
   const setSecure = () => {
     setSecureTestEntry(false);

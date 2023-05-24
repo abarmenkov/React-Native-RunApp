@@ -15,12 +15,14 @@ import InfoMessage from "../components/InfoMessage";
 import { WIDTH, AppStyles } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useAuth } from "../hooks/useAuth";
 
 export const SignUp = ({ route, navigation }) => {
   /*const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmedPassword, setConfirmedPassword] = useState("");
-  const [checked, setChecked] = useState(false);*/
+  const [confirmedPassword, setConfirmedPassword] = useState("");*/
+  const [checked, setChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [securePasswordEntry, setSecurePasswordEntry] = useState(true);
   const [secureConfirmationEntry, setSecureConfirmationEntry] = useState(true);
 
@@ -51,10 +53,39 @@ export const SignUp = ({ route, navigation }) => {
     isSubmitting,
   } = useFormik({
     validationSchema: LoginSchema,
-    initialValues: { email: "", password: "", passwordConfirmation: "" },
+    initialValues: {
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      type: "registration",
+    },
     onSubmit: (values, { resetForm }) => {
+      setChecked(true);
+      let options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      };
+      fetch("http://192.168.1.4:8080/login", options)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            //console.log(data.accessToken);
+            signIn(data.accessToken, checked);
+            //setAuthToken(data.accessToken);
+          } else {
+            console.log(data.message);
+            setErrorMessage(data.message);
+          }
+
+          resetForm();
+          setChecked(false);
+        })
+        .catch((error) => {
+          //resetForm();
+          console.error(error);
+        });
       Alert.alert(`Email: ${values.email}, Password: ${values.password}`);
-      resetForm();
     },
   });
 
