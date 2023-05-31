@@ -16,6 +16,7 @@ import { WIDTH, AppStyles } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 export const SignUp = ({ route, navigation }) => {
   /*const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ export const SignUp = ({ route, navigation }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [securePasswordEntry, setSecurePasswordEntry] = useState(true);
   const [secureConfirmationEntry, setSecureConfirmationEntry] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
   const passwordRef = useRef(null);
   const passwordConfirmRef = useRef(null);
   const theme = useTheme();
@@ -62,6 +63,7 @@ export const SignUp = ({ route, navigation }) => {
     },
     onSubmit: (values, { resetForm }) => {
       setChecked(true);
+      setIsLoading(true);
       let options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -70,6 +72,9 @@ export const SignUp = ({ route, navigation }) => {
       fetch("http://192.168.1.4:8080/login", options)
         .then((response) => response.json())
         .then((data) => {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 4000);
           if (data.success) {
             //console.log(data.accessToken);
             signIn(data.accessToken, checked);
@@ -295,6 +300,7 @@ export const SignUp = ({ route, navigation }) => {
           Sign in
         </Button>
       </View>
+      {isLoading && <LoadingAnimation text="Registration is in process" />}
     </View>
   );
 };

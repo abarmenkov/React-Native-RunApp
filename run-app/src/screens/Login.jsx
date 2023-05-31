@@ -21,11 +21,13 @@ import { WIDTH, AppStyles } from "../utils/Constants";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
   const [checked, setChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const passwordRef = useRef(null);
   const theme = useTheme();
   const { signIn } = useAuth();
@@ -54,6 +56,7 @@ export const Login = ({ route, navigation }) => {
       /*if (values.email.length > 0 && values.password.length > 0) {
         Alert.alert("testscreen", values.email);     
       }*/
+      setIsLoading(true);
       let options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,6 +65,9 @@ export const Login = ({ route, navigation }) => {
       fetch("http://192.168.1.4:8080/login", options)
         .then((response) => response.json())
         .then((data) => {
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 4000);
           if (data.success) {
             //console.log(data.accessToken);
             signIn(data.accessToken, checked);
@@ -69,6 +75,7 @@ export const Login = ({ route, navigation }) => {
           } else {
             console.log(data.message);
             setErrorMessage(data.message);
+            //setIsLoading(false);
           }
 
           resetForm();
@@ -119,7 +126,10 @@ export const Login = ({ route, navigation }) => {
             keyboardAppearance="dark"
             returnKeyType="next"
             returnKeyLabel="next"
-            style={{ ...styles.textInput, color: theme.colors.onBackground }}
+            style={{
+              ...styles.textInput,
+              color: theme.colors.onBackground,
+            }}
             viewStyle={{
               ...styles.textInputView,
               backgroundColor: theme.colors.onSecondaryContainer,
@@ -148,7 +158,10 @@ export const Login = ({ route, navigation }) => {
             keyboardAppearance="dark"
             returnKeyType="go"
             returnKeyLabel="go"
-            style={{ ...styles.textInput, color: theme.colors.onBackground }}
+            style={{
+              ...styles.textInput,
+              color: theme.colors.onBackground,
+            }}
             viewStyle={{
               ...styles.textInputView,
               backgroundColor: theme.colors.onSecondaryContainer,
@@ -258,7 +271,10 @@ export const Login = ({ route, navigation }) => {
 
       <View style={styles.BottomView}>
         <Text
-          style={{ ...styles.BottomViewtext, color: theme.colors.onBackground }}
+          style={{
+            ...styles.BottomViewtext,
+            color: theme.colors.onBackground,
+          }}
         >
           New User?
         </Text>
@@ -271,6 +287,7 @@ export const Login = ({ route, navigation }) => {
           Sign Up
         </Button>
       </View>
+      {isLoading && <LoadingAnimation text="Logging in" />}
     </View>
   );
 };
