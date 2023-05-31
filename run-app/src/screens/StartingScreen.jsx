@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -10,9 +10,12 @@ import { Headline, Caption, useTheme } from "react-native-paper";
 //import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import MyButton from "../components/MyButton";
 import { WIDTH, AppStyles } from "../utils/Constants";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 export const StartingScreen = ({ route, navigation }) => {
   const theme = useTheme();
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <View
       style={{
@@ -31,11 +34,17 @@ export const StartingScreen = ({ route, navigation }) => {
           Running App
         </Headline>
         <Caption style={styles.caption}>
-          Run and earn with our app. Some text Example will be her
+          Run and earn with our app. Some text Example will be here
         </Caption>
         <MyButton
           label="Get Started"
-          onPress={() => navigation.navigate("RootNavigator")}
+          onPress={() => {
+            setIsLoading(true);
+            setTimeout(() => {
+              navigation.navigate("RootNavigator");
+              setIsLoading(false);
+            }, 3000);
+          }}
           style={{
             ...AppStyles.button,
             backgroundColor: theme.colors.primaryContainer,
@@ -45,6 +54,7 @@ export const StartingScreen = ({ route, navigation }) => {
           //disabled={!isValid || isSubmitting}
         />
       </ImageBackground>
+      {isLoading && <LoadingAnimation text="App is loading" />}
     </View>
   );
 };
