@@ -13,6 +13,8 @@ import {
   Checkbox,
   Divider,
   useTheme,
+  Portal,
+  Modal,
 } from "react-native-paper";
 import MyButton from "../components/MyButton";
 import MyTextInput from "../components/MyInput";
@@ -22,6 +24,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
 import LoadingAnimation from "../components/LoadingAnimation";
+import InfoModal from "../components/InfoModal";
 
 export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
@@ -31,6 +34,11 @@ export const Login = ({ route, navigation }) => {
   const passwordRef = useRef(null);
   const theme = useTheme();
   const { signIn } = useAuth();
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required field"),
@@ -75,6 +83,7 @@ export const Login = ({ route, navigation }) => {
           } else {
             console.log(data.message);
             setErrorMessage(data.message);
+            showModal();
             //setIsLoading(false);
           }
 
@@ -104,6 +113,7 @@ export const Login = ({ route, navigation }) => {
         backgroundColor: theme.colors.onSecondary,
       }}
     >
+      {visible && <InfoModal message={errorMessage} hideModal={hideModal}/>}
       <Image
         source={require("../../assets/images/Logo.png")}
         style={styles.logo}
