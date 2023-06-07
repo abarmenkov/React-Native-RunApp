@@ -1,16 +1,26 @@
 import React from "react";
-import { Portal, Modal, Text } from "react-native-paper";
+import { Portal, Modal, Text, useTheme } from "react-native-paper";
+import { AppStyles } from "../utils/Constants";
 
 const InfoModal = ({ message, hideModal }) => {
-  const containerStyle = { backgroundColor: "white", padding: 20 };
+  const theme = useTheme();
   return (
     <Portal>
       <Modal
         visible="true"
         onDismiss={() => hideModal()}
-        contentContainerStyle={containerStyle}
+        contentContainerStyle={AppStyles.infoModal}
       >
-        <Text>{message}</Text>
+        <Text
+          style={{
+            color: "red",
+            fontSize: 22,
+            fontWeight: "700",
+            textAlign: "center",
+          }}
+        >
+          {message}
+        </Text>
       </Modal>
     </Portal>
   );

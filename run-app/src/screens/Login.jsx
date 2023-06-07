@@ -38,7 +38,6 @@ export const Login = ({ route, navigation }) => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-  
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required field"),
@@ -75,17 +74,18 @@ export const Login = ({ route, navigation }) => {
         .then((data) => {
           setTimeout(() => {
             setIsLoading(false);
-          }, 4000);
-          if (data.success) {
-            //console.log(data.accessToken);
-            signIn(data.accessToken, checked);
-            //setAuthToken(data.accessToken);
-          } else {
-            console.log(data.message);
-            setErrorMessage(data.message);
-            showModal();
-            //setIsLoading(false);
-          }
+            if (data.success) {
+              //console.log(data.accessToken);
+              signIn(data.accessToken, checked);
+              //setAuthToken(data.accessToken);
+            } else {
+              console.log(data.message);
+              setErrorMessage(data.message);
+              showModal();
+              setTimeout(() => hideModal(), 2000);
+              //setIsLoading(false);
+            }
+          }, 2000);
 
           resetForm();
           setChecked(false);
@@ -113,7 +113,7 @@ export const Login = ({ route, navigation }) => {
         backgroundColor: theme.colors.onSecondary,
       }}
     >
-      {visible && <InfoModal message={errorMessage} hideModal={hideModal}/>}
+      {visible && <InfoModal message={errorMessage} hideModal={hideModal} />}
       <Image
         source={require("../../assets/images/Logo.png")}
         style={styles.logo}

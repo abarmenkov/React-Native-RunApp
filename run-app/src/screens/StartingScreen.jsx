@@ -43,7 +43,7 @@ export const StartingScreen = ({ route, navigation }) => {
             setTimeout(() => {
               navigation.navigate("RootNavigator");
               setIsLoading(false);
-            }, 3000);
+            }, 1000);
           }}
           style={{
             ...AppStyles.button,

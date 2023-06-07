@@ -129,4 +129,11 @@ export const AppStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "400",
   },
+  infoModal: {
+    width: WIDTH * 0.7,
+    backgroundColor: "green",
+    padding: 20,
+    alignSelf: "center",
+    borderRadius: 12,
+  },
 });

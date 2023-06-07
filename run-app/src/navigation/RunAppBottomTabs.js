@@ -66,7 +66,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
             headerTitle: "Home",
 
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" color={color} size={size} />
+              <MaterialCommunityIcons name="home" color={color} size={34} />
             ),
           }}
         />
@@ -76,7 +76,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
           options={{
             //headerTitle: "Achievements1",
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="trophy" color={color} size={size} />
+              <MaterialCommunityIcons name="trophy" color={color} size={32} />
             ),
           }}
         />
@@ -89,7 +89,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
               <MaterialCommunityIcons
                 name="shopping"
                 color={color}
-                size={size}
+                size={32}
               />
             ),
           }}
@@ -103,9 +103,10 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
               <MaterialCommunityIcons
                 name="account"
                 color={color}
-                size={size}
+                size={34}
               />
             ),
+            
           }}
         />
       </Tab.Navigator>
