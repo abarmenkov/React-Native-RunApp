@@ -79,10 +79,10 @@ export const Login = ({ route, navigation }) => {
               signIn(data.accessToken, checked);
               //setAuthToken(data.accessToken);
             } else {
-              console.log(data.message);
+              //console.log(data.message);
               setErrorMessage(data.message);
               showModal();
-              setTimeout(() => hideModal(), 2000);
+              setTimeout(() => hideModal(), 3000);
               //setIsLoading(false);
             }
           }, 2000);

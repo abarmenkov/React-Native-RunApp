@@ -17,6 +17,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
 import LoadingAnimation from "../components/LoadingAnimation";
+import InfoModal from "../components/InfoModal";
 
 export const SignUp = ({ route, navigation }) => {
   /*const [email, setEmail] = useState("");
@@ -31,6 +32,10 @@ export const SignUp = ({ route, navigation }) => {
   const passwordConfirmRef = useRef(null);
   const theme = useTheme();
   const { signIn } = useAuth();
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -74,15 +79,18 @@ export const SignUp = ({ route, navigation }) => {
         .then((data) => {
           setTimeout(() => {
             setIsLoading(false);
-          }, 4000);
-          if (data.success) {
-            //console.log(data.accessToken);
-            signIn(data.accessToken, checked);
-            //setAuthToken(data.accessToken);
-          } else {
-            console.log(data.message);
-            setErrorMessage(data.message);
-          }
+            if (data.success) {
+              //console.log(data.accessToken);
+              signIn(data.accessToken, checked);
+              //setAuthToken(data.accessToken);
+            } else {
+              //console.log(data.message);
+              setErrorMessage(data.message);
+              showModal();
+              setTimeout(() => hideModal(), 3000);
+              //setIsLoading(false);
+            }
+          }, 2000);
 
           resetForm();
           setChecked(false);
@@ -117,6 +125,7 @@ export const SignUp = ({ route, navigation }) => {
         backgroundColor: theme.colors.onSecondary,
       }}
     >
+      {visible && <InfoModal message={errorMessage} hideModal={hideModal} />}
       <Image
         source={require("../../assets/images/Logo.png")}
         style={styles.logo}

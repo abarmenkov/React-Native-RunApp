@@ -9,12 +9,12 @@ const InfoModal = ({ message, hideModal }) => {
       <Modal
         visible="true"
         onDismiss={() => hideModal()}
-        contentContainerStyle={AppStyles.infoModal}
+        contentContainerStyle={{...AppStyles.infoModal, backgroundColor: theme.colors.onErrorContainer}}
       >
         <Text
           style={{
-            color: "red",
-            fontSize: 22,
+            color: theme.colors.error,
+            fontSize: 18,
             fontWeight: "700",
             textAlign: "center",
           }}

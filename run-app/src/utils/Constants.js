@@ -131,7 +131,6 @@ export const AppStyles = StyleSheet.create({
   },
   infoModal: {
     width: WIDTH * 0.7,
-    backgroundColor: "green",
     padding: 20,
     alignSelf: "center",
     borderRadius: 12,
