@@ -212,7 +212,11 @@ export const Login = ({ route, navigation }) => {
             </Text>
           </View>
 
-          <Button type="text" textColor={theme.colors.primaryContainer}>
+          <Button
+            type="text"
+            textColor={theme.colors.primaryContainer}
+            onPress={() => navigation.navigate("VerifyEmail")}
+          >
             Forgot Password ?
           </Button>
         </View>

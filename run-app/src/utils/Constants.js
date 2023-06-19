@@ -135,4 +135,11 @@ export const AppStyles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 12,
   },
+  codeInput: {
+    height: 64,
+    width: 64,
+    borderRadius: 12,
+    marginHorizontal: 12,
+    textAlign: "center",
+  },
 });

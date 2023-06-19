@@ -74,6 +74,15 @@ export const RunStack = () => {
         component={EditActivityScreen}
         options={{ headerTitle: "Изменить тренировку" }}
       />
+      <Stack.Screen
+        name="VerifyEmail"
+        component={VerifyEmail}
+        options={{
+          headerTitle: "EmailVerification",
+          headerBackTitleVisible: false,
+          headerBackImage: () => <MaterialIcons name="keyboard-arrow-left" />,
+        }}
+      />
       {/*<Stack.Screen
         name="Carousel"
         component={CarouselScreen}
@@ -99,15 +108,7 @@ export const RunStack = () => {
         component={SignUp}
         options={{ headerTitle: "SignUp" }}
       />
-      <Stack.Screen
-        name="VerifyEmail"
-        component={VerifyEmail}
-        options={{
-          headerTitle: "EmailVerification",
-          headerBackTitleVisible: false,
-          headerBackImage: () => <MaterialIcons name="keyboard-arrow-left" />,
-        }}
-      />
+
 
       <Stack.Screen
         name="ActivityHistory"

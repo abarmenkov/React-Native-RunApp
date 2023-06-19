@@ -9,17 +9,12 @@ import {
   KeyboardAvoidingView,
   Linking,
 } from "react-native";
-import {
-  Headline,
-  Caption,
-  TextInput,
-  Modal,
-  Portal,
-  useTheme,
-} from "react-native-paper";
+import { Headline, Caption, TextInput, useTheme } from "react-native-paper";
 // import { openInbox } from "react-native-email-link";
 import MyButton from "../components/MyButton";
 import { WIDTH, AppStyles } from "../utils/Constants";
+import InfoModal from "../components/InfoModal";
+import VerificationCodeInput from "../components/VerificationCodeInput";
 
 export const VerifyEmail = ({ route, navigation }) => {
   const theme = useTheme();
@@ -28,26 +23,36 @@ export const VerifyEmail = ({ route, navigation }) => {
   const [num3, setNum3] = useState("");
   const [num4, setNum4] = useState("");
   const [visible, setVisible] = useState(false);
-  const [visibleSuccess, setVisibleSuccess] = useState(false);
-  const showModalError = () => setVisible(true);
-  const showModalSuccess = () => {
-    setVisibleSuccess(true);
-    setTimeout(() => hideModalSuccess(false), 2000);
+  const [modalMessage, setModalMessage] = useState("");
+
+  const showModal = () => {
+    setVisible(true);
+    setNum1("");
+    setNum2("");
+    setNum3("");
+    setNum4("");
   };
-  const hideModal = () => setVisible(false);
-  const hideModalSuccess = () => setVisibleSuccess(false);
+  const hideModal = () => {
+    setVisible(false);
+    setModalMessage("");
+  };
+  const verificationCode = "1234";
+  const enteredCode = num1 + num2 + num3 + num4;
+
+  const onCodeSubmit = () => {
+    if (enteredCode !== verificationCode) {
+      setModalMessage("WrongCode");
+    } else {
+      setModalMessage("Successful verification");
+    }
+    showModal();
+  };
+
   const num1Ref = useRef();
   const num2Ref = useRef();
   const num3Ref = useRef();
   const num4Ref = useRef();
-  const verificationCode = "1234";
-  const enteredCode = num1 + num2 + num3 + num4;
-  const containerStyle = {
-    backgroundColor: theme.colors.secondaryContainer,
-    padding: 20,
-    marginLeft: 50,
-    marginRight: 50,
-  };
+
   return (
     <View
       style={{
@@ -55,6 +60,7 @@ export const VerifyEmail = ({ route, navigation }) => {
         backgroundColor: theme.colors.onSecondary,
       }}
     >
+      {visible && <InfoModal message={modalMessage} hideModal={hideModal} />}
       <Image
         source={require("../../assets/images/verifyEmail.png")}
         style={styles.image}
@@ -72,111 +78,71 @@ export const VerifyEmail = ({ route, navigation }) => {
         style={styles.textGroup}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <TextInput
-          ref={num1Ref}
-          theme={{ roundness: 12 }}
-          style={{
-            ...styles.textInput,
-            backgroundColor: theme.colors.onSecondaryContainer,
-          }}
-          contentStyle={{ fontSize: 40, fontWeight: "700" }}
-          mode="flat"
+        <VerificationCodeInput
+          next={num1Ref}
           value={num1}
-          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum1(text);
             if (text) num2Ref.current.focus();
           }}
-          maxLength={1}
-          keyboardType={"numeric"}
-          underlineColor="transparent"
-          activeUnderlineColor="trasparent"
-        />
-        <TextInput
-          ref={num2Ref}
-          theme={{ roundness: 12 }}
-          style={{
-            ...styles.textInput,
-            backgroundColor: theme.colors.onSecondaryContainer,
+          onSubmit={() => {
+            if (num1) num2Ref.current.focus();
           }}
-          contentStyle={{ fontSize: 40, fontWeight: "700" }}
-          mode="flat"
+          onKeyPress={({ nativeEvent }) => {
+            if (nativeEvent.key === "Backspace") {
+              setNum1("");
+            }
+          }}
+        />
+        <VerificationCodeInput
+          next={num2Ref}
           value={num2}
-          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum2(text);
             if (text) num3Ref.current.focus();
           }}
-          maxLength={1}
-          keyboardType={"numeric"}
-          underlineColor="transparent"
-          activeUnderlineColor="trasparent"
-        />
-        <TextInput
-          ref={num3Ref}
-          theme={{ roundness: 12 }}
-          style={{
-            ...styles.textInput,
-            backgroundColor: theme.colors.onSecondaryContainer,
+          onSubmit={() => {
+            if (num2) num3Ref.current.focus();
           }}
-          contentStyle={{ fontSize: 40, fontWeight: "700" }}
-          mode="flat"
+          onKeyPress={({ nativeEvent }) => {
+            if (nativeEvent.key === "Backspace" && !num2) {
+              num1Ref.current.focus();
+            }
+          }}
+        />
+        <VerificationCodeInput
+          next={num3Ref}
           value={num3}
-          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum3(text);
             if (text) num4Ref.current.focus();
           }}
-          maxLength={1}
-          keyboardType={"numeric"}
-          underlineColor="transparent"
-          activeUnderlineColor="trasparent"
-        />
-        <TextInput
-          ref={num4Ref}
-          theme={{ roundness: 12 }}
-          style={{
-            ...styles.textInput,
-            backgroundColor: theme.colors.onSecondaryContainer,
+          onSubmit={() => {
+            if (num3) num4Ref.current.focus();
           }}
-          contentStyle={{ fontSize: 40, fontWeight: "700" }}
-          mode="flat"
+          onKeyPress={({ nativeEvent }) => {
+            if (nativeEvent.key === "Backspace" && !num3) {
+              num2Ref.current.focus();
+            }
+          }}
+        />
+        <VerificationCodeInput
+          next={num4Ref}
           value={num4}
-          textColor={theme.colors.onBackground}
           onChangeText={(text) => {
             setNum4(text);
           }}
-          onSubmitEditing={() => {
-            if (enteredCode !== verificationCode) {
-              showModalError();
-            } else {
-              showModalSuccess();
+          onSubmit={() => {
+            if (enteredCode.length === 4) onCodeSubmit();
+          }}
+          blurOnSubmit={enteredCode.length === 4}
+          onKeyPress={({ nativeEvent }) => {
+            if (nativeEvent.key === "Backspace" && !num4) {
+              num3Ref.current.focus();
             }
           }}
-          maxLength={1}
-          keyboardType={"numeric"}
-          underlineColor="transparent"
-          activeUnderlineColor="trasparent"
         />
       </KeyboardAvoidingView>
-      <Portal>
-        <Modal
-          visible={visible}
-          onDismiss={hideModal}
-          contentContainerStyle={containerStyle}
-        >
-          <Text>Wrong verification code.</Text>
-        </Modal>
-      </Portal>
-      <Portal>
-        <Modal
-          visible={visibleSuccess}
-          onDismiss={hideModalSuccess}
-          contentContainerStyle={containerStyle}
-        >
-          <Text>Successful verification</Text>
-        </Modal>
-      </Portal>
       <MyButton
         label="Verify Email"
         onPress={() => navigation.navigate("AddAddress")}
