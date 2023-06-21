@@ -55,6 +55,15 @@ app.post("/login", (req, res) => {
         });
       }
       break;
+    case "checkEmail":
+      if (!email || !USERS.some((u) => u.email === email)) {
+        res.send({ success: false, message: "Email not found" });
+      } else {
+        res.json({
+          success: true,
+        });
+      }
+      break;
     default:
       res.send({ success: false, message: "Type not found" });
   }

@@ -8,6 +8,7 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Linking,
+  Alert,
 } from "react-native";
 import { Headline, Caption, TextInput, useTheme } from "react-native-paper";
 // import { openInbox } from "react-native-email-link";
@@ -15,6 +16,11 @@ import MyButton from "../components/MyButton";
 import { WIDTH, AppStyles } from "../utils/Constants";
 import InfoModal from "../components/InfoModal";
 import VerificationCodeInput from "../components/VerificationCodeInput";
+import MyTextInput from "../components/MyInput";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import LoadingAnimation from "../components/LoadingAnimation";
+import InfoMessage from "../components/InfoMessage";
 
 export const VerifyEmail = ({ route, navigation }) => {
   const theme = useTheme();
@@ -23,7 +29,58 @@ export const VerifyEmail = ({ route, navigation }) => {
   const [num3, setNum3] = useState("");
   const [num4, setNum4] = useState("");
   const [visible, setVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
+  const [modalMessage, setModalMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [modalType, setModalType] = useState("");
+  const [emailCheck, setEmailCheck] = useState(true);
+
+  const LoginSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Required field"),
+  });
+
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    values,
+    errors,
+    touched,
+    isValid,
+    isSubmitting,
+  } = useFormik({
+    validationSchema: LoginSchema,
+    initialValues: { email: "", type: "checkEmail" },
+    onSubmit: (values, { resetForm }) => {
+      setIsLoading(true);
+      let options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      };
+      fetch("http://192.168.1.4:8080/login", options)
+        .then((response) => response.json())
+        .then((data) => {
+          setTimeout(() => {
+            setIsLoading(false);
+            if (data.success) {
+              setModalMessage("Check your email-box for the code");
+              setModalType("success");
+            } else {
+              setModalMessage(data.message);
+              setModalType("error");
+            }
+            setEmailCheck(!data.success);
+            showModal();
+            setTimeout(() => hideModal(), 3000);
+          }, 2000);
+          resetForm();
+        })
+        .catch((error) => {
+          //resetForm();
+          console.error(error);
+        });
+    },
+  });
 
   const showModal = () => {
     setVisible(true);
@@ -34,7 +91,8 @@ export const VerifyEmail = ({ route, navigation }) => {
   };
   const hideModal = () => {
     setVisible(false);
-    setModalMessage("");
+    setModalMessage(null);
+    setModalType("");
   };
   const verificationCode = "1234";
   const enteredCode = num1 + num2 + num3 + num4;
@@ -42,8 +100,11 @@ export const VerifyEmail = ({ route, navigation }) => {
   const onCodeSubmit = () => {
     if (enteredCode !== verificationCode) {
       setModalMessage("WrongCode");
+      setModalType("error");
     } else {
       setModalMessage("Successful verification");
+      setModalType("success");
+      setEmailCheck(true);
     }
     showModal();
   };
@@ -60,7 +121,13 @@ export const VerifyEmail = ({ route, navigation }) => {
         backgroundColor: theme.colors.onSecondary,
       }}
     >
-      {visible && <InfoModal message={modalMessage} hideModal={hideModal} />}
+      {visible && (
+        <InfoModal
+          message={modalMessage}
+          hideModal={hideModal}
+          type={modalType}
+        />
+      )}
       <Image
         source={require("../../assets/images/verifyEmail.png")}
         style={styles.image}
@@ -71,9 +138,40 @@ export const VerifyEmail = ({ route, navigation }) => {
         Verify your email
       </Headline>
       <Caption style={styles.caption}>
-        Enter the email associated with your account we’ll send email with
-        password to verify
+        Enter the email associated with your account we’ll send email with code
+        to verify
       </Caption>
+      <View style={styles.textInputContainer}>
+        <MyTextInput
+          icon="email"
+          placeholder="Enter your email"
+          value={values.email}
+          autoCapitalize="none"
+          //autoFocus={true}
+          autoCompleteType="email"
+          keyboardType="email-address"
+          keyboardAppearance="dark"
+          returnKeyType="go"
+          returnKeyLabel="go"
+          style={{
+            ...styles.textInput,
+            color: theme.colors.onBackground,
+          }}
+          viewStyle={{
+            ...styles.textInputView,
+            backgroundColor: theme.colors.onSecondaryContainer,
+          }}
+          onChangeText={handleChange("email")}
+          onBlur={handleBlur("email")}
+          error={errors.email}
+          touched={touched.email}
+        />
+
+        <InfoMessage
+          errorValue={touched.email && errors.email}
+          info="Required"
+        />
+      </View>
       <KeyboardAvoidingView
         style={styles.textGroup}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -81,6 +179,7 @@ export const VerifyEmail = ({ route, navigation }) => {
         <VerificationCodeInput
           next={num1Ref}
           value={num1}
+          disabled={emailCheck}
           onChangeText={(text) => {
             setNum1(text);
             if (text) num2Ref.current.focus();
@@ -97,6 +196,7 @@ export const VerifyEmail = ({ route, navigation }) => {
         <VerificationCodeInput
           next={num2Ref}
           value={num2}
+          disabled={emailCheck}
           onChangeText={(text) => {
             setNum2(text);
             if (text) num3Ref.current.focus();
@@ -113,6 +213,7 @@ export const VerifyEmail = ({ route, navigation }) => {
         <VerificationCodeInput
           next={num3Ref}
           value={num3}
+          disabled={emailCheck}
           onChangeText={(text) => {
             setNum3(text);
             if (text) num4Ref.current.focus();
@@ -129,6 +230,7 @@ export const VerifyEmail = ({ route, navigation }) => {
         <VerificationCodeInput
           next={num4Ref}
           value={num4}
+          disabled={emailCheck}
           onChangeText={(text) => {
             setNum4(text);
           }}
@@ -145,13 +247,14 @@ export const VerifyEmail = ({ route, navigation }) => {
       </KeyboardAvoidingView>
       <MyButton
         label="Verify Email"
-        onPress={() => navigation.navigate("AddAddress")}
+        onPress={() => handleSubmit()}
         style={{
           ...AppStyles.button,
           backgroundColor: theme.colors.primaryContainer,
           marginVertical: 12,
         }}
         textStyle={{ ...AppStyles.btnText, color: theme.colors.onBackground }}
+        disabled={!isValid || isSubmitting || values.email.length < 1}
       />
       <MyButton
         label="Open mail app"
@@ -173,14 +276,15 @@ export const VerifyEmail = ({ route, navigation }) => {
           color: theme.colors.primaryContainer,
         }}
       />
+      {isLoading && <LoadingAnimation text="Logging in" />}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   image: {
-    marginTop: 30,
-    marginBottom: 30,
+    marginTop: 10,
+    marginBottom: 20,
   },
 
   headline: {
@@ -202,14 +306,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     marginTop: 10,
-    marginBottom: 100,
+    marginBottom: 50,
     fontSize: 60,
   },
-  textInput: {
-    height: 64,
-    width: 64,
+  textInputContainer: {
+    marginBottom: 16,
+    height: 66,
+  },
+  textInputView: {
+    width: WIDTH * 0.8,
+    height: 56,
     borderRadius: 12,
-    marginHorizontal: 12,
-    textAlign: "center",
   },
 });

@@ -113,7 +113,13 @@ export const Login = ({ route, navigation }) => {
         backgroundColor: theme.colors.onSecondary,
       }}
     >
-      {visible && <InfoModal message={errorMessage} hideModal={hideModal} />}
+      {visible && (
+        <InfoModal
+          message={errorMessage}
+          hideModal={hideModal}
+          type={"error"}
+        />
+      )}
       <Image
         source={require("../../assets/images/Logo.png")}
         style={styles.logo}

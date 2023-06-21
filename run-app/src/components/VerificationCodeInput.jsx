@@ -9,6 +9,7 @@ const VerificationCodeInput = ({
   onSubmit,
   blurOnSubmit = false,
   onKeyPress,
+  disabled,
 }) => {
   const theme = useTheme();
   return (
@@ -32,6 +33,7 @@ const VerificationCodeInput = ({
       blurOnSubmit={blurOnSubmit}
       //returnKeyType="next"
       onKeyPress={onKeyPress}
+      disabled={disabled}
     />
   );
 };
