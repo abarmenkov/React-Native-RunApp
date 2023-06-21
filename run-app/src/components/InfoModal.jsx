@@ -5,7 +5,13 @@ import { AppStyles } from "../utils/Constants";
 const InfoModal = ({ message, hideModal, type }) => {
   const theme = useTheme();
   const backgroundColor =
-    type === "error" ? theme.colors.onErrorContainer : "white";
+    type === "error"
+      ? theme.colors.onErrorContainer
+      : theme.colors.onPrimaryContainer;
+  const textColor =
+    type === "error"
+      ? theme.colors.onError
+      : theme.colors.onPrimary;
   return (
     <Portal>
       <Modal
@@ -18,7 +24,7 @@ const InfoModal = ({ message, hideModal, type }) => {
       >
         <Text
           style={{
-            color: theme.colors.error,
+            color: textColor,
             fontSize: 18,
             fontWeight: "700",
             textAlign: "center",
