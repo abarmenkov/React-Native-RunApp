@@ -9,6 +9,7 @@ import { UpdateDataScreen } from "../screens/UpdateDataScreen";
 import { AddActivityScreen } from "../screens/AddActivity";
 import { EditActivityScreen } from "../screens/EditActivity";
 import { MaterialIcons } from "@expo/vector-icons";
+import { VerifyEmail } from "../screens/VerifyEmail";
 //import { CarouselScreen } from "./screens/Carousel";
 //import { MyCarousel } from "./screens/MyCarousel";
 //import { OnBoard } from "./screens/Onboarding";

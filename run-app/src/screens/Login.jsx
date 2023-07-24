@@ -25,6 +25,7 @@ import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
 import LoadingAnimation from "../components/LoadingAnimation";
 import InfoModal from "../components/InfoModal";
+import { VerifyEmail } from "./VerifyEmail";
 
 export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
@@ -222,6 +223,7 @@ export const Login = ({ route, navigation }) => {
             type="text"
             textColor={theme.colors.primaryContainer}
             onPress={() => navigation.navigate("VerifyEmail")}
+            //onPress={() => console.log("forgot")}
           >
             Forgot Password ?
           </Button>
