@@ -27,6 +27,7 @@ import LoadingAnimation from "../components/LoadingAnimation";
 import InfoModal from "../components/InfoModal";
 import { VerifyEmail } from "./VerifyEmail";
 import { serverRoute } from "../API/route";
+import { fetchData } from "../API/fetchData";
 
 export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
@@ -73,31 +74,17 @@ export const Login = ({ route, navigation }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       };
-      fetch(serverRoute, options) 
-        .then((response) => response.json())
-        .then((data) => {
-          setTimeout(() => {
-            setIsLoading(false);
-            if (data.success) {
-              //console.log(data.accessToken);
-              signIn(data.accessToken, checked);
-              //setAuthToken(data.accessToken);
-            } else {
-              //console.log(data.message);
-              setErrorMessage(data.message);
-              showModal();
-              setTimeout(() => hideModal(), 3000);
-              setIsLoading(false);
-            }
-          }, 2000);
-
-          resetForm();
-          setChecked(false);
-        })
-        .catch((error) => {
-          //resetForm();
-          console.error(error);
-        });
+      fetchData(
+        options,
+        setIsLoading,
+        checked,
+        setChecked,
+        setErrorMessage,
+        showModal,
+        hideModal,
+        resetForm,
+        signIn
+      );
     },
   });
 
