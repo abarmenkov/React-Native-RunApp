@@ -26,6 +26,7 @@ import { useAuth } from "../hooks/useAuth";
 import LoadingAnimation from "../components/LoadingAnimation";
 import InfoModal from "../components/InfoModal";
 import { VerifyEmail } from "./VerifyEmail";
+import { serverRoute } from "../API/route";
 
 export const Login = ({ route, navigation }) => {
   const [secureTextEntry, setSecureTestEntry] = useState(true);
@@ -65,12 +66,14 @@ export const Login = ({ route, navigation }) => {
         Alert.alert("testscreen", values.email);     
       }*/
       setIsLoading(true);
+      setTimeout(() => setIsLoading(false), 5000);
+
       let options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       };
-      fetch("http://192.168.1.4:8080/login", options)
+      fetch(serverRoute, options) 
         .then((response) => response.json())
         .then((data) => {
           setTimeout(() => {
@@ -84,7 +87,7 @@ export const Login = ({ route, navigation }) => {
               setErrorMessage(data.message);
               showModal();
               setTimeout(() => hideModal(), 3000);
-              //setIsLoading(false);
+              setIsLoading(false);
             }
           }, 2000);
 

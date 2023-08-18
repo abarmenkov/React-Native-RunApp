@@ -21,6 +21,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import LoadingAnimation from "../components/LoadingAnimation";
 import InfoMessage from "../components/InfoMessage";
+import { serverRoute } from "../API/route";
 
 export const VerifyEmail = ({ route, navigation }) => {
   const theme = useTheme();
@@ -57,7 +58,7 @@ export const VerifyEmail = ({ route, navigation }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       };
-      fetch("http://192.168.1.4:8080/login", options)
+      fetch(serverRoute, options)
         .then((response) => response.json())
         .then((data) => {
           setTimeout(() => {

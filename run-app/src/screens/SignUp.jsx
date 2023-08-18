@@ -18,6 +18,7 @@ import * as Yup from "yup";
 import { useAuth } from "../hooks/useAuth";
 import LoadingAnimation from "../components/LoadingAnimation";
 import InfoModal from "../components/InfoModal";
+import { serverRoute } from "../API/route";
 
 export const SignUp = ({ route, navigation }) => {
   /*const [email, setEmail] = useState("");
@@ -74,7 +75,7 @@ export const SignUp = ({ route, navigation }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       };
-      fetch("http://192.168.1.4:8080/login", options)
+      fetch(serverRoute, options)
         .then((response) => response.json())
         .then((data) => {
           setTimeout(() => {
