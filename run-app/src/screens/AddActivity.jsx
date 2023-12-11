@@ -4,8 +4,8 @@ import {
   Text,
   Pressable,
   Alert,
-  TextInput,
   ScrollView,
+  ToastAndroid,
 } from "react-native";
 
 import { WIDTH, AppStyles } from "../utils/Constants";
@@ -52,6 +52,8 @@ export const AddActivityScreen = ({ route, navigation }) => {
   const MyButtonOnPress = () => {
     setAchievementsData([...achievementsData, newAchievement]);
     saveData("@achievements", [...achievementsData, newAchievement]);
+    ToastAndroid.show('test',
+    ToastAndroid.LONG);
     navigation.goBack();
   };
 

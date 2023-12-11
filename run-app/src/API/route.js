@@ -1,3 +1,3 @@
-export const serverRoute = "http://192.168.8.100:8080/login";
+export const serverRoute = "http://192.168.1.4:8080/login";
 //при тестировании на локальном сервере смотрим IPv4 ноута в сети wifi - свойства оборудования
  //дома http://192.168.1.4:8080/login
