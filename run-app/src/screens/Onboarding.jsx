@@ -12,6 +12,8 @@ import { Button, Headline, Caption, useTheme } from "react-native-paper";
 import { sliderOnboard } from "../utils/data";
 import { WIDTH, AppStyles } from "../utils/Constants";
 import MyButton from "../components/MyButton";
+//import { RotateInDownLeft } from "react-native-reanimated";
+//import { configureLayoutAnimations } from "react-native-reanimated/lib/typescript/reanimated2/core";
 
 export const SLIDER_WIDTH = WIDTH;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.75);
@@ -59,7 +61,7 @@ export const OnBoard = ({ route, navigation }) => {
             inactiveDotScale={0.6}
           />
           <MyButton
-            label="Next->"
+            label="Next"
             onPress={() => {
               goForward();
             }}
@@ -126,8 +128,10 @@ export const OnBoard = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   item: {
     borderRadius: 64,
+    justifyContent:'space-around',
     alignItems: "center",
     marginVertical: 20,
+    paddingVertical: 20,
     width: WIDTH * 0.75,
     height: WIDTH * 0.75,
   },
@@ -158,7 +162,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 30,
-    paddingVertical: 20,
+    
   },
   caption: {
     color: "#AEA8B3",
