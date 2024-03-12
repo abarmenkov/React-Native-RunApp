@@ -22,8 +22,8 @@ const Stack = createStackNavigator();
 export const RootNavigator = ({ navigation }) => {
   const { status, userToken } = useAuth();
   //const isLoggedIn = false;
-  const theme = useTheme();
-  const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
+  //const theme = useTheme();
+  //const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 
   return userToken ? (
     <Drawer.Navigator

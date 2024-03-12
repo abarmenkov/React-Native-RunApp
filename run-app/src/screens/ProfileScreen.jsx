@@ -53,7 +53,7 @@ export const ProfileScreen = ({ route, navigation }) => {
       style={{
         ...AppStyles.container,
         backgroundColor: theme.colors.onSecondary,
-        paddingVertical: 50,
+        paddingVertical: 15,
       }}
     >
       <ScrollView>

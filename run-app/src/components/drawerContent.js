@@ -25,6 +25,7 @@ export const DrawerContent = (props) => {
   const [profileData, setProfileData] = useContext(ProfileContext);
   const [dark, setDark] = useState(isThemeDark);
   const { signOut } = useAuth();
+  
   useEffect(() => {
     const saveTheme = async () => {
       try {

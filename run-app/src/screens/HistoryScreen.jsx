@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "space-evenly",
     alignItems: "center",
-    marginVertical: 32,
+    marginVertical: 12,
   },
   totalItem: {
     flexDirection: "column",

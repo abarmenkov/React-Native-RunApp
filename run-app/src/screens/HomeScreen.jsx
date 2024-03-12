@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
   topMonthItemImage: {
     width: 16,
     height: 16,
-    color: "#CDCDCD",
+    //color: "#CDCDCD",
     marginRight: 4,
   },
   topMonthItemType: {

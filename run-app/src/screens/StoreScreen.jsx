@@ -66,6 +66,7 @@ export const StoreScreen = ({ route, navigation }) => {
       style={{
         ...AppStyles.container,
         backgroundColor: theme.colors.onSecondary,
+        paddingVertical: 15,
       }}
     >
       <View style={styles.topFilter}>
@@ -235,9 +236,8 @@ export const StoreScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   topFilter: {
     width: WIDTH,
-    paddingHorizontal: 8,
+    paddingHorizontal: 7,
     flexDirection: "row",
-    marginVertical: 24,
   },
   filterTypesImage: {
     width: 46,
@@ -271,6 +271,7 @@ const styles = StyleSheet.create({
 
   specials: {
     width: WIDTH,
+    marginTop: 15,
   },
   specialsItem: {
     flexDirection: "row",
@@ -414,7 +415,7 @@ const styles = StyleSheet.create({
   popularItemImageCoin: {
     width: 12,
     height: 12,
-    color: "#ffffff",
+    //color: "#ffffff",
   },
   popularItemImageText: {
     fontWeight: "400",
