@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 //import Carousel, { Pagination } from "react-native-snap-carousel";
 //import Carousel from "react-native-snap-carousel";
+import Carousel from "react-native-reanimated-carousel";
+
 import {
   View,
   Text,
@@ -95,6 +97,24 @@ export const OnBoard = ({ route, navigation }) => {
         source={require("../../assets/images/onboarding.png")}
         style={styles.onboardImage}
       />
+      <View style={{ flex: 1 }}>
+        <Carousel
+          scrollAnimationDuration={2000}
+          data={data}
+          renderItem={renderItem}
+          width={SLIDER_WIDTH}
+          onSnapToItem={(index) => setIndex(index)}
+          loop
+          pagingEnabled
+          snapEnabled
+          //mode="parallax" //expo вылетает
+          modeConfig={{
+            parallaxScrollingScale: 0.9,
+            parallaxScrollingOffset: 50,
+          }}
+        />
+      </View>
+
       {/*<Carousel
         //layout={"tinder"} //собирает стопкой
         layoutCardOffset={`9`}
@@ -112,7 +132,7 @@ export const OnBoard = ({ route, navigation }) => {
         <Text
           style={{ ...styles.BottomViewtext, color: theme.colors.onBackground }}
         >
-          Already have an account?{" "}
+          Already have an account?
         </Text>
         <Button
           type="text"
