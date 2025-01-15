@@ -15,16 +15,54 @@ import { Header } from "../components/Header";
 import { OnBoard } from "../screens/Onboarding";
 import { AddAddress } from "../screens/AddAddress";
 import { useAuth } from "../hooks/useAuth";
+import { TestStack } from "./testStack";
+//import testStack from "./testStack";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 export const RootNavigator = ({ navigation }) => {
   const { status, userToken } = useAuth();
+  //console.log(userToken);
   //const isLoggedIn = false;
   //const theme = useTheme();
   //const navigationTheme = theme.dark ? DarkTheme : DefaultTheme;
 
+  return !userToken ? (
+    <Stack.Navigator
+      initialRouteName="OnBoard"
+      screenOptions={{
+        headerMode: "screen",
+        header: ({ options, back, route, navigation }) => (
+          <Header
+            options={options}
+            back={back}
+            route={route}
+            navigation={navigation}
+          />
+        ),
+        headerTitle: false,
+      }}
+    >
+      <Stack.Screen name="OnBoard" component={OnBoard} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+      <Stack.Screen name="AddAddress" component={AddAddress} />
+    </Stack.Navigator>
+  ) : (
+    <Drawer.Navigator
+      //useLegacyImplementation={false}
+      //initialRouteName="HOME"
+      drawerContent={(props) => <DrawerContent {...props} />}
+      screenOptions={{ headerShown: false }}
+    >
+      <Drawer.Screen name="HOME" component={RunStack} />
+    </Drawer.Navigator>
+  );
+};
+{
+  /*
   return userToken ? (
     <Drawer.Navigator
       drawerContent={(props) => <DrawerContent {...props} />}
@@ -55,4 +93,7 @@ export const RootNavigator = ({ navigation }) => {
       <Stack.Screen name="AddAddress" component={AddAddress} />
     </Stack.Navigator>
   );
-};
+  
+  
+  */
+}

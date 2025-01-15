@@ -1,4 +1,7 @@
+import "./src/gesture-handler";
+
 import React, { useState, useMemo, useCallback, useEffect } from "react";
+
 import { StartingStack } from "./src/navigation/startingStack";
 import { PreferencesContext } from "./src/context/PreferencesContext";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";

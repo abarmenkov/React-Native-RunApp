@@ -25,7 +25,7 @@ export const DrawerContent = (props) => {
   const [profileData, setProfileData] = useContext(ProfileContext);
   const [dark, setDark] = useState(isThemeDark);
   const { signOut } = useAuth();
-  
+
   useEffect(() => {
     const saveTheme = async () => {
       try {
@@ -83,17 +83,6 @@ export const DrawerContent = (props) => {
             label="Preferences"
             onPress={() => {}}
           />
-          {/*<DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="bookmark-outline"
-                color={color}
-                size={size}
-              />
-            )}
-            label="Bookmarks"
-            onPress={() => {}}
-          />*/}
         </Drawer.Section>
         <Drawer.Section title="Preferences">
           <TouchableRipple

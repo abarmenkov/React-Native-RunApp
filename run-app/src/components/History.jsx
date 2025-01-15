@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { WIDTH } from "../utils/Constants";
 import AchievementsContext from "../context/AchievementsContext";
-import { Header } from "./Header";
-import { ActionHeader } from "./ActionHeader";
+//import { Header } from "./Header";
+//import { ActionHeader } from "./ActionHeader";
 
 export const History = ({
   onLongPress,
@@ -75,7 +75,7 @@ export const History = ({
       data={sortedData}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
-      horizontal="false"
+      horizontal={false}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
       bounces={false}

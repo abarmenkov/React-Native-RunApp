@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import Carousel, { Pagination } from "react-native-snap-carousel";
+//import Carousel, { Pagination } from "react-native-snap-carousel";
+//import Carousel from "react-native-snap-carousel";
 import {
   View,
   Text,
@@ -47,7 +48,7 @@ export const OnBoard = ({ route, navigation }) => {
             {item.name}
           </Headline>
           <Caption style={styles.caption}>{item.description}</Caption>
-          <Pagination
+          {/*<Pagination
             dotsLength={data.length}
             activeDotIndex={index}
             carouselRef={carouselRef}
@@ -76,7 +77,7 @@ export const OnBoard = ({ route, navigation }) => {
               ...AppStyles.btnText,
               color: theme.colors.onBackground,
             }}
-          />
+          />*/}
         </View>
       </TouchableOpacity>
     );
@@ -94,19 +95,19 @@ export const OnBoard = ({ route, navigation }) => {
         source={require("../../assets/images/onboarding.png")}
         style={styles.onboardImage}
       />
-      <Carousel
+      {/*<Carousel
         //layout={"tinder"} //собирает стопкой
         layoutCardOffset={`9`}
-        /*layout={'stack'} 
-        layoutCardOffset={`18`}*/
-        ref={carouselRef}
+        layout={'stack'} 
+        layoutCardOffset={`18`}*/}
+      {/*ref={carouselRef}
         data={data}
         renderItem={renderItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         onSnapToItem={(index) => setIndex(index)}
         hasParallaxImages={false}
-      />
+      />*/}
       <View style={styles.BottomView}>
         <Text
           style={{ ...styles.BottomViewtext, color: theme.colors.onBackground }}
@@ -128,7 +129,7 @@ export const OnBoard = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   item: {
     borderRadius: 64,
-    justifyContent:'space-around',
+    justifyContent: "space-around",
     alignItems: "center",
     marginVertical: 20,
     paddingVertical: 20,
@@ -162,7 +163,6 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     fontSize: 30,
-    
   },
   caption: {
     color: "#AEA8B3",

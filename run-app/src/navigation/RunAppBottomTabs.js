@@ -86,11 +86,7 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
           options={{
             //headerTitle: "Shop",
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="shopping"
-                color={color}
-                size={32}
-              />
+              <MaterialCommunityIcons name="shopping" color={color} size={32} />
             ),
           }}
         />
@@ -100,13 +96,8 @@ export const RunAppBottomTabs = ({ navigation, route }) => {
           options={{
             //headerTitle: "Profile",
             tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="account"
-                color={color}
-                size={34}
-              />
+              <MaterialCommunityIcons name="account" color={color} size={34} />
             ),
-            
           }}
         />
       </Tab.Navigator>
